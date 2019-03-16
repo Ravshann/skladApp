@@ -4,8 +4,12 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+import uz.skladapp.model.Category;
 import uz.skladapp.model.Company;
+import uz.skladapp.repositories.CategoryRepository;
 import uz.skladapp.repositories.CompanyRepository;
 
 
@@ -62,5 +66,22 @@ public class MainController {
         companyRepository.save(company);
     }
 
+
+    //migo
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @RequestMapping("/categories")
+    public @ResponseBody
+    Page<Category> getList(@RequestParam(value = "page") String page) {
+        return categoryRepository.findAll(PageRequest.of(Integer.valueOf(page), 2));
+    }
+
+    @RequestMapping("/categories/")
+    public Optional<Category> getCategory(@RequestParam(value = "id", defaultValue = "0") String id) {
+        return categoryRepository.findById(Long.valueOf(id));
+    }
+    //end migo
 
 }
