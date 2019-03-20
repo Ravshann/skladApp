@@ -18,8 +18,10 @@ public class User {
     @JoinColumn(name = "supervisor")
     private User supervisor;
 
+    private String username;
     private String first_name;
     private String last_name;
+    @Column(unique = true)
     private String email;
     private String password;
 
