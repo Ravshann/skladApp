@@ -74,6 +74,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!--for excel file generation-->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>4.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>

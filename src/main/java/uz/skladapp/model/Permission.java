@@ -1,16 +1,13 @@
 package uz.skladapp.model;
 
-import lombok.Getter;
-import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
+
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +15,43 @@ public class Permission {
 
     private String permission_name;
     private String permission_description;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy="permission")
+    private List<RolePermission> roles;
+
+    //setters getters
+
+
+    public Long getPermission_ID() {
+        return permission_ID;
+    }
+
+    public void setPermission_ID(Long permission_ID) {
+        this.permission_ID = permission_ID;
+    }
+
+    public String getPermission_name() {
+        return permission_name;
+    }
+
+    public void setPermission_name(String permission_name) {
+        this.permission_name = permission_name;
+    }
+
+    public String getPermission_description() {
+        return permission_description;
+    }
+
+    public void setPermission_description(String permission_description) {
+        this.permission_description = permission_description;
+    }
+
+    public List<RolePermission> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RolePermission> roles) {
+        this.roles = roles;
+    }
 }

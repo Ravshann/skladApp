@@ -1,14 +1,14 @@
 package uz.skladapp.model;
 
-import lombok.Getter;
-import lombok.Setter;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+
 public class Storage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,85 @@ public class Storage {
     private String storage_name;
     private String storage_phone;
 
-//    @OneToMany(mappedBy = "storage_ID", cascade = CascadeType.ALL)
-//    private List<Storage_Product> storage_products;
+    @JsonManagedReference
+    @OneToMany(mappedBy="storage")
+    private List<StorageProduct> products;
+
+
+    // Create an association object for the relationship and set its data.
+    public void addProduct(Product product, float current_quantity, float price) {
+        StorageProduct association = new StorageProduct();
+        association.setProduct(product);
+        association.setStorage(this);
+        association.setProduct_ID(product.getProduct_ID());
+        association.setStorage_ID(this.getStorage_ID());
+        association.setCurrent_quantity(current_quantity);
+        association.setPrice(price);
+
+        if(this.products == null)
+            this.products = new ArrayList<>();
+
+        this.products.add(association);
+        // Also add the association object to the other class.
+        product.getStorages().add(association);
+    }
+
+    public Long getStorage_ID() {
+        return storage_ID;
+    }
+
+    public void setStorage_ID(Long storage_ID) {
+        this.storage_ID = storage_ID;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Department getDepartment_ID() {
+        return department_ID;
+    }
+
+    public void setDepartment_ID(Department department_ID) {
+        this.department_ID = department_ID;
+    }
+
+    public User getStorage_manager_ID() {
+        return storage_manager_ID;
+    }
+
+    public void setStorage_manager_ID(User storage_manager_ID) {
+        this.storage_manager_ID = storage_manager_ID;
+    }
+
+    public String getStorage_name() {
+        return storage_name;
+    }
+
+    public void setStorage_name(String storage_name) {
+        this.storage_name = storage_name;
+    }
+
+    public String getStorage_phone() {
+        return storage_phone;
+    }
+
+    public void setStorage_phone(String storage_phone) {
+        this.storage_phone = storage_phone;
+    }
+
+    public List<StorageProduct> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<StorageProduct> products) {
+        this.products = products;
+    }
+
+    //    @OneToMany(mappedBy = "storage_ID", cascade = CascadeType.ALL)
+//    private List<StorageProduct> storage_products;
 }

@@ -1,16 +1,18 @@
 package uz.skladapp.controllers;
 
-import io.jsonwebtoken.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import uz.skladapp.model.*;
-import uz.skladapp.repositories.*;
+import uz.skladapp.model.repositories.*;
 
 
-import java.security.Key;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -99,23 +101,23 @@ public class MainController {
         return productRepository.findById(Long.valueOf(id));
     }
 
-    //migo Attributes
+    //migo Attribute
 
     @Autowired
     private AttributeRepository attributeRepository;
 
     @RequestMapping("/attributes")
     public @ResponseBody
-    Iterable<Attributes> getAttributeList() {
+    Iterable<Attribute> getAttributeList() {
         return attributeRepository.findAll();
     }
 
     @RequestMapping("/attributes/{id}")
-    public Optional<Attributes> getAttributes(@PathVariable("id") String id) {
+    public Optional<Attribute> getAttributes(@PathVariable("id") String id) {
         return attributeRepository.findById(Long.valueOf(id));
     }
 
-    //migo Attributes
+    //migo Attribute
 
     @Autowired
     private DepartmentRepository departmentRepository;
@@ -147,19 +149,19 @@ public class MainController {
         return storageRepository.findById(Long.valueOf(id));
     }
 
-    //migo Storage_Product
+    //migo StorageProduct
 
 //    @Autowired
 //    private Storage_ProductRepository storage_productRepository;
 
 //    @RequestMapping("/storage_product")
 //    public @ResponseBody
-//    Iterable<Storage_Product> getStorageProductList() {
+//    Iterable<StorageProduct> getStorageProductList() {
 //        return storage_productRepository.findAll();
 //    }
 
 //    @RequestMapping("/storage_product/")
-//    public Optional<Storage_Product> getStorageProduct(@RequestParam(value = "id", defaultValue = "0") String id) {
+//    public Optional<StorageProduct> getStorageProduct(@RequestParam(value = "id", defaultValue = "0") String id) {
 //        return storageRepository.findById(Long.valueOf(id));
 //    }
 
@@ -180,5 +182,34 @@ public class MainController {
     }
 
 
+    //rav
+    @RequestMapping("/product_attribute/{pr}")
+    public List<Attribute> getList(@PathVariable("pr") String id) {
+        Optional<Product> pro = productRepository.findById(Long.valueOf(id));
+        List<Attribute> atrs = new ArrayList<>();
+        for (ProductAttribute attr : pro.get().getAttributes()) {
+            atrs.add(attr.getAttribute());
+
+        }
+        return atrs;
+    }
+
+    @RequestMapping("/storage_products/{store}")
+    public List<Long> getListProducts(@PathVariable("store") String id) {
+        Optional<Storage> s = storageRepository.findById(Long.valueOf(id));
+        List<Long> atrs = new ArrayList<>();
+        for (StorageProduct pro : s.get().getProducts()) {
+            atrs.add(pro.getProduct().getProduct_ID());
+
+        }
+        return atrs;
+    }
+
+    @GetMapping("/user-excel")
+    public ModelAndView download(HttpServletRequest request, HttpServletResponse response) {
+
+        return new ModelAndView(new ExcelView());
+
+    }
 
 }

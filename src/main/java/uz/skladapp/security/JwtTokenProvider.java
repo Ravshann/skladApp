@@ -9,10 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import uz.skladapp.repositories.UserRepository;
+import uz.skladapp.model.User;
+import uz.skladapp.model.repositories.UserRepository;
 
 
 import javax.annotation.PostConstruct;
@@ -57,7 +57,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        uz.skladapp.model.User u = userRepository.findByUsername(getUsername(token));
+        User u = userRepository.findByUsername(getUsername(token));
 
         UserDetails user_cred = org.springframework.security.core.userdetails.User//
                 .withUsername(u.getUsername())//

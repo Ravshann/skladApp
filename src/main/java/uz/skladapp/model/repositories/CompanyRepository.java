@@ -1,4 +1,4 @@
-package uz.skladapp.repositories;
+package uz.skladapp.model.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import uz.skladapp.model.Company;
