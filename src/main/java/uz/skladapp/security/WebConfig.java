@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
-import uz.skladapp.controllers.ExcelViewResolver;
+import uz.skladapp.controllers.excel.ExcelViewResolver;
 
 import java.util.ArrayList;
 import java.util.List;

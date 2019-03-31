@@ -1,4 +1,4 @@
-package uz.skladapp.controllers;
+package uz.skladapp.controllers.excel;
 
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;

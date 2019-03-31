@@ -5,6 +5,9 @@ import uz.skladapp.model.ID_classes.ProductAttributeID;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
+
 /*
 ======================
 note!
@@ -29,17 +32,25 @@ public class ProductAttribute {
 
 
     @JsonBackReference // this needed to json generation
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {PERSIST, MERGE})
     @JoinColumn(name = "product_ID", updatable = false, insertable = false, referencedColumnName = "product_ID")
     private Product product;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {PERSIST, MERGE})
     @JoinColumn(name = "attribute_ID", updatable = false, insertable = false, referencedColumnName = "attribute_ID")
     private Attribute attribute;
 
+    public ProductAttribute() {
+    }
 
-
+    public ProductAttribute(String value, Product product, Attribute attribute) {
+        this.value = value;
+        this.product = product;
+        this.attribute = attribute;
+        this.product_ID = product.getProduct_ID();
+        this.attribute_ID = attribute.getAttribute_ID();
+    }
 
     //setters getters
 
@@ -82,4 +93,5 @@ public class ProductAttribute {
     public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }
+
 }

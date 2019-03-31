@@ -15,7 +15,7 @@ public class Attribute {
     private String attribute_name;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="attribute")
+    @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductAttribute> products;
 
 

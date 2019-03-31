@@ -1,13 +1,10 @@
 package uz.skladapp.model;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +26,59 @@ public class Department {
     private String department_phone;
 
 
+    public Long getDepartment_ID() {
+        return department_ID;
+    }
+
+    public void setDepartment_ID(Long department_ID) {
+        this.department_ID = department_ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Company getCompany_ID() {
+        return company_ID;
+    }
+
+    public void setCompany_ID(Company company_ID) {
+        this.company_ID = company_ID;
+    }
+
+    public User getDepartment_manager_ID() {
+        return department_manager_ID;
+    }
+
+    public void setDepartment_manager_ID(User department_manager_ID) {
+        this.department_manager_ID = department_manager_ID;
+    }
+
+    public String getDepartment_phone() {
+        return department_phone;
+    }
+
+    public void setDepartment_phone(String department_phone) {
+        this.department_phone = department_phone;
+    }
 }
