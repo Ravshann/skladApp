@@ -20,6 +20,12 @@
 
 	<dependencies>
 
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -80,7 +86,12 @@
 			<artifactId>poi</artifactId>
 			<version>4.0.1</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>antlr</groupId>
+            <artifactId>antlr</artifactId>
+            <version>2.7.7</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

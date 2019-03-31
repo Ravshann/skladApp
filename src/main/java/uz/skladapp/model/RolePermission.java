@@ -6,6 +6,9 @@ import uz.skladapp.model.ID_classes.UserPermissionID;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
+
 @Entity
 @Table(name="ROLE_PERMISSION")
 @IdClass(UserPermissionID.class)
@@ -16,12 +19,12 @@ public class RolePermission {
     private long permission_ID;
 
     @JsonBackReference // this needed to json generation
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {PERSIST, MERGE})
     @JoinColumn(name = "permission_ID", updatable = false, insertable = false, referencedColumnName = "permission_ID")
     private Permission permission;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {PERSIST, MERGE})
     @JoinColumn(name = "role_ID", updatable = false, insertable = false, referencedColumnName = "role_ID")
     private Role role;
 

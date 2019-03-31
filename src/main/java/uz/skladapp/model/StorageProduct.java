@@ -5,6 +5,9 @@ import uz.skladapp.model.ID_classes.StorageProductID;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
+
 
 @Entity
 @Table(name="STORAGE_PRODUCT")

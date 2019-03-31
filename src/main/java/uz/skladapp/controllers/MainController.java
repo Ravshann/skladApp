@@ -20,6 +20,8 @@ import java.util.Optional;
 public class MainController {
 
 
+
+
     @Autowired
     private CompanyRepository companyRepository;
 
@@ -52,38 +54,21 @@ public class MainController {
     public Optional<Category> getCategory(@PathVariable("id") String id) {
         return categoryRepository.findById(Long.valueOf(id));
     }
-    //end migo
+    //end migo//migo User
 
-    //migo Role
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @RequestMapping("/roles")
-    public @ResponseBody
-    Iterable<Role> getRoleList() {
-        return roleRepository.findAll();
-    }
-
-    @RequestMapping("/roles/{id}")
-    public Optional<Role> getRole(@PathVariable("id") String id) {
-        return roleRepository.findById(Long.valueOf(id));
-    }
-    //migo User
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @RequestMapping("/users")
-    public @ResponseBody
-    Iterable<User> getUserList() {
-        return userRepository.findAll();
-    }
-
-    @RequestMapping("/users/{id}")
-    public Optional<User> getUser(@PathVariable("id") String id) {
-        return userRepository.findById(Long.valueOf(id));
-    }
+//    @Autowired
+//    private UserRepository userRepository;
+//
+//    @RequestMapping("/users")
+//    public @ResponseBody
+//    Iterable<User> getUserList() {
+//        return userRepository.findAll();
+//    }
+//
+//    @RequestMapping("/users/{id}")
+//    public Optional<User> getUser(@PathVariable("id") String id) {
+//        return userRepository.findById(Long.valueOf(id));
+//    }
 
     //migo Product
 
@@ -137,17 +122,22 @@ public class MainController {
 
     @Autowired
     private StorageRepository storageRepository;
-
-    @RequestMapping("/storages")
-    public @ResponseBody
-    Iterable<Storage> getStorageList() {
-        return storageRepository.findAll();
-    }
-
-    @RequestMapping("/storages/{id}")
-    public Optional<Storage> getStorage(@PathVariable("id") String id) {
-        return storageRepository.findById(Long.valueOf(id));
-    }
+//
+//    @RequestMapping("/storages")
+//    public @ResponseBody
+//    Iterable<Storage> getStorageList() {
+//        return storageRepository.findAll();
+//    }
+//
+////    @RequestMapping("/storages/{id}")
+////    public Optional<Storage> getStorage(@PathVariable("id") String id) {
+////        return storageRepository.findById(Long.valueOf(id));
+////    }
+//
+//    @RequestMapping("/storages/")
+//    public Optional<Storage> getStorage(@RequestParam("id") String id) {
+//        return storageRepository.findById(Long.valueOf(id));
+//    }
 
     //migo StorageProduct
 
@@ -194,16 +184,6 @@ public class MainController {
         return atrs;
     }
 
-    @RequestMapping("/storage_products/{store}")
-    public List<Long> getListProducts(@PathVariable("store") String id) {
-        Optional<Storage> s = storageRepository.findById(Long.valueOf(id));
-        List<Long> atrs = new ArrayList<>();
-        for (StorageProduct pro : s.get().getProducts()) {
-            atrs.add(pro.getProduct().getProduct_ID());
-
-        }
-        return atrs;
-    }
 
     @GetMapping("/user-excel")
     public ModelAndView download(HttpServletRequest request, HttpServletResponse response) {

@@ -16,9 +16,11 @@ public class Role {
     private String role_name;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="role")
+    @OneToMany(mappedBy="role", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RolePermission> permissions;
 
+    public Role() {
+    }
 
     // Create an association object for the relationship and set its data.
     public void addPermission(Permission permission) {
@@ -35,6 +37,7 @@ public class Role {
         this.permissions.add(association);
         // Also add the association object to the other class
         permission.getRoles().add(association);
+
     }
 
     //setters getters

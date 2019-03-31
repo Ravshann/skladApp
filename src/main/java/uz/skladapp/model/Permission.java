@@ -17,7 +17,7 @@ public class Permission {
     private String permission_description;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="permission")
+    @OneToMany(mappedBy="permission", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RolePermission> roles;
 
     //setters getters
