@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -20,15 +21,12 @@ public class Product {
     @JoinColumn(name = "category_ID")
     private Category category_ID;
 
-//    @OneToMany(mappedBy = "product_ID", cascade = CascadeType.ALL)
-//    private List<StorageProduct> storage_products;
-
     @JsonManagedReference
-    @OneToMany(mappedBy="product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductAttribute> attributes;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="product")
+    @OneToMany(mappedBy = "product")
     private List<StorageProduct> storages;
 
 
@@ -41,12 +39,25 @@ public class Product {
         association.setProduct_ID(this.getProduct_ID());
         association.setValue(value);
 
-        if(this.attributes == null)
+        if (this.attributes == null)
             this.attributes = new ArrayList<>();
 
         this.attributes.add(association);
         // Also add the association object to the other class
         attribute.getProducts().add(association);
+    }
+
+    public void removeAttribute(Attribute attribute) {
+        for (Iterator<ProductAttribute> iterator = attributes.iterator(); iterator.hasNext(); ) {
+            ProductAttribute productAttribute = iterator.next();
+
+            if (productAttribute.getProduct().equals(this) && productAttribute.getAttribute().equals(attribute)) {
+                iterator.remove();
+                productAttribute.getAttribute().getProducts().remove(productAttribute);
+                productAttribute.setProduct(null);
+                productAttribute.setAttribute(null);
+            }
+        }
     }
 
     //

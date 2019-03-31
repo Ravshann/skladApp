@@ -1,12 +1,10 @@
-package uz.skladapp.controllers;
+package uz.skladapp.controllers.excel;
 
 
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
 import uz.skladapp.model.User;
-import uz.skladapp.model.repositories.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

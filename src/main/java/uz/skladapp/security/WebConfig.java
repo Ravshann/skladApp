@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
-import uz.skladapp.controllers.ExcelViewResolver;
+import uz.skladapp.controllers.excel.ExcelViewResolver;
 
 import java.util.ArrayList;
 import java.util.List;
