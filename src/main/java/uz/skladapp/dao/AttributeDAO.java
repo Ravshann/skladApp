@@ -17,7 +17,6 @@ public class AttributeDAO {
     public Optional<Attribute> getAttribute(Long id) {
 
         Optional<Attribute> attribute = repository.findById(id);
-        System.out.println(attribute.toString());
         return attribute;
     }
 
