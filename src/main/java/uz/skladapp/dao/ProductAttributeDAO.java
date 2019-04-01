@@ -65,6 +65,7 @@ public class ProductAttributeDAO {
                     String value = json.get("value").asText();
                     Optional<Product> product = productRepository.findById(id_product);
                     Optional<Attribute> attribute = attributeRepository.findById(id_attribute);
+                    product.get().removeAttribute(attribute.get());
                     product.get().addAttribute(attribute.get(), value);
                     productRepository.save(object);
                     return 0;

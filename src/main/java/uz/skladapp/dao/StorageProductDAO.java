@@ -22,7 +22,7 @@ public class StorageProductDAO {
 
     public List<Product> getListProducts(String id) {
         Optional<Storage> s = storageRepository.findById(Long.valueOf(id));
-        List<Product> products= new ArrayList<>();
+        List<Product> products = new ArrayList<>();
         for (StorageProduct pro : s.get().getProducts()) {
             products.add(pro.getProduct());
         }
@@ -31,15 +31,49 @@ public class StorageProductDAO {
 
     public void addProducts(String ids) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode newJson = mapper.readTree(ids);
-        Long id_s = Long.valueOf(newJson.get("storage_ID").toString());
-        Long id_p = Long.valueOf(newJson.get("product_ID").toString());
+        JsonNode json = mapper.readTree(ids);
+        Long id_s = Long.valueOf(json.get("storage_ID").toString());
+        Long id_p = Long.valueOf(json.get("product_ID").toString());
         Optional<Storage> storage = storageRepository.findById(id_s);
-        Optional<Product> product= productRepository.findById(id_p);
-        Float quant = Float.valueOf(newJson.get("current_quantity").toString());
-        Float price = Float.valueOf(newJson.get("price").toString());
+        Optional<Product> product = productRepository.findById(id_p);
+        Float quant = Float.valueOf(json.get("current_quantity").toString());
+        Float price = Float.valueOf(json.get("price").toString());
         storage.get().addProduct(product.get(), quant, price);
         productRepository.save(product.get());
 
+    }
+
+    public void update(String data, Long id) throws Exception {
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(data);
+
+        storageRepository.findById(id)
+                .map(object -> {
+                    Long id_s = Long.valueOf(json.get("storage_ID").toString());
+                    Long id_p = Long.valueOf(json.get("product_ID").toString());
+                    Optional<Storage> storage = storageRepository.findById(id_s);
+                    Optional<Product> product = productRepository.findById(id_p);
+                    Float quant = Float.valueOf(json.get("current_quantity").toString());
+                    Float price = Float.valueOf(json.get("price").toString());
+                    storage.get().removeProduct(product.get());
+                    storage.get().addProduct(product.get(),quant,price);
+                    storageRepository.save(object);
+
+
+                    return 0;
+                })
+                .get();
+    }
+
+    public void delete(String object) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(object);
+        Long id_s = Long.valueOf(json.get("storage_ID").toString());
+        Long id_p = Long.valueOf(json.get("product_ID").toString());
+        Optional<Storage> storage = storageRepository.findById(id_s);
+        Optional<Product> product = productRepository.findById(id_p);
+        storage.get().removeProduct(product.get());
+        productRepository.save(product.get());
     }
 }

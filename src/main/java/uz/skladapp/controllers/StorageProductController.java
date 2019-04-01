@@ -28,4 +28,14 @@ public class StorageProductController {
         dao.addProducts(ids);
     }
 
+    @PostMapping("/delete")
+    void replace(@RequestBody String object) throws Exception {
+        dao.delete(object);
+    }
+
+    @PutMapping("/update/{id}")
+    void replace(@RequestBody String product, @PathVariable Long id) throws Exception{
+        dao.update(product, id);
+    }
+
 }

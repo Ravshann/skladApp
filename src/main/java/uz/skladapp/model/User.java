@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -61,6 +62,18 @@ public class User {
         company.getUsers().add(association);
     }
 
+    public void removeCompany(Company object) {
+        for (Iterator<UserCompany> iterator = companies.iterator(); iterator.hasNext(); ) {
+            UserCompany userCompany = iterator.next();
+
+            if (userCompany.getCompany().equals(this) && userCompany.getCompany().equals(object)) {
+                iterator.remove();
+                userCompany.getCompany().getUsers().remove(userCompany);
+                userCompany.setUser(null);
+                userCompany.setCompany(null);
+            }
+        }
+    }
 
 
 
@@ -155,6 +168,7 @@ public class User {
     public void setUser_phone(String user_phone) {
         this.user_phone = user_phone;
     }
+
 
 
 }

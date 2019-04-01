@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -48,6 +49,19 @@ public class Storage {
         this.products.add(association);
         // Also add the association object to the other class.
         product.getStorages().add(association);
+    }
+
+    public void removeProduct(Product product) {
+        for (Iterator<StorageProduct> iterator = products.iterator(); iterator.hasNext(); ) {
+            StorageProduct storageProduct = iterator.next();
+
+            if (storageProduct.getStorage().equals(this) && storageProduct.getProduct().equals(product)) {
+                iterator.remove();
+                storageProduct.getProduct().getStorages().remove(storageProduct);
+                storageProduct.setStorage(null);
+                storageProduct.setProduct(null);
+            }
+        }
     }
 
     public Long getStorage_ID() {
@@ -106,6 +120,4 @@ public class Storage {
         this.products = products;
     }
 
-    //    @OneToMany(mappedBy = "storage_ID", cascade = CascadeType.ALL)
-//    private List<StorageProduct> storage_products;
 }

@@ -24,4 +24,9 @@ public class RolePermissionController {
     public void addPermission(@RequestBody String ids)  throws Exception{
         dao.addPermission(ids);
     }
+
+    @PostMapping("/delete")
+    void delete(@RequestBody String object) throws Exception {
+        dao.delete(object);
+    }
 }
