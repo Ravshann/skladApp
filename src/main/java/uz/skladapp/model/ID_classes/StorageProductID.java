@@ -4,25 +4,26 @@ import java.io.Serializable;
 
 public class StorageProductID implements Serializable {
 
-    private Long storage_ID;
-    private Long product_ID;
+    private long storage_ID;
+    private long product_ID;
 
 
     //setters getters
 
-    public Long getStorage_ID() {
+
+    public long getStorage_ID() {
         return storage_ID;
     }
 
-    public void setStorage_ID(Long storage_ID) {
+    public void setStorage_ID(long storage_ID) {
         this.storage_ID = storage_ID;
     }
 
-    public Long getProduct_ID() {
+    public long getProduct_ID() {
         return product_ID;
     }
 
-    public void setProduct_ID(Long product_ID) {
+    public void setProduct_ID(long product_ID) {
         this.product_ID = product_ID;
     }
 

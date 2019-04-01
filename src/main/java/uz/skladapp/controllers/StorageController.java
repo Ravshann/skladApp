@@ -14,21 +14,30 @@ import java.util.Optional;
 @RequestMapping("/storages")
 public class StorageController {
     @Autowired
-    StorageDAO storageDAO;
+    StorageDAO dao;
 
     @RequestMapping("")
     public @ResponseBody
     Iterable<Storage> getAllStorages() {
-        return storageDAO.getStorageList();
+        return dao.getStorageList();
     }
 
     @GetMapping("/")
     public Optional<Storage> getStorage(@RequestParam("id") String id) {
-        return storageDAO.getStorageByID(Long.valueOf(id));
+        return dao.getStorageByID(Long.valueOf(id));
     }
 
     @PostMapping("/create")
     public void createStorage(@RequestBody String newStorageText) throws Exception {
-        storageDAO.saveStorage(newStorageText);
+        dao.saveStorage(newStorageText);
+    }
+    @DeleteMapping("/delete/{id}")
+    void delete(@PathVariable Long id) {
+        dao.deleteById(id);
+    }
+
+    @PutMapping("/update/{id}")
+    Storage replace(@RequestBody String storage, @PathVariable Long id) throws Exception{
+        return dao.update(storage, id);
     }
 }

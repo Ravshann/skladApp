@@ -1,13 +1,14 @@
 package uz.skladapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,12 +1,14 @@
 package uz.skladapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +20,7 @@ public class Company {
     private String company_phone;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="company")
+    @OneToMany(mappedBy="company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserCompany> users;
 
     public Long getCompany_ID() {

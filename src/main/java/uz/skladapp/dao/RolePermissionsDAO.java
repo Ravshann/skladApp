@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.Permission;
-import uz.skladapp.model.Role;
-import uz.skladapp.model.RolePermission;
+import uz.skladapp.model.*;
 import uz.skladapp.model.repositories.PermissionRepository;
 import uz.skladapp.model.repositories.RoleRepository;
 
@@ -43,5 +41,33 @@ public class RolePermissionsDAO {
         permissionRepository.save(permission.get());
         System.out.println(permission.get().getPermission_ID().toString());
 
+    }
+
+    public void delete(String string) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(string);
+        Long id_r= Long.valueOf(json.get("role_ID").toString());
+        Long id_p= Long.valueOf(json.get("permission_ID").toString());
+        Optional<Role> role = roleRepository.findById(id_r);
+
+        Optional<Permission> permission = permissionRepository.findById(id_p);
+        role.get().removePermission(permission.get());
+        roleRepository.save(role.get());
+    }
+
+    public void update(String string, Long id) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(string);
+        roleRepository.findById(id)
+                .map(object -> {
+                    Long id_r = Long.valueOf(json.get("role_ID").toString());
+                    Long id_p = Long.valueOf(json.get("permission_ID").toString());
+                    Optional<Role> role = roleRepository.findById(id_r);
+                    Optional<Permission> permission = permissionRepository.findById(id_p);
+                    role.get().addPermission(permission.get());
+                    roleRepository.save(object);
+                    return 0;
+                })
+                .get();
     }
 }

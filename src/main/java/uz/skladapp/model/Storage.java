@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
-
 public class Storage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class Storage {
     private String storage_phone;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="storage")
+    @OneToMany(mappedBy="storage", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StorageProduct> products;
 
 
@@ -106,6 +106,17 @@ public class Storage {
         this.products = products;
     }
 
-    //    @OneToMany(mappedBy = "storage_ID", cascade = CascadeType.ALL)
-//    private List<StorageProduct> storage_products;
+    public void removeProduct(Product product) {
+        for (Iterator<StorageProduct> iterator = products.iterator(); iterator.hasNext(); ) {
+            StorageProduct storageProduct= iterator.next();
+
+            if (storageProduct.getStorage().equals(this) && storageProduct.getProduct().equals(product)) {
+                iterator.remove();
+                storageProduct.getProduct().getStorages().remove(storageProduct);
+                storageProduct.setStorage(null);
+                storageProduct.setProduct(null);
+            }
+        }
+
+    }
 }

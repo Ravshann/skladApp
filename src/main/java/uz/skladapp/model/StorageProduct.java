@@ -1,6 +1,7 @@
 package uz.skladapp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import uz.skladapp.model.ID_classes.StorageProductID;
 
 import javax.persistence.*;
@@ -26,14 +27,27 @@ public class StorageProduct {
 
 
     @JsonBackReference // this needed to json generation
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {PERSIST, MERGE})
     @JoinColumn(name = "product_ID", updatable = false, insertable = false, referencedColumnName = "product_ID")
     private Product product;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {PERSIST, MERGE})
     @JoinColumn(name = "storage_ID", updatable = false, insertable = false, referencedColumnName = "storage_ID")
     private Storage storage;
+
+    //
+    public StorageProduct() {
+    }
+
+    public StorageProduct(float current_quantity, float price, Product product, Storage storage) {
+        this.current_quantity = current_quantity;
+        this.price = price;
+        this.product = product;
+        this.storage = storage;
+        this.storage_ID = storage.getStorage_ID();
+        this.product_ID = product.getProduct_ID();
+    }
 
     //getters setters
 

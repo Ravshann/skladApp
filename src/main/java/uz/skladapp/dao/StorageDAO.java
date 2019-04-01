@@ -40,19 +40,42 @@ public class StorageDAO {
 
     public void saveStorage(String newText) throws Exception{
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(newText);
-        Long d_id = Long.valueOf(jsonNode.get("department_ID").toString());
+        JsonNode json = mapper.readTree(newText);
+        Long d_id = Long.valueOf(json.get("department_ID").toString());
         Optional<Department> department = departmentRepository.findById(d_id);
-        Long u_id = Long.valueOf(jsonNode.get("storage_manager_ID").toString());
+        Long u_id = Long.valueOf(json.get("storage_manager_ID").toString());
         Optional<User> user= userRepository.findById(u_id);
 
         Storage newStorage = new Storage();
 
-        newStorage.setAddress(jsonNode.get("address").asText());
+        newStorage.setAddress(json.get("address").asText());
         newStorage.setDepartment_ID(department.get());
         newStorage.setStorage_manager_ID(user.get());
-        newStorage.setStorage_name(jsonNode.get("storage_name").asText());
-        newStorage.setStorage_phone(jsonNode.get("storage_phone").asText());
+        newStorage.setStorage_name(json.get("storage_name").asText());
+        newStorage.setStorage_phone(json.get("storage_phone").asText());
         storageRepository.save(newStorage);
+    }
+
+    public void deleteById(Long id) {
+        storageRepository.deleteById(id);
+    }
+
+    public Storage update(String string, Long id) throws Exception{
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(string);
+        Long d_id = Long.valueOf(json.get("department_ID").toString());
+        Optional<Department> department = departmentRepository.findById(d_id);
+        Long u_id = Long.valueOf(json.get("storage_manager_ID").toString());
+        Optional<User> user= userRepository.findById(u_id);
+        return storageRepository.findById(id)
+                .map(storage -> {
+                    storage.setAddress(json.get("address").asText());
+                    storage.setDepartment_ID(department.get());
+                    storage.setStorage_manager_ID(user.get());
+                    storage.setStorage_name(json.get("storage_name").asText());
+                    storage.setStorage_phone(json.get("storage_phone").asText());
+                    return storageRepository.save(storage);
+                })
+                .get();
     }
 }

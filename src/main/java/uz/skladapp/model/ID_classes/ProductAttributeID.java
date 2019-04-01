@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class ProductAttributeID implements Serializable {
     private long product_ID;
-
     private long attribute_ID;
 
     //setters getters

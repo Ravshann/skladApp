@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -38,6 +39,19 @@ public class Role {
         // Also add the association object to the other class
         permission.getRoles().add(association);
 
+    }
+
+    public void removePermission(Permission permission) {
+        for (Iterator<RolePermission> iterator = permissions.iterator(); iterator.hasNext(); ) {
+            RolePermission rolePermission = iterator.next();
+
+            if (rolePermission.getRole().equals(this) && rolePermission.getPermission().equals(permission)) {
+                iterator.remove();
+                rolePermission.getPermission().getRoles().remove(rolePermission);
+                rolePermission.setRole(null);
+                rolePermission.setPermission(null);
+            }
+        }
     }
 
     //setters getters
