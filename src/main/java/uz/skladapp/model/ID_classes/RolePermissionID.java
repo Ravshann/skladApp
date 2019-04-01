@@ -2,7 +2,7 @@ package uz.skladapp.model.ID_classes;
 
 import java.io.Serializable;
 
-public class UserPermissionID implements Serializable {
+public class RolePermissionID implements Serializable {
     private long role_ID;
     private long permission_ID;
 
@@ -34,8 +34,8 @@ public class UserPermissionID implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof UserPermissionID) {
-            UserPermissionID otherId = (UserPermissionID) object;
+        if (object instanceof RolePermissionID) {
+            RolePermissionID otherId = (RolePermissionID) object;
             return (otherId.permission_ID== this.permission_ID) && (otherId.role_ID == this.role_ID);
         }
         return false;
