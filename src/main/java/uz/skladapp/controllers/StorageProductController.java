@@ -4,12 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.StorageProductDAO;
 import uz.skladapp.model.Product;
-import uz.skladapp.model.Storage;
-import uz.skladapp.model.StorageProduct;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/storage_products")
