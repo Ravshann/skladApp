@@ -1,14 +1,17 @@
 package uz.skladapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +29,10 @@ public class Department {
     @OneToOne
     @JoinColumn(name = "department_manager_ID")
     private User department_manager_ID;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy="department", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SupplierDepartment> suppliers;
 
     private String department_phone;
 
@@ -118,6 +125,14 @@ public class Department {
 
     public void setDepartment_phone(String department_phone) {
         this.department_phone = department_phone;
+    }
+
+    public List<SupplierDepartment> getSuppliers() {
+        return suppliers;
+    }
+
+    public void setSuppliers(List<SupplierDepartment> suppliers) {
+        this.suppliers = suppliers;
     }
 
     public List<DepartmentClient> getClients() {

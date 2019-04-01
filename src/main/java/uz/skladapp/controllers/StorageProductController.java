@@ -34,7 +34,7 @@ public class StorageProductController {
     }
 
     @PutMapping("/update/{id}")
-    void replace(@RequestBody String attribute, @PathVariable String id) throws Exception{
+    void replace(@RequestBody String attribute, @PathVariable(value = "id") String id) throws Exception{
         dao.update(attribute, Long.valueOf(id));
     }
 

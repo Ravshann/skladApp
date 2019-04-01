@@ -2,7 +2,7 @@ package uz.skladapp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import uz.skladapp.model.ID_classes.UserPermissionID;
+import uz.skladapp.model.ID_classes.RolePermissionID;
 
 import javax.persistence.*;
 
@@ -11,7 +11,7 @@ import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
 @Table(name="ROLE_PERMISSION")
-@IdClass(UserPermissionID.class)
+@IdClass(RolePermissionID.class)
 public class RolePermission {
     @Id
     private long role_ID;
