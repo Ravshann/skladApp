@@ -19,7 +19,7 @@ do not use lombok library if you are going to access getter methods of object la
 
 
 @Entity
-@Table(name="PRODUCT_ATTRIBUTE")
+@Table(name = "PRODUCT_ATTRIBUTE")
 @IdClass(ProductAttributeID.class)
 public class ProductAttribute {
     @Id
@@ -27,7 +27,7 @@ public class ProductAttribute {
     @Id
     private long attribute_ID;
 
-    @Column(name="value")
+    @Column(name = "value")
     private String value;
 
 

@@ -17,11 +17,11 @@ public class RolePermissionController {
 
     @RequestMapping("/{role}")
     public List<Permission> getPersmissionsOfRole(@PathVariable("role") String id) {
-      return dao.getList(Long.valueOf(id));
+        return dao.getList(Long.valueOf(id));
     }
 
     @PostMapping("/add")
-    public void addPermission(@RequestBody String ids)  throws Exception{
+    public void addPermission(@RequestBody String ids) throws Exception {
         dao.addPermission(ids);
     }
 

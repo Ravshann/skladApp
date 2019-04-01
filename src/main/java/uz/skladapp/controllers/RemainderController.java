@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import uz.skladapp.dao.RemainderDAO;
-import uz.skladapp.model.Permission;
-import uz.skladapp.model.Product;
 import uz.skladapp.model.special_models.Remainder;
 
 import java.util.List;

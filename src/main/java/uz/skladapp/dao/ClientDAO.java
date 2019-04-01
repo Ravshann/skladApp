@@ -23,7 +23,7 @@ public class ClientDAO {
         return repository.findById(id);
     }
 
-    public void create(String string) throws Exception{
+    public void create(String string) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(string);
         Client object = new Client();

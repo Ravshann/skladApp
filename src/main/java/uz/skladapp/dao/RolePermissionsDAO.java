@@ -43,7 +43,7 @@ public class RolePermissionsDAO {
         permissionRepository.save(permission.get());
     }
 
-    public void delete(String object) throws Exception{
+    public void delete(String object) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode newJson = mapper.readTree(object);
         Long id_r = Long.valueOf(newJson.get("role_ID").toString());

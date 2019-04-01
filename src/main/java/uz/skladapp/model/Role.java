@@ -17,7 +17,7 @@ public class Role {
     private String role_name;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="role", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RolePermission> permissions;
 
     public Role() {
@@ -32,7 +32,7 @@ public class Role {
         association.setRole_ID(this.getRole_ID());
 
 
-        if(this.permissions == null)
+        if (this.permissions == null)
             this.permissions = new ArrayList<>();
 
         this.permissions.add(association);

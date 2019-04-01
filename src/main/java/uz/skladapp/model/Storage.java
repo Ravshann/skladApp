@@ -29,7 +29,7 @@ public class Storage {
     private String storage_phone;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="storage", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "storage", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StorageProduct> products;
 
 
@@ -43,7 +43,7 @@ public class Storage {
         association.setCurrent_quantity(current_quantity);
         association.setPrice(price);
 
-        if(this.products == null)
+        if (this.products == null)
             this.products = new ArrayList<>();
 
         this.products.add(association);

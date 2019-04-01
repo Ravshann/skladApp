@@ -26,7 +26,7 @@ public class ProductAttributeID implements Serializable {
 
     //this is needed for  IDclasses
     public int hashCode() {
-        return (int)(product_ID+attribute_ID);
+        return (int) (product_ID + attribute_ID);
     }
 
     public boolean equals(Object object) {

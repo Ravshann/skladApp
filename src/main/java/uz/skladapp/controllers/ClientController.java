@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.ClientDAO;
 import uz.skladapp.model.Client;
-import uz.skladapp.model.Permission;
 
 import java.util.Optional;
 
@@ -39,7 +38,7 @@ public class ClientController {
     }
 
     @PutMapping("/update/{id}")
-    Client replace(@RequestBody String attribute, @PathVariable Long id) throws Exception{
+    Client replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
     }
 

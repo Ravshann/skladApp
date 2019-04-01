@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ResponseBody;
-import uz.skladapp.model.Attribute;
 import uz.skladapp.model.Role;
 import uz.skladapp.model.repositories.RoleRepository;
 
@@ -17,18 +15,16 @@ public class RoleDAO {
     private RoleRepository repository;
 
 
-
     public Iterable<Role> getRolesList() {
         return repository.findAll();
     }
 
-    public Optional<Role> getRoleByID(Long id){
+    public Optional<Role> getRoleByID(Long id) {
         Optional<Role> role = repository.findById(id);
         return role;
     }
 
-    public void saveRole(String newRoleText) throws Exception
-    {
+    public void saveRole(String newRoleText) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode newRoleJson = mapper.readTree(newRoleText);
         Role newRole = new Role();
@@ -41,7 +37,7 @@ public class RoleDAO {
         repository.deleteById(id);
     }
 
-    public Role update(String string, Long id) throws Exception{
+    public Role update(String string, Long id) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(string);
         return repository.findById(id)

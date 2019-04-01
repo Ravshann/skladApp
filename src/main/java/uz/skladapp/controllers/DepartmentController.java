@@ -39,7 +39,7 @@ public class DepartmentController {
     }
 
     @PutMapping("/update/{id}")
-    Department replace(@RequestBody String attribute, @PathVariable Long id) throws Exception{
+    Department replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
     }
 

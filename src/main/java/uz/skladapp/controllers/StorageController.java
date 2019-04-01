@@ -2,11 +2,8 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.RoleDAO;
 import uz.skladapp.dao.StorageDAO;
-import uz.skladapp.model.Role;
 import uz.skladapp.model.Storage;
-import uz.skladapp.model.repositories.RoleRepository;
 
 import java.util.Optional;
 
@@ -31,13 +28,14 @@ public class StorageController {
     public void createStorage(@RequestBody String newStorageText) throws Exception {
         dao.saveStorage(newStorageText);
     }
+
     @DeleteMapping("/delete/{id}")
     void delete(@PathVariable Long id) {
         dao.deleteById(id);
     }
 
     @PutMapping("/update/{id}")
-    Storage replace(@RequestBody String storage, @PathVariable Long id) throws Exception{
+    Storage replace(@RequestBody String storage, @PathVariable Long id) throws Exception {
         return dao.update(storage, id);
     }
 }

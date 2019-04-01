@@ -4,11 +4,8 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.RoleDAO;
-import uz.skladapp.model.Attribute;
 import uz.skladapp.model.Role;
-import uz.skladapp.model.repositories.RoleRepository;
 
-import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -40,7 +37,7 @@ public class RoleController {
     }
 
     @PutMapping("/update/{id}")
-    Role replace(@RequestBody String role, @PathVariable Long id) throws Exception{
+    Role replace(@RequestBody String role, @PathVariable Long id) throws Exception {
         return dao.update(role, id);
     }
 

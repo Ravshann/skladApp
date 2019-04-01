@@ -1,7 +1,6 @@
 package uz.skladapp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import uz.skladapp.model.ID_classes.StorageProductID;
 
 import javax.persistence.*;
@@ -11,7 +10,7 @@ import static javax.persistence.CascadeType.PERSIST;
 
 
 @Entity
-@Table(name="STORAGE_PRODUCT")
+@Table(name = "STORAGE_PRODUCT")
 @IdClass(StorageProductID.class)
 public class StorageProduct {
     @Id

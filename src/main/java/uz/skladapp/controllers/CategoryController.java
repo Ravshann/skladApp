@@ -40,7 +40,7 @@ public class CategoryController {
     }
 
     @PutMapping("/update/{id}")
-    Category replace(@RequestBody String attribute, @PathVariable Long id) throws Exception{
+    Category replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
     }
 }

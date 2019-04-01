@@ -38,7 +38,7 @@ public class AttributeController {
     }
 
     @PutMapping("/update/{id}")
-    Attribute replace(@RequestBody String attribute, @PathVariable Long id) throws Exception{
+    Attribute replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
     }
 

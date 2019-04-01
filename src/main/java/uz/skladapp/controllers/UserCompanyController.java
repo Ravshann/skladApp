@@ -22,13 +22,11 @@ public class UserCompanyController {
     public void addCompany(@RequestBody String ids) throws Exception {
         dao.addCompany(ids);
     }
+
     @PostMapping("/delete")
     void delete(@RequestBody String object) throws Exception {
         dao.delete(object);
     }
 
-//    @PutMapping("/update/{id}")
-//    void replace(@RequestBody String company, @PathVariable Long id) throws Exception{
-//        dao.update(company, id);
-//    }
+
 }

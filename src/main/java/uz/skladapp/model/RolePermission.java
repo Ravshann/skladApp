@@ -1,7 +1,6 @@
 package uz.skladapp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import uz.skladapp.model.ID_classes.RolePermissionID;
 
 import javax.persistence.*;
@@ -10,7 +9,7 @@ import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
-@Table(name="ROLE_PERMISSION")
+@Table(name = "ROLE_PERMISSION")
 @IdClass(RolePermissionID.class)
 public class RolePermission {
     @Id

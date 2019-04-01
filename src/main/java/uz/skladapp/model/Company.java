@@ -20,7 +20,7 @@ public class Company {
     private String company_phone;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="company", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserCompany> users;
 
     public Long getCompany_ID() {

@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import uz.skladapp.model.*;
+import uz.skladapp.model.Product;
+import uz.skladapp.model.Storage;
+import uz.skladapp.model.StorageProduct;
 import uz.skladapp.model.repositories.ProductRepository;
 import uz.skladapp.model.repositories.StorageRepository;
 
@@ -23,7 +24,7 @@ public class StorageProductDAO {
     public List<Product> getList(String id) {
         System.out.println(id);
         Optional<Storage> s = storageRepository.findById(Long.valueOf(id));
-        List<Product> products= new ArrayList<>();
+        List<Product> products = new ArrayList<>();
         for (StorageProduct pro : s.get().getProducts()) {
             products.add(pro.getProduct());
         }
@@ -36,7 +37,7 @@ public class StorageProductDAO {
         Long id_s = Long.valueOf(newJson.get("storage_ID").toString());
         Long id_p = Long.valueOf(newJson.get("product_ID").toString());
         Optional<Storage> storage = storageRepository.findById(id_s);
-        Optional<Product> product= productRepository.findById(id_p);
+        Optional<Product> product = productRepository.findById(id_p);
         Float quant = Float.valueOf(newJson.get("current_quantity").toString());
         Float price = Float.valueOf(newJson.get("price").toString());
 
@@ -59,7 +60,7 @@ public class StorageProductDAO {
                     Float quant = Float.valueOf(json.get("current_quantity").toString());
                     Float price = Float.valueOf(json.get("price").toString());
                     storage.get().removeProduct(product.get());
-                    storage.get().addProduct(product.get(),quant,price);
+                    storage.get().addProduct(product.get(), quant, price);
                     storageRepository.save(object);
 
 

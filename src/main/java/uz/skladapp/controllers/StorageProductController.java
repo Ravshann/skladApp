@@ -14,13 +14,13 @@ public class StorageProductController {
     private StorageProductDAO dao;
 
 
-    @RequestMapping(value = "/{store}" , produces = "application/json")
+    @RequestMapping(value = "/{store}", produces = "application/json")
     public List<Product> getListProducts(@PathVariable("store") String id) {
-      return dao.getList(id);
+        return dao.getList(id);
     }
 
     @PostMapping("/add")
-    public void addPermission(@RequestBody String ids)  throws Exception{
+    public void addPermission(@RequestBody String ids) throws Exception {
         dao.addProducts(ids);
     }
 
@@ -30,7 +30,7 @@ public class StorageProductController {
     }
 
     @PutMapping("/update/{id}")
-    void replace(@RequestBody String attribute, @PathVariable(value = "id") String id) throws Exception{
+    void replace(@RequestBody String attribute, @PathVariable(value = "id") String id) throws Exception {
         dao.update(attribute, Long.valueOf(id));
     }
 

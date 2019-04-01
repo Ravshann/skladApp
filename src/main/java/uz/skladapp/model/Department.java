@@ -30,13 +30,13 @@ public class Department {
     private User department_manager_ID;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="department", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SupplierDepartment> suppliers;
 
     private String department_phone;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DepartmentClient> clients;
 
     // Create an association object for the relationship and set its data.
@@ -47,7 +47,7 @@ public class Department {
         association.setClient_ID(client.getClient_ID());
         association.setDepartment_ID(this.getDepartment_ID());
 
-        if(this.clients == null)
+        if (this.clients == null)
             this.clients = new ArrayList<>();
 
         this.clients.add(association);
@@ -58,7 +58,7 @@ public class Department {
 
     public void removeClient(Client client) {
         for (Iterator<DepartmentClient> iterator = clients.iterator(); iterator.hasNext(); ) {
-            DepartmentClient departmentClient= iterator.next();
+            DepartmentClient departmentClient = iterator.next();
 
             if (departmentClient.getDepartment().equals(this) && departmentClient.getClient().equals(client)) {
                 iterator.remove();

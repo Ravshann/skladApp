@@ -29,14 +29,14 @@ public class RolePermissionID implements Serializable {
     // needed for spring
     @Override
     public int hashCode() {
-        return (int)(role_ID + permission_ID);
+        return (int) (role_ID + permission_ID);
     }
 
     @Override
     public boolean equals(Object object) {
         if (object instanceof RolePermissionID) {
             RolePermissionID otherId = (RolePermissionID) object;
-            return (otherId.permission_ID== this.permission_ID) && (otherId.role_ID == this.role_ID);
+            return (otherId.permission_ID == this.permission_ID) && (otherId.role_ID == this.role_ID);
         }
         return false;
     }
