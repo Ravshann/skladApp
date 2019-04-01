@@ -15,10 +15,14 @@ public class ProductAttributeController {
     @Autowired
     private ProductAttributeDAO dao;
 
-
-    @RequestMapping(value = "/", produces = "application/json")
-    public @ResponseBody
-    List<Attribute> get(@RequestParam("id") String id) {
+    //    @RequestMapping(value = "/", produces = "application/json")
+//    public @ResponseBody
+//    List<Attribute> get(@RequestParam("id") String id) {
+//        System.out.println("here");
+//        return dao.getAttributesList(Long.valueOf(id));
+//    }
+    @RequestMapping("/{pro_id}")
+    public List<Attribute> getListProducts(@PathVariable("pro_id") String id) {
         return dao.getAttributesList(Long.valueOf(id));
     }
 
@@ -33,7 +37,7 @@ public class ProductAttributeController {
     }
 
     @PutMapping("/update/{id}")
-    void replace(@RequestBody String attribute, @PathVariable Long id) throws Exception{
+    void replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         dao.update(attribute, id);
     }
 

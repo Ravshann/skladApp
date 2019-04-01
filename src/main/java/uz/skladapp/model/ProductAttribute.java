@@ -54,6 +54,7 @@ public class ProductAttribute {
 
     //setters getters
 
+
     public long getProduct_ID() {
         return product_ID;
     }
@@ -93,5 +94,4 @@ public class ProductAttribute {
     public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }
-
 }

@@ -1,7 +1,6 @@
 package uz.skladapp.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -10,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Entity
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,6 +62,18 @@ public class User {
         company.getUsers().add(association);
     }
 
+    public void removeCompany(Company object) {
+        for (Iterator<UserCompany> iterator = companies.iterator(); iterator.hasNext(); ) {
+            UserCompany userCompany = iterator.next();
+
+            if (userCompany.getCompany().equals(this) && userCompany.getCompany().equals(object)) {
+                iterator.remove();
+                userCompany.getCompany().getUsers().remove(userCompany);
+                userCompany.setUser(null);
+                userCompany.setCompany(null);
+            }
+        }
+    }
 
 
 
@@ -158,15 +170,4 @@ public class User {
     }
 
 
-    public void removeCompany(Company company) {
-        for (Iterator<UserCompany> iterator = companies.iterator(); iterator.hasNext(); ) {
-            UserCompany userCompany= iterator.next();
-            if (userCompany.getUser().equals(this) && userCompany.getCompany().equals(company)) {
-                iterator.remove();
-                userCompany.getCompany().getUsers().remove(userCompany);
-                userCompany.setUser(null);
-                userCompany.setCompany(null);
-            }
-        }
-    }
 }

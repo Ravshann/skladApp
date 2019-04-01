@@ -26,12 +26,7 @@ public class RolePermissionController {
     }
 
     @PostMapping("/delete")
-    void replace(@RequestBody String object) throws Exception {
+    void delete(@RequestBody String object) throws Exception {
         dao.delete(object);
-    }
-
-    @PutMapping("/update/{id}")
-    void replace(@RequestBody String attribute, @PathVariable Long id) throws Exception{
-        dao.update(attribute, id);
     }
 }

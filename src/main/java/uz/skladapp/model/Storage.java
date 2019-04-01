@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Entity
+
 public class Storage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +49,19 @@ public class Storage {
         this.products.add(association);
         // Also add the association object to the other class.
         product.getStorages().add(association);
+    }
+
+    public void removeProduct(Product product) {
+        for (Iterator<StorageProduct> iterator = products.iterator(); iterator.hasNext(); ) {
+            StorageProduct storageProduct = iterator.next();
+
+            if (storageProduct.getStorage().equals(this) && storageProduct.getProduct().equals(product)) {
+                iterator.remove();
+                storageProduct.getProduct().getStorages().remove(storageProduct);
+                storageProduct.setStorage(null);
+                storageProduct.setProduct(null);
+            }
+        }
     }
 
     public Long getStorage_ID() {
@@ -106,17 +120,4 @@ public class Storage {
         this.products = products;
     }
 
-    public void removeProduct(Product product) {
-        for (Iterator<StorageProduct> iterator = products.iterator(); iterator.hasNext(); ) {
-            StorageProduct storageProduct= iterator.next();
-
-            if (storageProduct.getStorage().equals(this) && storageProduct.getProduct().equals(product)) {
-                iterator.remove();
-                storageProduct.getProduct().getStorages().remove(storageProduct);
-                storageProduct.setStorage(null);
-                storageProduct.setProduct(null);
-            }
-        }
-
-    }
 }
