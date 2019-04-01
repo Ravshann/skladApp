@@ -41,8 +41,6 @@ public class RolePermissionsDAO {
         Optional<Permission> permission = permissionRepository.findById(id_p);
         role.get().addPermission(permission.get());
         permissionRepository.save(permission.get());
-        System.out.println(permission.get().getPermission_ID().toString());
-
     }
 
     public void delete(String object) throws Exception{

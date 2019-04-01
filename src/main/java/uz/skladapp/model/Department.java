@@ -1,10 +1,14 @@
 package uz.skladapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Entity
-
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +28,40 @@ public class Department {
     private User department_manager_ID;
 
     private String department_phone;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy="client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DepartmentClient> clients;
+
+    // Create an association object for the relationship and set its data.
+    public void addClient(Client client) {
+        DepartmentClient association = new DepartmentClient();
+        association.setClient(client);
+        association.setDepartment(this);
+        association.setClient_ID(client.getClient_ID());
+        association.setDepartment_ID(this.getDepartment_ID());
+
+        if(this.clients == null)
+            this.clients = new ArrayList<>();
+
+        this.clients.add(association);
+        // Also add the association object to the other class
+        client.getDepartments().add(association);
+
+    }
+
+    public void removeClient(Client client) {
+        for (Iterator<DepartmentClient> iterator = clients.iterator(); iterator.hasNext(); ) {
+            DepartmentClient departmentClient= iterator.next();
+
+            if (departmentClient.getDepartment().equals(this) && departmentClient.getClient().equals(client)) {
+                iterator.remove();
+                departmentClient.getClient().getDepartments().remove(departmentClient);
+                departmentClient.setDepartment(null);
+                departmentClient.setClient(null);
+            }
+        }
+    }
 
 
     public Long getDepartment_ID() {
@@ -80,5 +118,13 @@ public class Department {
 
     public void setDepartment_phone(String department_phone) {
         this.department_phone = department_phone;
+    }
+
+    public List<DepartmentClient> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<DepartmentClient> clients) {
+        this.clients = clients;
     }
 }
