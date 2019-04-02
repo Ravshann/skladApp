@@ -53,4 +53,11 @@ public class ClientDAO {
                 .get();
     }
 
+    public void clientCreate(Client object) {
+        System.out.println(object.getClient_name());
+        System.out.println(object.getRegion());
+        repository.save(object);
+    }
+
+
 }
