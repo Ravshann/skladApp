@@ -43,7 +43,7 @@ public class ProductAttributeDAO {
         productRepository.save(product.get());
     }
 
-    public void delete(String string) throws Exception{
+    public void delete(String string) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(string);
         Long id_product = Long.valueOf(json.get("product_ID").toString());

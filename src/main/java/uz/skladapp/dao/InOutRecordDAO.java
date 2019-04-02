@@ -43,7 +43,7 @@ public class InOutRecordDAO {
         Long s_id = Long.valueOf(json.get("storage_ID").toString());
         Optional<Storage> storage = storageRepository.findById(s_id);
 
-        Long p_id = (Long) Long.valueOf(json.get("product_ID").toString());
+        Long p_id = Long.valueOf(json.get("product_ID").toString());
         Optional<Product> product = productRepository.findById(p_id);
 
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

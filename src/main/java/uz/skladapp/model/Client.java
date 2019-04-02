@@ -18,7 +18,7 @@ public class Client {
 
 
     @JsonManagedReference
-    @OneToMany(mappedBy="department", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DepartmentClient> departments;
 
     public Client() {

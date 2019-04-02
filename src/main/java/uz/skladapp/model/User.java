@@ -41,7 +41,7 @@ public class User {
 
 
     @JsonManagedReference
-    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserCompany> companies;
 
 
@@ -54,7 +54,7 @@ public class User {
         association.setUser_ID(this.getUser_ID());
 
 
-        if(this.companies == null)
+        if (this.companies == null)
             this.companies = new ArrayList<>();
 
         this.companies.add(association);
@@ -76,9 +76,7 @@ public class User {
     }
 
 
-
     //setters getters
-
 
 
     public List<UserCompany> getCompanies() {

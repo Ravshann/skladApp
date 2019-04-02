@@ -9,7 +9,7 @@ import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
-@Table(name="SUPPLIER_DEPARTMENT")
+@Table(name = "SUPPLIER_DEPARTMENT")
 @IdClass(SupplierDepartmentID.class)
 public class SupplierDepartment {
     @Id
@@ -26,8 +26,6 @@ public class SupplierDepartment {
     @ManyToOne(fetch = FetchType.LAZY, cascade = {PERSIST, MERGE})
     @JoinColumn(name = "department_ID", updatable = false, insertable = false, referencedColumnName = "department_ID")
     private Department department;
-
-
 
 
     public long getSupplier_ID() {

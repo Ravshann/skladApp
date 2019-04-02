@@ -9,11 +9,12 @@ import java.util.Iterator;
 import java.util.List;
 
 @Entity
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long supplier_ID;
+
     private String supplier_name;
 
     @JsonManagedReference

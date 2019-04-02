@@ -3,9 +3,7 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.DepartmentClientDAO;
-import uz.skladapp.dao.RolePermissionsDAO;
 import uz.skladapp.model.Client;
-import uz.skladapp.model.Permission;
 
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class DepartmentClientController {
     }
 
     @PostMapping("/add")
-    public void create(@RequestBody String ids)  throws Exception{
+    public void create(@RequestBody String ids) throws Exception {
         dao.create(ids);
     }
 

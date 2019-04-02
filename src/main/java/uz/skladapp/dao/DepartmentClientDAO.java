@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.*;
+import uz.skladapp.model.Client;
+import uz.skladapp.model.Department;
+import uz.skladapp.model.DepartmentClient;
 import uz.skladapp.model.repositories.ClientRepository;
 import uz.skladapp.model.repositories.DepartmentRepository;
 
@@ -22,16 +24,16 @@ public class DepartmentClientDAO {
 
 
     public List<Client> getList(Long id) {
-        Optional<Department> department= departmentRepository.findById(id);
-        List<Client> clients= new ArrayList<>();
-        for (DepartmentClient departmentClient: department.get().getClients()) {
+        Optional<Department> department = departmentRepository.findById(id);
+        List<Client> clients = new ArrayList<>();
+        for (DepartmentClient departmentClient : department.get().getClients()) {
             clients.add(departmentClient.getClient());
 
         }
         return clients;
     }
 
-    public void create(String string) throws Exception{
+    public void create(String string) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(string);
         Long id_d = Long.valueOf(json.get("department_ID").toString());

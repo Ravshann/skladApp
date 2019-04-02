@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.SupplierDepartmentDAO;
 import uz.skladapp.model.Department;
-import uz.skladapp.model.SupplierDepartment;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class SupplierDepartmentController {
     }
 
     @PostMapping("/add")
-    public void add(@RequestBody String data)  throws Exception{
+    public void add(@RequestBody String data) throws Exception {
         dao.add(data);
     }
 

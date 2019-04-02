@@ -2,9 +2,7 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import uz.skladapp.dao.PermissionDAO;
-
 import uz.skladapp.model.Permission;
 
 import java.util.Optional;
@@ -40,7 +38,7 @@ public class PermissionController {
     }
 
     @PutMapping("/update/{id}")
-    Permission replace(@RequestBody String attribute, @PathVariable Long id) throws Exception{
+    Permission replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
     }
 }

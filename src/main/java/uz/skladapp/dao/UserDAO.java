@@ -69,7 +69,7 @@ public class UserDAO {
         userRepository.deleteById(id);
     }
 
-    public User update(String string, Long id) throws Exception{
+    public User update(String string, Long id) throws Exception {
         boolean isSupervisor = false;
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(string);

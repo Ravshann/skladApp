@@ -38,7 +38,7 @@ public class ProductController {
     }
 
     @PutMapping("/update/{id}")
-    Product replace(@RequestBody String attribute, @PathVariable Long id) throws Exception{
+    Product replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
     }
 }

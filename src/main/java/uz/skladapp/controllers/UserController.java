@@ -3,9 +3,7 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.UserDAO;
-import uz.skladapp.model.Role;
 import uz.skladapp.model.User;
-import uz.skladapp.model.repositories.UserRepository;
 
 import java.util.Optional;
 
@@ -39,7 +37,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    User replace(@RequestBody String user, @PathVariable Long id) throws Exception{
+    User replace(@RequestBody String user, @PathVariable Long id) throws Exception {
         return dao.update(user, id);
     }
 }

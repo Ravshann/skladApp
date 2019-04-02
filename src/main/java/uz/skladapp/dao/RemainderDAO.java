@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import uz.skladapp.model.Product;
 import uz.skladapp.model.StorageProduct;
 import uz.skladapp.model.repositories.ProductRepository;
-import uz.skladapp.model.repositories.StorageRepository;
 import uz.skladapp.model.special_models.Remainder;
 import uz.skladapp.model.special_models.StorageQuantity;
 
@@ -20,27 +19,27 @@ public class RemainderDAO {
     private ProductRepository productRepository;
 
     public List<Remainder> getAll() {
-        List<Product> products=  productRepository.findAll();
+        List<Product> products = productRepository.findAll();
         List<Remainder> remainderList = new ArrayList<>();
-        for (Product product: products){
+        for (Product product : products) {
             remainderList.add(getList(product.getProduct_ID().toString()));
         }
         return remainderList;
     }
 
     public Remainder getList(String id) {
-        float total=0;
+        float total = 0;
         Remainder remainder = new Remainder();
         Optional<Product> product = productRepository.findById(Long.valueOf(id));
         List<StorageProduct> storages = product.get().getStorages();
         List<StorageQuantity> quantities = new ArrayList<>();
-        for (StorageProduct association : storages){
+        for (StorageProduct association : storages) {
             StorageQuantity object = new StorageQuantity();
             object.setQuantity(association.getCurrent_quantity());
             object.setStorageID(association.getStorage_ID());
             object.setStorageName(association.getStorage().getStorage_name());
             quantities.add(object);
-            total+=association.getCurrent_quantity();
+            total += association.getCurrent_quantity();
         }
 
         remainder.setProductID(Long.valueOf(id));

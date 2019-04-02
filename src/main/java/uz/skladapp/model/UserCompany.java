@@ -9,7 +9,7 @@ import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
-@Table(name="USER_COMPANY")
+@Table(name = "USER_COMPANY")
 @IdClass(UserCompanyID.class)
 public class UserCompany {
     @Id

@@ -4,13 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ResponseBody;
 import uz.skladapp.model.Department;
-import uz.skladapp.model.Role;
 import uz.skladapp.model.Storage;
 import uz.skladapp.model.User;
 import uz.skladapp.model.repositories.DepartmentRepository;
-import uz.skladapp.model.repositories.RoleRepository;
 import uz.skladapp.model.repositories.StorageRepository;
 import uz.skladapp.model.repositories.UserRepository;
 
@@ -28,23 +25,22 @@ public class StorageDAO {
     private UserRepository userRepository;
 
 
-
     public Iterable<Storage> getStorageList() {
         return storageRepository.findAll();
     }
 
-    public Optional<Storage> getStorageByID(Long id){
-        Optional<Storage> storage= storageRepository.findById(id);
+    public Optional<Storage> getStorageByID(Long id) {
+        Optional<Storage> storage = storageRepository.findById(id);
         return storage;
     }
 
-    public void saveStorage(String newText) throws Exception{
+    public void saveStorage(String newText) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(newText);
         Long d_id = Long.valueOf(json.get("department_ID").toString());
         Optional<Department> department = departmentRepository.findById(d_id);
         Long u_id = Long.valueOf(json.get("storage_manager_ID").toString());
-        Optional<User> user= userRepository.findById(u_id);
+        Optional<User> user = userRepository.findById(u_id);
 
         Storage newStorage = new Storage();
 
@@ -60,13 +56,13 @@ public class StorageDAO {
         storageRepository.deleteById(id);
     }
 
-    public Storage update(String string, Long id) throws Exception{
+    public Storage update(String string, Long id) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(string);
         Long d_id = Long.valueOf(json.get("department_ID").toString());
         Optional<Department> department = departmentRepository.findById(d_id);
         Long u_id = Long.valueOf(json.get("storage_manager_ID").toString());
-        Optional<User> user= userRepository.findById(u_id);
+        Optional<User> user = userRepository.findById(u_id);
         return storageRepository.findById(id)
                 .map(storage -> {
                     storage.setAddress(json.get("address").asText());

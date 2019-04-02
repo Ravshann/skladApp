@@ -30,7 +30,7 @@ public class StorageProductID implements Serializable {
     // needed for spring
     @Override
     public int hashCode() {
-        return (int)(storage_ID + product_ID);
+        return (int) (storage_ID + product_ID);
     }
 
     @Override

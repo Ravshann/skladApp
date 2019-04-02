@@ -3,7 +3,9 @@ package uz.skladapp.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.util.Date;;
+import java.util.Date;
+
+;
 
 @Entity
 @Table(name = "INOUT_RECORD")
@@ -17,7 +19,15 @@ public class InOutRecord {
     private String inout_type;
 
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @OneToOne
+    @JoinColumn(name = "client_ID")
+    private Client client_ID;
+
+    @OneToOne
+    @JoinColumn(name = "supplier_ID")
+    private Supplier supplier_ID;
+
+    @JsonFormat(pattern = "yyyy-MM-dd") // add this to get hour precision ====>>>>> hh:mm:ss
     @Temporal(TemporalType.TIMESTAMP)
     private Date record_time;
 
@@ -35,7 +45,23 @@ public class InOutRecord {
 
     public void setRecord_time(Date record_time) {
         this.record_time = record_time;
-        //this.record_time = new Date(record_time.getTime());
+    }
+
+
+    public Client getClient_ID() {
+        return client_ID;
+    }
+
+    public void setClient_ID(Client client_ID) {
+        this.client_ID = client_ID;
+    }
+
+    public Supplier getSupplier_ID() {
+        return supplier_ID;
+    }
+
+    public void setSupplier_ID(Supplier supplier_ID) {
+        this.supplier_ID = supplier_ID;
     }
 
     public Long getRecord_ID() {

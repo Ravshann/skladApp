@@ -1,7 +1,6 @@
 package uz.skladapp.model.ID_classes;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class DepartmentClientID implements Serializable {
     private long department_ID;
@@ -25,7 +24,7 @@ public class DepartmentClientID implements Serializable {
 
     //this is needed for  IDclasses
     public int hashCode() {
-        return (int)(department_ID+client_ID);
+        return (int) (department_ID + client_ID);
     }
 
     public boolean equals(Object object) {

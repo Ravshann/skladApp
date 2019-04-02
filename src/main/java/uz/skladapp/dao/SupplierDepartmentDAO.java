@@ -43,7 +43,7 @@ public class SupplierDepartmentDAO {
         supplierRepository.save(supplier.get());
     }
 
-    public void delete(String object) throws Exception{
+    public void delete(String object) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(object);
         Long id_r = Long.valueOf(json.get("supplier_ID").toString());
