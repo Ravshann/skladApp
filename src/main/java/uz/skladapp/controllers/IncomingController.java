@@ -1,9 +1,7 @@
 package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.IncomingDAO;
 import uz.skladapp.model.special_models.Incoming;
 
@@ -20,4 +18,12 @@ public class IncomingController {
     List<Incoming> getList() {
         return dao.getAllIncomingRecords();
     }
+
+    @PostMapping(value = "/save")
+    public void save(@RequestBody String data) throws Exception{
+
+        dao.save(data);
+    }
+
+
 }

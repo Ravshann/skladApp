@@ -1,7 +1,5 @@
 package uz.skladapp.dao;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.InOutRecord;
@@ -15,6 +13,8 @@ import java.util.List;
 public class IncomingDAO {
     @Autowired
     private InOutRecordRepository repository;
+    @Autowired
+    private InOutRecordDAO dao;
 
     public List<Incoming> getAllIncomingRecords() {
         List<Incoming> incomings = new ArrayList<>();
@@ -37,4 +37,7 @@ public class IncomingDAO {
         return incomings;
     }
 
+    public void save(String data) throws Exception {
+        dao.create(data);
+    }
 }

@@ -7,9 +7,9 @@ import uz.skladapp.model.InOutRecord;
 import java.util.List;
 
 public interface InOutRecordRepository extends JpaRepository<InOutRecord, Long> {
-    @Query(value = "SELECT * FROM INOUT_RECORD WHERE INOUT_RECORD.inout_type=\"export\"", nativeQuery = true)
+    @Query(value = "SELECT * FROM INOUT_RECORD WHERE INOUT_RECORD.inout_type_ID=1", nativeQuery = true)
     List<InOutRecord> findAllOutgoings();
 
-    @Query(value = "SELECT * FROM INOUT_RECORD WHERE INOUT_RECORD.inout_type=\"import\"", nativeQuery = true)
+    @Query(value = "SELECT * FROM INOUT_RECORD WHERE INOUT_RECORD.inout_type_ID=2", nativeQuery = true)
     List<InOutRecord> findAllIncomings();
 }

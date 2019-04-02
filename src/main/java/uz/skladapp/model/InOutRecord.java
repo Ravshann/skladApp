@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.util.Date;
 
-;
+
 
 @Entity
 @Table(name = "INOUT_RECORD")
@@ -16,14 +16,18 @@ public class InOutRecord {
 
     private float quantity;
     private float price;
-    private String inout_type;
 
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "inout_type_ID")
+    private InoutType inout_type_ID;
+
+
+    @ManyToOne
     @JoinColumn(name = "client_ID")
     private Client client_ID;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "supplier_ID")
     private Supplier supplier_ID;
 
@@ -88,12 +92,12 @@ public class InOutRecord {
         this.price = price;
     }
 
-    public String getInout_type() {
-        return inout_type;
+    public InoutType getInout_type_ID() {
+        return inout_type_ID;
     }
 
-    public void setInout_type(String inout_type) {
-        this.inout_type = inout_type;
+    public void setInout_type_ID(InoutType inout_type_ID) {
+        this.inout_type_ID = inout_type_ID;
     }
 
     public Storage getStorage_ID() {
