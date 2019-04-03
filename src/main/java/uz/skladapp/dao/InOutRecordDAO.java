@@ -59,18 +59,22 @@ public class InOutRecordDAO {
                 Long c_id = Long.valueOf(json.get("client_ID").toString());
                 Optional<Client> client = clientRepository.findById(c_id);
                 object.setClient_ID(client.get());
-            }
-            else  if(inout_t_id==3){
+            } else if (inout_t_id == 3) {
                 Long c_id = Long.valueOf(json.get("client_ID").toString());
                 Optional<Client> client = clientRepository.findById(c_id);
                 object.setClient_ID(client.get());
                 object.setRecord_note(json.get("note").asText());
+            } else if (inout_t_id == 4) {
+                Long su_id = Long.valueOf(json.get("supplier_ID").toString());
+                Optional<Supplier> supplier = supplierRepository.findById(su_id);
+                object.setSupplier_ID(supplier.get());
+                object.setRecord_note(json.get("note").asText());
             }
+
             Optional<InoutType> inoutType = inoutTypeRepository.findById(inout_t_id);
 
             Long s_id = Long.valueOf(json.get("storage_ID").toString());
             Optional<Storage> storage = storageRepository.findById(s_id);
-
 
             Long p_id = Long.valueOf(json.get("product_ID").toString());
             Optional<Product> product = productRepository.findById(p_id);
@@ -82,14 +86,11 @@ public class InOutRecordDAO {
 //                object.setPrice(Float.valueOf(json.get("price").asText()));
 
 
-
-
             object.setInout_type_ID(inoutType.get());
             object.setStorage_ID(storage.get());
             object.setProduct_ID(product.get());
             object.setRecord_time(date);
             dao.changeCurrentQuantity(storage.get(), product.get(), object.getQuantity(), inoutType.get());
-            //storage.get().changeCurrentQuantity(product.get(), object.getQuantity(), inoutType.get());
 
             inOutRecordRepository.save(object);
         }
@@ -97,15 +98,6 @@ public class InOutRecordDAO {
 
     }
 
-//    public void delete(Long id) {
-//        Optional<InOutRecord> record = inOutRecordRepository.findById(id);
-//        Float quantity = record.get().getQuantity();
-//        InoutType type = record.get().getInout_type_ID();
-//        if (type.getInout_type_ID()==2 && quantity){
-//
-//        }
-//        inOutRecordRepository.deleteById(id);
-//    }
 
     public InOutRecord update(String string, Long id, Long inout_t_id) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
@@ -116,15 +108,14 @@ public class InOutRecordDAO {
         return inOutRecordRepository.findById(id)
                 .map(object -> {
 
-                    Long s_id = Long.valueOf(json.get("storage_ID").toString());
+                    Long s_id = json.get("storage_ID").asLong();
                     Optional<Storage> storage = storageRepository.findById(s_id);
 
-                    Long p_id = (Long) Long.valueOf(json.get("product_ID").toString());
+                    Long p_id = json.get("product_ID").asLong();
                     Optional<Product> product = productRepository.findById(p_id);
 
 
                     //object.setPrice(Float.valueOf(json.get("price").asText()));
-//                    Long inout_t_id = Long.valueOf(json.get("inout_type_ID").asText());
                     Optional<InoutType> inoutType = inoutTypeRepository.findById(inout_t_id);
                     if (inout_t_id == 2) {
                         Long su_id = Long.valueOf(json.get("supplier_ID").toString());
@@ -133,34 +124,37 @@ public class InOutRecordDAO {
 
                         float difference = Float.valueOf(json.get("quantity").asText()) - object.getQuantity();
                         dao.changeCurrentQuantity(storage.get(), product.get(), difference, inoutType.get());
-                      //  storage.get().changeCurrentQuantity(product.get(), difference, inoutType.get());
                         object.setQuantity(Float.valueOf(json.get("quantity").asText()));
-                    }
-                    else if (inout_t_id == 1) {
+                    } else if (inout_t_id == 1) {
                         Long c_id = Long.valueOf(json.get("client_ID").toString());
                         Optional<Client> client = clientRepository.findById(c_id);
                         object.setClient_ID(client.get());
 
                         float difference = Float.valueOf(json.get("quantity").asText()) - object.getQuantity();
                         dao.changeCurrentQuantity(storage.get(), product.get(), difference, inoutType.get());
-                        //storage.get().changeCurrentQuantity(product.get(), difference, inoutType.get());
                         object.setQuantity(Float.valueOf(json.get("quantity").asText()));
-                    }
-                    else if(inout_t_id==3){
+                    } else if (inout_t_id == 3) {
                         Long c_id = Long.valueOf(json.get("client_ID").toString());
                         Optional<Client> client = clientRepository.findById(c_id);
                         object.setClient_ID(client.get());
 
                         float difference = Float.valueOf(json.get("quantity").asText()) - object.getQuantity();
                         dao.changeCurrentQuantity(storage.get(), product.get(), difference, inoutType.get());
-                        //storage.get().changeCurrentQuantity(product.get(), difference, inoutType.get());
+
                         object.setQuantity(Float.valueOf(json.get("quantity").asText()));
 
                         String note = json.get("note").asText();
                         object.setRecord_note(note);
+                    } else if (inout_t_id == 4) {
+                        Long su_id = json.get("supplier_ID").asLong();
+                        Optional<Supplier> supplier = supplierRepository.findById(su_id);
+                        object.setSupplier_ID(supplier.get());
+
+                        float difference = Float.valueOf(json.get("quantity").asText()) - object.getQuantity();
+                        dao.changeCurrentQuantity(storage.get(), product.get(), difference, inoutType.get());
+                        object.setQuantity(Float.valueOf(json.get("quantity").asText()));
                     }
 
-                    // object.setInout_type_ID(inoutType.get());
                     object.setUpdated_time(updated_time);
                     object.setRecord_time(record_time);
                     object.setStorage_ID(storage.get());

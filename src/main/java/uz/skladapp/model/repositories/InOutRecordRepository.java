@@ -15,4 +15,7 @@ public interface InOutRecordRepository extends JpaRepository<InOutRecord, Long> 
 
     @Query(value = "SELECT * FROM INOUT_RECORD WHERE INOUT_RECORD.inout_type_ID=3", nativeQuery = true)
     List<InOutRecord> findAllReturned();
+
+    @Query(value = "SELECT * FROM INOUT_RECORD WHERE INOUT_RECORD.inout_type_ID=4", nativeQuery = true)
+    List<InOutRecord> findAllDefected();
 }

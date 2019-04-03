@@ -111,6 +111,8 @@ public class StorageDAO {
                     } else if (inoutType.getInout_type_name().equals("export") && storageProduct.getCurrent_quantity() >= quantity) {
                         storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() - quantity);
                         storageProduct.setTotal_quantity(storageProduct.getTotal_quantity() - quantity);
+                    }else if(inoutType.getInout_type_name().equals("defected")){
+                        storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() - quantity);
                     }
                 }
 
