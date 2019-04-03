@@ -32,13 +32,4 @@ public class InOutRecordController {
         dao.create(attribute);
     }
 
-    @DeleteMapping("/delete/{id}")
-    void delete(@PathVariable Long id) {
-        dao.delete(id);
-    }
-
-    @PutMapping("/update/{id}")
-    InOutRecord replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
-        return dao.update(attribute, id);
-    }
 }

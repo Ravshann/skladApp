@@ -4,13 +4,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.Department;
-import uz.skladapp.model.Storage;
-import uz.skladapp.model.User;
+import uz.skladapp.model.*;
 import uz.skladapp.model.repositories.DepartmentRepository;
 import uz.skladapp.model.repositories.StorageRepository;
 import uz.skladapp.model.repositories.UserRepository;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Component
@@ -73,5 +73,65 @@ public class StorageDAO {
                     return storageRepository.save(storage);
                 })
                 .get();
+    }
+
+    public void addProduct(Storage storage, Product product, float current_quantity, float price) {
+
+        StorageProduct association = new StorageProduct();
+        association.setProduct(product);
+        association.setStorage(storage);
+        association.setProduct_ID(product.getProduct_ID());
+        association.setStorage_ID(storage.getStorage_ID());
+        association.setCurrent_quantity(current_quantity);
+        association.setTotal_quantity(current_quantity);
+        association.setPrice(price);
+
+        if (storage.getProducts() == null)
+            storage.setProducts( new ArrayList<>());
+
+        storage.getProducts().add(association);
+        // Also add the association object to the other class.
+        product.getStorages().add(association);
+        storageRepository.save(storage);
+    }
+
+    public void changeCurrentQuantity(Storage storage, Product product, Float quantity, InoutType inoutType) {
+        boolean found = false;
+        if (storage.getProducts().isEmpty()) {
+            addProduct(storage,product, quantity, 0);
+        } else {
+            for (Iterator<StorageProduct> iterator = storage.getProducts().iterator(); iterator.hasNext(); ) {
+                StorageProduct storageProduct = iterator.next();
+
+                if (storageProduct.getStorage().equals(storage) && storageProduct.getProduct().equals(product)) {
+                    found = true;
+                    if (inoutType.getInout_type_name().equals("import") || inoutType.getInout_type_name().equals("returned")) {
+                        storageProduct.setCurrent_quantity(quantity + storageProduct.getCurrent_quantity());
+                        storageProduct.setTotal_quantity(quantity + storageProduct.getTotal_quantity());
+                    } else if (inoutType.getInout_type_name().equals("export") && storageProduct.getCurrent_quantity() >= quantity) {
+                        storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() - quantity);
+                        storageProduct.setTotal_quantity(storageProduct.getTotal_quantity() - quantity);
+                    }
+                }
+
+            }
+            if (!found)
+                addProduct(storage,product, quantity, 0);
+        }
+
+
+    }
+    public void removeProduct(Storage storage, Product product) {
+        for (Iterator<StorageProduct> iterator = storage.getProducts().iterator(); iterator.hasNext(); ) {
+            StorageProduct storageProduct = iterator.next();
+
+            if (storageProduct.getStorage().equals(this) && storageProduct.getProduct().equals(product)) {
+                iterator.remove();
+                storageProduct.getProduct().getStorages().remove(storageProduct);
+                storageProduct.setStorage(null);
+                storageProduct.setProduct(null);
+            }
+        }
+        storageRepository.save(storage);
     }
 }

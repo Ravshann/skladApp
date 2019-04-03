@@ -21,6 +21,9 @@ public class StorageProduct {
     @Column(name = "current_quantity")
     private float current_quantity;
 
+    @Column(name = "total_quantity")
+    private float total_quantity;
+
     @Column(name = "price")
     private float price;
 
@@ -96,5 +99,13 @@ public class StorageProduct {
 
     public void setStorage(Storage storage) {
         this.storage = storage;
+    }
+
+    public float getTotal_quantity() {
+        return total_quantity;
+    }
+
+    public void setTotal_quantity(float total_quantity) {
+        this.total_quantity = total_quantity;
     }
 }

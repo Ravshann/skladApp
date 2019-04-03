@@ -21,6 +21,9 @@ public class StorageProductDAO {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private StorageDAO dao;
+
     public List<Product> getList(String id) {
         System.out.println(id);
         Optional<Storage> s = storageRepository.findById(Long.valueOf(id));
@@ -40,8 +43,8 @@ public class StorageProductDAO {
         Optional<Product> product = productRepository.findById(id_p);
         Float quant = Float.valueOf(newJson.get("current_quantity").toString());
         Float price = Float.valueOf(newJson.get("price").toString());
-
-        storage.get().addProduct(product.get(), quant, price);
+        dao.addProduct(storage.get(), product.get(), quant, price);
+       // storage.get().addProduct(product.get(), quant, price);
         productRepository.save(product.get());
 
     }
@@ -59,8 +62,10 @@ public class StorageProductDAO {
                     Optional<Product> product = productRepository.findById(id_p);
                     Float quant = Float.valueOf(json.get("current_quantity").toString());
                     Float price = Float.valueOf(json.get("price").toString());
-                    storage.get().removeProduct(product.get());
-                    storage.get().addProduct(product.get(), quant, price);
+                    dao.removeProduct(storage.get(), product.get());
+                    dao.addProduct(storage.get(), product.get(), quant, price);
+                    //storage.get().removeProduct(product.get());
+                   // storage.get().addProduct(product.get(), quant, price);
                     storageRepository.save(object);
 
 
@@ -76,7 +81,8 @@ public class StorageProductDAO {
         Long id_p = Long.valueOf(json.get("product_ID").toString());
         Optional<Storage> storage = storageRepository.findById(id_s);
         Optional<Product> product = productRepository.findById(id_p);
-        storage.get().removeProduct(product.get());
+        dao.removeProduct(storage.get(), product.get());
+        // storage.get().removeProduct(product.get());
         productRepository.save(product.get());
     }
 }

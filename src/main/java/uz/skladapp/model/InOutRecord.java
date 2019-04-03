@@ -35,6 +35,10 @@ public class InOutRecord {
     @Temporal(TemporalType.TIMESTAMP)
     private Date record_time;
 
+    @JsonFormat(pattern = "yyyy-MM-dd") // add this to get hour precision ====>>>>> hh:mm:ss
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updated_time;
+
     @ManyToOne
     @JoinColumn(name = "storage_ID")
     private Storage storage_ID;
@@ -42,6 +46,8 @@ public class InOutRecord {
     @ManyToOne
     @JoinColumn(name = "product_ID")
     private Product product_ID;
+
+    private String record_note;
 
     public Date getRecord_time() {
         return record_time;
@@ -114,5 +120,21 @@ public class InOutRecord {
 
     public void setProduct_ID(Product product_ID) {
         this.product_ID = product_ID;
+    }
+
+    public Date getUpdated_time() {
+        return updated_time;
+    }
+
+    public void setUpdated_time(Date updated_time) {
+        this.updated_time = updated_time;
+    }
+
+    public String getRecord_note() {
+        return record_note;
+    }
+
+    public void setRecord_note(String record_note) {
+        this.record_note = record_note;
     }
 }

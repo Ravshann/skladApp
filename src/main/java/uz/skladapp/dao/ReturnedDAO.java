@@ -6,24 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.InOutRecord;
 import uz.skladapp.model.repositories.InOutRecordRepository;
-import uz.skladapp.model.special_models.Outgoing;
+import uz.skladapp.model.special_models.Returned;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Component
-public class OutgoingDAO {
+public class ReturnedDAO {
+
     @Autowired
     private InOutRecordRepository repository;
 
     @Autowired
     private InOutRecordDAO dao;
 
-    public List<Outgoing> getAllOutgoingRecords() {
-        List<Outgoing> outgoings = new ArrayList<>();
-        List<InOutRecord> records = repository.findAllOutgoings();
+    public List<Returned> getAllReturnedRecords() {
+        List<Returned> returneds = new ArrayList<>();
+        List<InOutRecord> records = repository.findAllReturned();
         for (InOutRecord record : records) {
-            Outgoing item = new Outgoing();
+            Returned item = new Returned();
             item.setRecord_ID(record.getRecord_ID());
             item.setProduct_ID(record.getProduct_ID().getProduct_ID());
             item.setCategory_ID(record.getProduct_ID().getCategory_ID().getCategory_ID());
@@ -36,9 +36,10 @@ public class OutgoingDAO {
             item.setQuantity(record.getQuantity());
             item.setStorage_name(record.getStorage_ID().getStorage_name());
             item.setStorage_ID(record.getStorage_ID().getStorage_ID());
-            outgoings.add(item);
+            item.setNote(record.getRecord_note());
+            returneds.add(item);
         }
-        return outgoings;
+        return returneds;
     }
 
     public void save(String data) throws Exception {
@@ -49,7 +50,7 @@ public class OutgoingDAO {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(data);
         Long rec_id = json.get("record_ID").asLong();
-        dao.update(data, rec_id, Long.valueOf(1));
+        dao.update(data, rec_id, Long.valueOf(3));
 
 
     }

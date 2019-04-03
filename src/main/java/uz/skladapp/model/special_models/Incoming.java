@@ -9,6 +9,8 @@ public class Incoming {
     private Long record_ID;
     private String product_name;
     private Long product_ID;
+    private String storage_name;
+    private Long storage_ID;
     private String category_name;
     private Long category_ID;
     private Long supplier_ID;
@@ -87,5 +89,21 @@ public class Incoming {
 
     public void setQuantity(Float quantity) {
         this.quantity = quantity;
+    }
+
+    public String getStorage_name() {
+        return storage_name;
+    }
+
+    public void setStorage_name(String storage_name) {
+        this.storage_name = storage_name;
+    }
+
+    public Long getStorage_ID() {
+        return storage_ID;
+    }
+
+    public void setStorage_ID(Long storage_ID) {
+        this.storage_ID = storage_ID;
     }
 }
