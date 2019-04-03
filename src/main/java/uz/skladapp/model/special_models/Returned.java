@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class Outgoing {
+public class Returned {
     private Long record_ID;
     private String product_name;
     private Long product_ID;
@@ -18,14 +18,7 @@ public class Outgoing {
     @JsonFormat(pattern = "yyyy-MM-dd") // add this to get hour precision=====>>> hh:mm:ss
     private Date record_datetime;
     private Float quantity;
-
-    public String getClient_name() {
-        return client_name;
-    }
-
-    public void setClient_name(String client_name) {
-        this.client_name = client_name;
-    }
+    private String note;
 
     public Long getRecord_ID() {
         return record_ID;
@@ -49,6 +42,22 @@ public class Outgoing {
 
     public void setProduct_ID(Long product_ID) {
         this.product_ID = product_ID;
+    }
+
+    public String getStorage_name() {
+        return storage_name;
+    }
+
+    public void setStorage_name(String storage_name) {
+        this.storage_name = storage_name;
+    }
+
+    public Long getStorage_ID() {
+        return storage_ID;
+    }
+
+    public void setStorage_ID(Long storage_ID) {
+        this.storage_ID = storage_ID;
     }
 
     public String getCategory_name() {
@@ -75,6 +84,22 @@ public class Outgoing {
         this.client_region = client_region;
     }
 
+    public String getClient_name() {
+        return client_name;
+    }
+
+    public void setClient_name(String client_name) {
+        this.client_name = client_name;
+    }
+
+    public Long getClient_ID() {
+        return client_ID;
+    }
+
+    public void setClient_ID(Long client_ID) {
+        this.client_ID = client_ID;
+    }
+
     public Date getRecord_datetime() {
         return record_datetime;
     }
@@ -91,27 +116,11 @@ public class Outgoing {
         this.quantity = quantity;
     }
 
-    public String getStorage_name() {
-        return storage_name;
+    public String getNote() {
+        return note;
     }
 
-    public void setStorage_name(String storage_name) {
-        this.storage_name = storage_name;
-    }
-
-    public Long getStorage_ID() {
-        return storage_ID;
-    }
-
-    public void setStorage_ID(Long storage_ID) {
-        this.storage_ID = storage_ID;
-    }
-
-    public Long getClient_ID() {
-        return client_ID;
-    }
-
-    public void setClient_ID(Long client_ID) {
-        this.client_ID = client_ID;
+    public void setNote(String note) {
+        this.note = note;
     }
 }

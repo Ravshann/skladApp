@@ -21,8 +21,12 @@ public class IncomingController {
 
     @PostMapping(value = "/save")
     public void save(@RequestBody String data) throws Exception{
-
         dao.save(data);
+    }
+
+    @PutMapping(value = "/update")
+    public void update(@RequestBody String data) throws Exception{
+        dao.update(data);
     }
 
 

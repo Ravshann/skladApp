@@ -6,40 +6,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.InOutRecord;
 import uz.skladapp.model.repositories.InOutRecordRepository;
-import uz.skladapp.model.special_models.Incoming;
+import uz.skladapp.model.special_models.Returned;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Component
-public class IncomingDAO {
+public class ReturnedDAO {
+
     @Autowired
     private InOutRecordRepository repository;
+
     @Autowired
     private InOutRecordDAO dao;
 
-    public List<Incoming> getAllIncomingRecords() {
-        List<Incoming> incomings = new ArrayList<>();
-        List<InOutRecord> records = repository.findAllIncomings();
-        System.out.println(records);
+    public List<Returned> getAllReturnedRecords() {
+        List<Returned> returneds = new ArrayList<>();
+        List<InOutRecord> records = repository.findAllReturned();
         for (InOutRecord record : records) {
-
-            Incoming item = new Incoming();
+            Returned item = new Returned();
             item.setRecord_ID(record.getRecord_ID());
             item.setProduct_ID(record.getProduct_ID().getProduct_ID());
             item.setCategory_ID(record.getProduct_ID().getCategory_ID().getCategory_ID());
             item.setProduct_name(record.getProduct_ID().getProduct_name());
             item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategory_name());
-            item.setSupplier_ID(record.getSupplier_ID().getSupplier_ID());
+            item.setClient_region(record.getClient_ID().getRegion());
+            item.setClient_ID(record.getClient_ID().getClient_ID());
+            item.setClient_name(record.getClient_ID().getClient_name());
             item.setRecord_datetime(record.getRecord_time());
-            item.setSupplier_name(record.getSupplier_ID().getSupplier_name());
             item.setQuantity(record.getQuantity());
             item.setStorage_name(record.getStorage_ID().getStorage_name());
             item.setStorage_ID(record.getStorage_ID().getStorage_ID());
-
-            incomings.add(item);
+            item.setNote(record.getRecord_note());
+            returneds.add(item);
         }
-        return incomings;
+        return returneds;
     }
 
     public void save(String data) throws Exception {
@@ -50,8 +50,7 @@ public class IncomingDAO {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(data);
         Long rec_id = json.get("record_ID").asLong();
-
-        dao.update(data, rec_id, Long.valueOf(2));
+        dao.update(data, rec_id, Long.valueOf(3));
 
 
     }

@@ -3,20 +3,21 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.OutgoingDAO;
+import uz.skladapp.dao.ReturnedDAO;
 import uz.skladapp.model.special_models.Outgoing;
+import uz.skladapp.model.special_models.Returned;
 
 import java.util.List;
-
 @RestController
-@RequestMapping("/outgoing")
-public class OutgoingController {
+@RequestMapping("/returned")
+public class ReturnedController {
     @Autowired
-    private OutgoingDAO dao;
+    private ReturnedDAO dao;
 
     @RequestMapping(value = "", produces = "application/json")
     public @ResponseBody
-    List<Outgoing> getList() {
-        return dao.getAllOutgoingRecords();
+    List<Returned> getList() {
+        return dao.getAllReturnedRecords();
     }
 
     @PostMapping(value = "/save")
