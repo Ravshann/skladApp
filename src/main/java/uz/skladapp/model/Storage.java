@@ -64,6 +64,17 @@ public class Storage {
         }
     }
 
+
+    public void changeQuantity(Product product, float quantity) {
+        for (Iterator<StorageProduct> iterator = products.iterator(); iterator.hasNext(); ) {
+            StorageProduct storageProduct = iterator.next();
+
+            if (storageProduct.getStorage().equals(this) && storageProduct.getProduct().equals(product)) {
+                storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() + quantity);
+            }
+        }
+    }
+
     public Long getStorage_ID() {
         return storage_ID;
     }

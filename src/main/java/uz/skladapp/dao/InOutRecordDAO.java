@@ -39,36 +39,41 @@ public class InOutRecordDAO {
     public void create(String string) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonArray = mapper.readTree(string);
-        InOutRecord object = new InOutRecord();
-        if (jsonArray.isArray()) {
-            for (final JsonNode json : jsonArray) {
-
-                Long s_id = Long.valueOf(json.get("storage_ID").toString());
-                Optional<Storage> storage = storageRepository.findById(s_id);
-
-                Long su_id = Long.valueOf(json.get("supplier_ID").toString());
-                Optional<Supplier> supplier = supplierRepository.findById(su_id);
 
 
-                Long p_id = Long.valueOf(json.get("product_ID").toString());
-                Optional<Product> product = productRepository.findById(p_id);
+        for (JsonNode json : jsonArray) {
+            InOutRecord object = new InOutRecord();
 
-                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = dateformat.parse(json.get("record_datetime").asText());
+            Long s_id = Long.valueOf(json.get("storage_ID").toString());
+            Optional<Storage> storage = storageRepository.findById(s_id);
 
-                object.setQuantity(Float.valueOf(json.get("quantity").asText()));
+            Long su_id = Long.valueOf(json.get("supplier_ID").toString());
+            Optional<Supplier> supplier = supplierRepository.findById(su_id);
+
+
+            Long p_id = Long.valueOf(json.get("product_ID").toString());
+            Optional<Product> product = productRepository.findById(p_id);
+
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = dateformat.parse(json.get("record_datetime").asText());
+
+            object.setQuantity(Float.valueOf(json.get("quantity").asText()));
 //                object.setPrice(Float.valueOf(json.get("price").asText()));
-                Long inout_t_id = Long.valueOf(json.get("inout_type_ID").asText());
-                Optional<InoutType> inoutType = inoutTypeRepository.findById(inout_t_id);
-                object.setInout_type_ID(inoutType.get());
-                object.setSupplier_ID(supplier.get());
-                object.setStorage_ID(storage.get());
-                object.setProduct_ID(product.get());
-                object.setRecord_time(date);
+            Long inout_t_id = Long.valueOf(json.get("inout_type_ID").asText());
+            Optional<InoutType> inoutType = inoutTypeRepository.findById(inout_t_id);
+            object.setInout_type_ID(inoutType.get());
+            object.setSupplier_ID(supplier.get());
+            object.setStorage_ID(storage.get());
+            object.setProduct_ID(product.get());
+            object.setRecord_time(date);
 
-                inOutRecordRepository.save(object);
-            }
+            //make changes in storage_product as well
+
+            storage.get().changeQuantity(product.get(), object.getQuantity());
+
+            inOutRecordRepository.save(object);
         }
+
 
     }
 

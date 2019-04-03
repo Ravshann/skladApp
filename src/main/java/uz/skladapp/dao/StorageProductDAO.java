@@ -69,6 +69,8 @@ public class StorageProductDAO {
                 .get();
     }
 
+
+
     public void delete(String object) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(object);
