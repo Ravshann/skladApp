@@ -8,9 +8,11 @@ import uz.skladapp.model.*;
 import uz.skladapp.model.repositories.DepartmentRepository;
 import uz.skladapp.model.repositories.StorageRepository;
 import uz.skladapp.model.repositories.UserRepository;
+import uz.skladapp.model.special_models.StorageRaw;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -25,13 +27,34 @@ public class StorageDAO {
     private UserRepository userRepository;
 
 
-    public Iterable<Storage> getStorageList() {
-        return storageRepository.findAll();
+    public Iterable<StorageRaw> getStorageList() {
+        List<Storage> originals = storageRepository.findAll();
+        List<StorageRaw> raws = new ArrayList<>();
+        for (Storage object : originals) {
+            StorageRaw raw = new StorageRaw(
+                    object.getStorage_ID(),
+                    object.getAddress(),
+                    object.getDepartment_ID().getDepartment_ID(),
+                    object.getStorage_manager_ID().getUser_ID(),
+                    object.getStorage_name(),
+                    object.getStorage_phone()
+            );
+            raws.add(raw);
+        }
+        return raws;
+
     }
 
-    public Optional<Storage> getStorageByID(Long id) {
-        Optional<Storage> storage = storageRepository.findById(id);
-        return storage;
+    public StorageRaw getStorageByID(Long id) {
+        Storage object = storageRepository.findById(id).get();
+        StorageRaw raw = new StorageRaw(  object.getStorage_ID(),
+                object.getAddress(),
+                object.getDepartment_ID().getDepartment_ID(),
+                object.getStorage_manager_ID().getUser_ID(),
+                object.getStorage_name(),
+                object.getStorage_phone()
+        );
+        return raw;
     }
 
     public void saveStorage(String newText) throws Exception {

@@ -13,10 +13,10 @@ public class SecurityUtility {
     private static JwtTokenProvider jwtTokenProvider;
 
     public static Map<Object, Object> tokenGenerator(User user){
-        String email = String.valueOf(user.getUsername());
-        String token = jwtTokenProvider.createToken(email);
+        String username = String.valueOf(user.getUsername());
+        String token = jwtTokenProvider.createToken(username);
         Map<Object, Object> model = new HashMap<>();
-        model.put("email", email);
+        model.put("username", username);
         model.put("token", token);
         return model;
     }

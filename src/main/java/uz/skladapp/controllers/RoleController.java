@@ -20,8 +20,8 @@ public class RoleController {
         return dao.getRolesList();
     }
 
-    @GetMapping("/")
-    public Optional<Role> getRole(@RequestParam("id") String id) {
+    @GetMapping("/{id}")
+    public Optional<Role> getRole(@PathVariable("id") String id) {
 
         return dao.getRoleByID(Long.valueOf(id));
     }

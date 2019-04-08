@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.Permission;
 import uz.skladapp.model.repositories.PermissionRepository;
+import uz.skladapp.model.special_models.PermissionRaw;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -14,12 +17,20 @@ public class PermissionDAO {
     @Autowired
     private PermissionRepository repository;
 
-    public Iterable<Permission> getAll() {
-        return repository.findAll();
+    public Iterable<PermissionRaw> getAll() {
+        List<Permission> originals = repository.findAll();
+        List<PermissionRaw> raws = new ArrayList<>();
+        for (Permission object : originals) {
+            PermissionRaw raw = new PermissionRaw(object.getPermission_ID(), object.getPermission_name(), object.getPermission_description());
+            raws.add(raw);
+        }
+        return raws;
     }
 
-    public Optional<Permission> get(Long id) {
-        return repository.findById(id);
+    public PermissionRaw get(Long id) {
+        Permission object = repository.findById(id).get();
+        PermissionRaw raw = new PermissionRaw(object.getPermission_ID(), object.getPermission_name(), object.getPermission_description());
+        return raw;
     }
 
     public void create(String string) throws Exception {

@@ -56,20 +56,4 @@ public class UserCompanyDAO {
 
     }
 
-
-//    public void update(String string, Long id)throws Exception  {
-//        ObjectMapper mapper = new ObjectMapper();
-//        JsonNode json = mapper.readTree(string);
-//        userRepository.findById(id)
-//                .map(object -> {
-//                    Long id_r = Long.valueOf(json.get("user_ID").toString());
-//                    Long id_p = Long.valueOf(json.get("company_ID").toString());
-//                    Optional<User> user = userRepository.findById(id_r);
-//                    Optional<Company> company = companyRepository.findById(id_p);
-//                    user.get().addCompany(company.get());
-//                    userRepository.save(object);
-//                    return 0;
-//                })
-//                .get();
-//    }
 }

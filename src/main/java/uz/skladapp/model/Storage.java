@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Entity
-
 public class Storage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,66 +31,6 @@ public class Storage {
     @JsonManagedReference
     @OneToMany(mappedBy = "storage", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StorageProduct> products;
-
-
-    // Create an association object for the relationship and set its data.
-//    public void addProduct(Product product, float current_quantity, float price) {
-//        StorageProduct association = new StorageProduct();
-//        association.setProduct(product);
-//        association.setStorage(this);
-//        association.setProduct_ID(product.getProduct_ID());
-//        association.setStorage_ID(this.getStorage_ID());
-//        association.setCurrent_quantity(current_quantity);
-//        association.setTotal_quantity(current_quantity);
-//        association.setPrice(price);
-//
-//        if (this.products == null)
-//            this.products = new ArrayList<>();
-//
-//        this.products.add(association);
-//        // Also add the association object to the other class.
-//        product.getStorages().add(association);
-//    }
-//
-//    public void removeProduct(Product product) {
-//        for (Iterator<StorageProduct> iterator = products.iterator(); iterator.hasNext(); ) {
-//            StorageProduct storageProduct = iterator.next();
-//
-//            if (storageProduct.getStorage().equals(this) && storageProduct.getProduct().equals(product)) {
-//                iterator.remove();
-//                storageProduct.getProduct().getStorages().remove(storageProduct);
-//                storageProduct.setStorage(null);
-//                storageProduct.setProduct(null);
-//            }
-//        }
-//    }
-//
-//    public void changeCurrentQuantity(Product product, Float quantity, InoutType inoutType) {
-//        boolean found = false;
-//        if (products.isEmpty()) {
-//            addProduct(product, quantity, 0);
-//        } else {
-//            for (Iterator<StorageProduct> iterator = products.iterator(); iterator.hasNext(); ) {
-//                StorageProduct storageProduct = iterator.next();
-//
-//                if (storageProduct.getStorage().equals(this) && storageProduct.getProduct().equals(product)) {
-//                    found = true;
-//                    if (inoutType.getInout_type_name().equals("import") || inoutType.getInout_type_name().equals("returned")) {
-//                        storageProduct.setCurrent_quantity(quantity + storageProduct.getCurrent_quantity());
-//                        storageProduct.setTotal_quantity(quantity + storageProduct.getTotal_quantity());
-//                    } else if (inoutType.getInout_type_name().equals("export") && storageProduct.getCurrent_quantity() >= quantity) {
-//                        storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() - quantity);
-//                        storageProduct.setTotal_quantity(storageProduct.getTotal_quantity() - quantity);
-//                    }
-//                }
-//
-//            }
-//            if (!found)
-//                addProduct(product, quantity, 0);
-//        }
-//
-//
-//    }
 
 
     public void changeQuantity(Product product, float quantity) {

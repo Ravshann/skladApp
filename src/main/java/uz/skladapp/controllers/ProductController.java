@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.ProductDAO;
 import uz.skladapp.model.Product;
+import uz.skladapp.model.special_models.ProductRaw;
 
 import java.util.Optional;
 
@@ -16,14 +17,14 @@ public class ProductController {
 
     @RequestMapping(value = "", produces = "application/json")
     public @ResponseBody
-    Iterable<Product> getList() {
+    Iterable<ProductRaw> getList() {
         return dao.getAll();
     }
 
 
-    @RequestMapping(value = "/", produces = "application/json")
+    @RequestMapping(value = "/{id}", produces = "application/json")
     public @ResponseBody
-    Optional<Product> get(@RequestParam("id") String id) {
+    ProductRaw get(@PathVariable("id") String id) {
         return dao.get(Long.valueOf(id));
     }
 

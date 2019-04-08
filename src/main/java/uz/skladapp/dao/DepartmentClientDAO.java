@@ -9,6 +9,7 @@ import uz.skladapp.model.Department;
 import uz.skladapp.model.DepartmentClient;
 import uz.skladapp.model.repositories.ClientRepository;
 import uz.skladapp.model.repositories.DepartmentRepository;
+import uz.skladapp.model.special_models.ClientRaw;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,19 @@ public class DepartmentClientDAO {
         List<Client> clients = new ArrayList<>();
         for (DepartmentClient departmentClient : department.get().getClients()) {
             clients.add(departmentClient.getClient());
+
+        }
+        return clients;
+    }
+
+    public List<ClientRaw> getRawList(Long id) {
+        Optional<Department> department = departmentRepository.findById(id);
+        List<ClientRaw> clients = new ArrayList<>();
+        for (DepartmentClient departmentClient : department.get().getClients()) {
+            clients.add(new ClientRaw(
+                    departmentClient.getClient().getClient_ID(),
+                    departmentClient.getClient().getClient_name(),
+                    departmentClient.getClient().getRegion()));
 
         }
         return clients;

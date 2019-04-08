@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.PermissionDAO;
 import uz.skladapp.model.Permission;
+import uz.skladapp.model.special_models.PermissionRaw;
 
 import java.util.Optional;
 
@@ -16,14 +17,14 @@ public class PermissionController {
 
     @RequestMapping(value = "", produces = "application/json")
     public @ResponseBody
-    Iterable<Permission> getList() {
+    Iterable<PermissionRaw> getList() {
         return dao.getAll();
     }
 
 
-    @RequestMapping(value = "/", produces = "application/json")
+    @RequestMapping(value = "/{id}", produces = "application/json")
     public @ResponseBody
-    Optional<Permission> get(@RequestParam("id") String id) {
+    PermissionRaw get(@PathVariable("id") String id) {
         return dao.get(Long.valueOf(id));
     }
 

@@ -9,6 +9,7 @@ import uz.skladapp.model.Role;
 import uz.skladapp.model.RolePermission;
 import uz.skladapp.model.repositories.PermissionRepository;
 import uz.skladapp.model.repositories.RoleRepository;
+import uz.skladapp.model.special_models.PermissionRaw;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +23,14 @@ public class RolePermissionsDAO {
     private PermissionRepository permissionRepository;
 
 
-    public List<Permission> getList(Long id) {
+    public List<PermissionRaw> getList(Long id) {
         Optional<Role> role = roleRepository.findById(Long.valueOf(id));
-        List<Permission> permissions = new ArrayList<>();
+        List<PermissionRaw> permissions = new ArrayList<>();
         for (RolePermission rolePermission : role.get().getPermissions()) {
-            permissions.add(rolePermission.getPermission());
+            permissions.add(new PermissionRaw(
+                    rolePermission.getPermission().getPermission_ID(),
+                    rolePermission.getPermission().getPermission_name(),
+                    rolePermission.getPermission().getPermission_description()));
 
         }
         return permissions;

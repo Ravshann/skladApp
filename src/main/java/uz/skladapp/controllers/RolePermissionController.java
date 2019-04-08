@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.RolePermissionsDAO;
 import uz.skladapp.model.Permission;
+import uz.skladapp.model.special_models.PermissionRaw;
 
 import java.util.List;
 
@@ -15,14 +16,14 @@ public class RolePermissionController {
     private RolePermissionsDAO dao;
 
 
-    @RequestMapping("/{role}")
-    public List<Permission> getPersmissionsOfRole(@PathVariable("role") String id) {
+    @RequestMapping("/{role_id}")
+    public List<PermissionRaw> getPersmissionsOfRole(@PathVariable("role_id") String id) {
         return dao.getList(Long.valueOf(id));
     }
 
-    @PostMapping("/add")
-    public void addPermission(@RequestBody String ids) throws Exception {
-        dao.addPermission(ids);
+    @PostMapping("/save")
+    public void addPermission(@RequestBody String data) throws Exception {
+        dao.addPermission(data);
     }
 
     @PostMapping("/delete")

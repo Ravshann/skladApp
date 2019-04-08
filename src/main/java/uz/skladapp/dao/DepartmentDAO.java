@@ -10,7 +10,10 @@ import uz.skladapp.model.User;
 import uz.skladapp.model.repositories.CompanyRepository;
 import uz.skladapp.model.repositories.DepartmentRepository;
 import uz.skladapp.model.repositories.UserRepository;
+import uz.skladapp.model.special_models.DepartmentRaw;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -26,15 +29,37 @@ public class DepartmentDAO {
     private UserRepository userRepository;
 
 
-    public Optional<Department> getDepartmentByID(Long id) {
+    public DepartmentRaw getDepartmentByID(Long id) {
 
-        Optional<Department> dep = departmentRepository.findById(id);
-        System.out.println(dep.toString());
-        return dep;
+        Department object = departmentRepository.findById(id).get();
+        DepartmentRaw raw = new DepartmentRaw(
+                object.getDepartment_ID(),
+                object.getName(),
+                object.getDescription(),
+                object.getAddress(),
+                object.getCompany_ID().getCompany_ID(),
+                object.getDepartment_manager_ID().getUser_ID(),
+                object.getDepartment_phone()
+        );
+        return raw;
     }
 
-    public Iterable<Department> getAllDepartments() {
-        return departmentRepository.findAll();
+    public Iterable<DepartmentRaw> getAllDepartments() {
+        List<Department> originals = departmentRepository.findAll();
+        List<DepartmentRaw> raws = new ArrayList<>();
+        for (Department object : originals) {
+            DepartmentRaw raw = new DepartmentRaw(
+                    object.getDepartment_ID(),
+                    object.getName(),
+                    object.getDescription(),
+                    object.getAddress(),
+                    object.getCompany_ID().getCompany_ID(),
+                    object.getDepartment_manager_ID().getUser_ID(),
+                    object.getDepartment_phone()
+            );
+            raws.add(raw);
+        }
+        return raws;
     }
 
 

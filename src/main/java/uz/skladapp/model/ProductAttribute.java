@@ -8,15 +8,6 @@ import javax.persistence.*;
 import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
 
-/*
-======================
-note!
-do not use lombok library if you are going to access getter methods of object later
-
-======================
-
- */
-
 
 @Entity
 @Table(name = "PRODUCT_ATTRIBUTE")

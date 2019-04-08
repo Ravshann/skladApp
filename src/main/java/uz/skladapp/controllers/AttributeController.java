@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.AttributeDAO;
 import uz.skladapp.model.Attribute;
+import uz.skladapp.model.special_models.AttributeRaw;
 
 import java.util.Optional;
 
@@ -16,14 +17,13 @@ public class AttributeController {
 
     @RequestMapping(value = "", produces = "application/json")
     public @ResponseBody
-    Iterable<Attribute> getList() {
+    Iterable<AttributeRaw> getList() {
         return dao.getAllAttributes();
     }
 
-
     @RequestMapping(value = "/{id}", produces = "application/json")
     public @ResponseBody
-    Optional<Attribute> get(@PathVariable String id) {
+    AttributeRaw get(@PathVariable String id) {
         return dao.getAttribute(Long.valueOf(id));
     }
 

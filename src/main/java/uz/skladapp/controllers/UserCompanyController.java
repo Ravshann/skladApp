@@ -19,8 +19,8 @@ public class UserCompanyController {
     }
 
     @PostMapping("/add")
-    public void addCompany(@RequestBody String ids) throws Exception {
-        dao.addCompany(ids);
+    public void addCompany(@RequestBody String data) throws Exception {
+        dao.addCompany(data);
     }
 
     @PostMapping("/delete")

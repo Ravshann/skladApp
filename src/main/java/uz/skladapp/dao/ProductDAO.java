@@ -6,9 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.Category;
 import uz.skladapp.model.Product;
+import uz.skladapp.model.ProductAttribute;
 import uz.skladapp.model.repositories.CategoryRepository;
 import uz.skladapp.model.repositories.ProductRepository;
+import uz.skladapp.model.special_models.AttributeRaw;
+import uz.skladapp.model.special_models.CategoryRaw;
+import uz.skladapp.model.special_models.ProductRaw;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -21,12 +27,49 @@ public class ProductDAO {
     private CategoryRepository categoryRepository;
 
 
-    public Optional<Product> get(Long id) {
-        return repository.findById(id);
+    public ProductRaw get(Long id) {
+        Product object = repository.findById(id).get();
+        CategoryRaw categoryRaw = new CategoryRaw(
+                object.getCategory_ID().getCategory_ID(),
+                object.getCategory_ID().getCategory_name(),
+                object.getCategory_ID().getCategory_notes(),
+                object.getCategory_ID().getUnit_measure());
+        List<AttributeRaw> attributes = new ArrayList<>();
+        for (ProductAttribute attribute : object.getAttributes()) {
+            AttributeRaw attributeRaw = new AttributeRaw(
+                    attribute.getAttribute_ID(),
+                    attribute.getAttribute().getAttribute_name());
+            attributeRaw.setValue(attribute.getValue());
+            attributes.add(attributeRaw);
+        }
+
+        ProductRaw raw = new ProductRaw(object.getProduct_ID(), object.getProduct_name(), categoryRaw, attributes);
+        return raw;
     }
 
-    public Iterable<Product> getAll() {
-        return repository.findAll();
+    public Iterable<ProductRaw> getAll() {
+        List<Product> originals = repository.findAll();
+        List<ProductRaw> raws = new ArrayList<>();
+        for (Product object : originals) {
+            CategoryRaw categoryRaw = new CategoryRaw(
+                    object.getCategory_ID().getCategory_ID(),
+                    object.getCategory_ID().getCategory_name(),
+                    object.getCategory_ID().getCategory_notes(),
+                    object.getCategory_ID().getUnit_measure());
+            List<AttributeRaw> attributes = new ArrayList<>();
+            for (ProductAttribute attribute : object.getAttributes()) {
+                AttributeRaw attributeRaw = new AttributeRaw(
+                        attribute.getAttribute_ID(),
+                        attribute.getAttribute().getAttribute_name());
+                attributeRaw.setValue(attribute.getValue());
+                attributes.add(attributeRaw);
+            }
+
+            ProductRaw raw = new ProductRaw(object.getProduct_ID(), object.getProduct_name(), categoryRaw, attributes);
+            raws.add(raw);
+        }
+        return raws;
+
     }
 
 

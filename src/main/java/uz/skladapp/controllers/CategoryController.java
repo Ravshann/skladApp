@@ -6,6 +6,7 @@ import uz.skladapp.dao.CategoryDAO;
 
 import uz.skladapp.model.Attribute;
 import uz.skladapp.model.Category;
+import uz.skladapp.model.special_models.CategoryRaw;
 
 import java.util.Optional;
 
@@ -18,14 +19,14 @@ public class CategoryController {
 
     @RequestMapping(value = "", produces = "application/json")
     public @ResponseBody
-    Iterable<Category> getList() {
+    Iterable<CategoryRaw> getList() {
         return dao.getAll();
     }
 
 
-    @RequestMapping(value = "/", produces = "application/json")
+    @RequestMapping(value = "/{id}", produces = "application/json")
     public @ResponseBody
-    Optional<Category> get(@RequestParam("id") String id) {
+    CategoryRaw get(@PathVariable("id") String id) {
         return dao.get(Long.valueOf(id));
     }
 

@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.Category;
 import uz.skladapp.model.repositories.CategoryRepository;
+import uz.skladapp.model.special_models.CategoryRaw;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -14,12 +17,27 @@ public class CategoryDAO {
     @Autowired
     private CategoryRepository repository;
 
-    public Iterable<Category> getAll() {
-        return repository.findAll();
+    public Iterable<CategoryRaw> getAll() {
+        List<Category> originals = repository.findAll();
+        List<CategoryRaw> raws = new ArrayList<>();
+        for (Category object : originals) {
+            CategoryRaw raw = new CategoryRaw(object.getCategory_ID(), object.getCategory_name(), object.getCategory_notes(), object.getUnit_measure());
+            if (object.getParent_category_ID() != null) {
+                raw.setParent_category_ID(object.getParent_category_ID().getCategory_ID());
+            }
+            raws.add(raw);
+        }
+        return raws;
     }
 
-    public Optional<Category> get(Long id) {
-        return repository.findById(id);
+    public CategoryRaw get(Long id) {
+
+        Optional<Category> object = repository.findById(id);
+        CategoryRaw raw = new CategoryRaw(object.get().getCategory_ID(), object.get().getCategory_name(), object.get().getCategory_notes(), object.get().getUnit_measure());
+        if (object.get().getParent_category_ID() != null) {
+            raw.setParent_category_ID(object.get().getParent_category_ID().getCategory_ID());
+        }
+        return raw;
     }
 
     public void create(String string) throws Exception {

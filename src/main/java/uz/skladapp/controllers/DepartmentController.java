@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.DepartmentDAO;
 import uz.skladapp.model.Department;
+import uz.skladapp.model.special_models.DepartmentRaw;
 
 import java.util.Optional;
 
@@ -16,14 +17,14 @@ public class DepartmentController {
 
     @RequestMapping(value = "", produces = "application/json")
     public @ResponseBody
-    Iterable<Department> getList() {
+    Iterable<DepartmentRaw> getList() {
         return dao.getAllDepartments();
     }
 
 
-    @RequestMapping(value = "/", produces = "application/json")
+    @RequestMapping(value = "/{id}", produces = "application/json")
     public @ResponseBody
-    Optional<Department> get(@RequestParam("id") String id) {
+    DepartmentRaw get(@PathVariable("id") String id) {
         return dao.getDepartmentByID(Long.valueOf(id));
     }
 

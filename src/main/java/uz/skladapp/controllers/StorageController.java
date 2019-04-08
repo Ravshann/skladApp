@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.StorageDAO;
 import uz.skladapp.model.Storage;
+import uz.skladapp.model.special_models.StorageRaw;
 
 import java.util.Optional;
 
@@ -15,12 +16,12 @@ public class StorageController {
 
     @RequestMapping("")
     public @ResponseBody
-    Iterable<Storage> getAllStorages() {
+    Iterable<StorageRaw> getAllStorages() {
         return dao.getStorageList();
     }
 
-    @GetMapping("/")
-    public Optional<Storage> getStorage(@RequestParam("id") String id) {
+    @GetMapping("/{id}")
+    public StorageRaw getStorage(@PathVariable("id") String id) {
         return dao.getStorageByID(Long.valueOf(id));
     }
 

@@ -55,10 +55,12 @@ public class InOutRecordDAO {
                 Long su_id = Long.valueOf(json.get("supplier_ID").toString());
                 Optional<Supplier> supplier = supplierRepository.findById(su_id);
                 object.setSupplier_ID(supplier.get());
+                object.setRecord_note(json.get("note").asText());
             } else if (inout_t_id == 1) {
                 Long c_id = Long.valueOf(json.get("client_ID").toString());
                 Optional<Client> client = clientRepository.findById(c_id);
                 object.setClient_ID(client.get());
+                object.setRecord_note(json.get("note").asText());
             } else if (inout_t_id == 3) {
                 Long c_id = Long.valueOf(json.get("client_ID").toString());
                 Optional<Client> client = clientRepository.findById(c_id);

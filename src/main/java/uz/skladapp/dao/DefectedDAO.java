@@ -49,6 +49,8 @@ public class DefectedDAO {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(data);
         Long rec_id = json.get("record_ID").asLong();
+
+        //here value 4 means id of defected type of product
         dao.update(data, rec_id, Long.valueOf(4));
 
 

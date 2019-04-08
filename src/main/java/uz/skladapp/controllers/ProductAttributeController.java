@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.ProductAttributeDAO;
 import uz.skladapp.model.Attribute;
+import uz.skladapp.model.special_models.AttributeRaw;
 
 import java.util.List;
 
@@ -14,23 +15,23 @@ public class ProductAttributeController {
     private ProductAttributeDAO dao;
 
     @RequestMapping("/{pro_id}")
-    public List<Attribute> getListProducts(@PathVariable("pro_id") String id) {
+    public List<AttributeRaw> getListProducts(@PathVariable("pro_id") String id) {
         return dao.getAttributesList(Long.valueOf(id));
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/save")
     public void add(@RequestBody String object) throws Exception {
         dao.add(object);
     }
 
     @PostMapping("/delete")
-    void replace(@RequestBody String object) throws Exception {
+    void delete(@RequestBody String object) throws Exception {
         dao.delete(object);
     }
 
-    @PutMapping("/update/{id}")
-    void replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
-        dao.update(attribute, id);
+    @PostMapping("/update")
+    void replace(@RequestBody String attribute) throws Exception {
+        dao.update(attribute);
     }
 
 

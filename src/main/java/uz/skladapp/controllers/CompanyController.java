@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.CompanyDAO;
 import uz.skladapp.model.Company;
-
-import java.util.Optional;
+import uz.skladapp.model.special_models.CompanyRaw;
 
 @RestController
 @RequestMapping("/companies")
@@ -17,14 +16,14 @@ public class CompanyController {
 
     @RequestMapping(value = "", produces = "application/json")
     public @ResponseBody
-    Iterable<Company> getList() {
+    Iterable<CompanyRaw> getList() {
         return dao.getAll();
     }
 
 
-    @RequestMapping(value = "/", produces = "application/json")
+    @RequestMapping(value = "/{id}", produces = "application/json")
     public @ResponseBody
-    Optional<Company> get(@RequestParam("id") String id) {
+    CompanyRaw get(@PathVariable("id") String id) {
         return dao.get(Long.valueOf(id));
     }
 
@@ -39,7 +38,7 @@ public class CompanyController {
     }
 
     @PutMapping("/update/{id}")
-    Company replace(@RequestBody String attribute, @PathVariable Long id) throws Exception{
+    Company replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
     }
 }

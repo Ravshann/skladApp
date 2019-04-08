@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.SupplierDepartmentDAO;
 import uz.skladapp.model.Department;
+import uz.skladapp.model.special_models.DepartmentRaw;
 
 import java.util.List;
 
@@ -14,12 +15,12 @@ public class SupplierDepartmentController {
     private SupplierDepartmentDAO dao;
 
 
-    @RequestMapping("/{supplier_id}")
-    public List<Department> getDepartments(@PathVariable("supplier_id") String id) {
-        return dao.getList(Long.valueOf(id));
+    @RequestMapping("/{id}")
+    public List<DepartmentRaw> getDepartments(@PathVariable("id") String supplier_id) {
+        return dao.getList(Long.valueOf(supplier_id));
     }
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     public void add(@RequestBody String data) throws Exception {
         dao.add(data);
     }

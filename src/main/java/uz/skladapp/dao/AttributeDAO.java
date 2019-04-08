@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.Attribute;
 import uz.skladapp.model.repositories.AttributeRepository;
+import uz.skladapp.model.special_models.AttributeRaw;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -14,14 +17,20 @@ public class AttributeDAO {
     @Autowired
     private AttributeRepository repository;
 
-    public Optional<Attribute> getAttribute(Long id) {
+    public AttributeRaw getAttribute(Long id) {
 
         Optional<Attribute> attribute = repository.findById(id);
-        return attribute;
+        return new AttributeRaw(attribute.get().getAttribute_ID(), attribute.get().getAttribute_name());
     }
 
-    public Iterable<Attribute> getAllAttributes() {
-        return repository.findAll();
+    public Iterable<AttributeRaw> getAllAttributes() {
+        List<Attribute> originals = repository.findAll();
+        List<AttributeRaw> raws = new ArrayList<>();
+        for (Attribute object: originals)
+        {
+            raws.add(new AttributeRaw(object.getAttribute_ID(), object.getAttribute_name()));
+        }
+        return raws;
     }
 
 
@@ -29,7 +38,7 @@ public class AttributeDAO {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(string);
         Attribute attribute = new Attribute();
-        attribute.setAttribute_name(json.get("name").asText());
+        attribute.setAttribute_name(json.get("attribute_name").asText());
         repository.save(attribute);
     }
 
@@ -42,7 +51,7 @@ public class AttributeDAO {
         JsonNode json = mapper.readTree(string);
         return repository.findById(id)
                 .map(attribute -> {
-                    attribute.setAttribute_name(json.get("name").asText());
+                    attribute.setAttribute_name(json.get("attribute_name").asText());
                     return repository.save(attribute);
                 })
                 .get();

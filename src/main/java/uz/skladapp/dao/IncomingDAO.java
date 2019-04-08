@@ -21,7 +21,6 @@ public class IncomingDAO {
     public List<Incoming> getAllIncomingRecords() {
         List<Incoming> incomings = new ArrayList<>();
         List<InOutRecord> records = repository.findAllIncomings();
-        System.out.println(records);
         for (InOutRecord record : records) {
 
             Incoming item = new Incoming();

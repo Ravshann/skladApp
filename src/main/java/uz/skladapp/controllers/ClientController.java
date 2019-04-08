@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.ClientDAO;
 import uz.skladapp.model.Client;
+import uz.skladapp.model.special_models.ClientRaw;
 
 import java.util.Optional;
 
@@ -16,14 +17,13 @@ public class ClientController {
 
     @RequestMapping(value = "", produces = "application/json")
     public @ResponseBody
-    Iterable<Client> getList() {
+    Iterable<ClientRaw> getList() {
         return dao.getAll();
     }
 
 
-    @RequestMapping(value = "/", produces = "application/json")
-    public @ResponseBody
-    Optional<Client> get(@RequestParam("id") String id) {
+    @RequestMapping(value = "/{id}", produces = "application/json")
+    public @ResponseBody ClientRaw get(@PathVariable("id") String id) {
         return dao.get(Long.valueOf(id));
     }
 

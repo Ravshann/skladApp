@@ -20,15 +20,15 @@ public class UserController {
         return dao.getUserList();
     }
 
-    @RequestMapping("/")
-    public Optional<User> getUser(@RequestParam("id") String id) {
+    @RequestMapping("/{id}")
+    public Optional<User> getUser(@PathVariable("id") String id) {
 
         return dao.getUser(Long.valueOf(id));
     }
 
     @PostMapping("/save")
-    public void createStorage(@RequestBody String newUserText) throws Exception {
-        dao.saveUser(newUserText);
+    public void create(@RequestBody String data) throws Exception {
+        dao.saveUser(data);
     }
 
     @DeleteMapping("/delete/{id}")
