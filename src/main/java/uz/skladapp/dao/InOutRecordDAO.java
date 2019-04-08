@@ -3,6 +3,8 @@ package uz.skladapp.dao;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.*;
 import uz.skladapp.model.repositories.*;
@@ -36,8 +38,11 @@ public class InOutRecordDAO {
         return object;
     }
 
-    public Iterable<InOutRecord> getList() {
-        return inOutRecordRepository.findAll();
+    public Iterable<InOutRecord> getList(int size, int index) {
+        Pageable limit = PageRequest.of(index, size);
+        return inOutRecordRepository.findAll(limit);
+//        return inOutRecordRepository.findAll();
+
     }
 
 

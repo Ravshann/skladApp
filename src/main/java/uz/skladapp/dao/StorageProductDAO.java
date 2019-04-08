@@ -5,10 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.Product;
+import uz.skladapp.model.ProductAttribute;
 import uz.skladapp.model.Storage;
 import uz.skladapp.model.StorageProduct;
 import uz.skladapp.model.repositories.ProductRepository;
 import uz.skladapp.model.repositories.StorageRepository;
+import uz.skladapp.model.special_models.AttributeRaw;
+import uz.skladapp.model.special_models.CategoryRaw;
+import uz.skladapp.model.special_models.ProductRaw;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +28,30 @@ public class StorageProductDAO {
     @Autowired
     private StorageDAO dao;
 
-    public List<Product> getList(String id) {
-        System.out.println(id);
-        Optional<Storage> s = storageRepository.findById(Long.valueOf(id));
-        List<Product> products = new ArrayList<>();
-        for (StorageProduct pro : s.get().getProducts()) {
-            products.add(pro.getProduct());
+    public List<ProductRaw> getList(String id) {
+
+        Storage s = storageRepository.findById(Long.valueOf(id)).get();
+        List<ProductRaw> raws = new ArrayList<>();
+        for (StorageProduct object : s.getProducts()) {
+            CategoryRaw categoryRaw = new CategoryRaw(
+                    object.getProduct().getCategory_ID().getCategory_ID(),
+                    object.getProduct().getCategory_ID().getCategory_name(),
+                    object.getProduct().getCategory_ID().getCategory_notes(),
+                    object.getProduct().getCategory_ID().getUnit_measure());
+            List<AttributeRaw> attributes = new ArrayList<>();
+            for (ProductAttribute attribute : object.getProduct().getAttributes()) {
+                AttributeRaw attributeRaw = new AttributeRaw(
+                        attribute.getAttribute_ID(),
+                        attribute.getAttribute().getAttribute_name());
+                attributeRaw.setValue(attribute.getValue());
+                attributes.add(attributeRaw);
+            }
+
+            ProductRaw raw = new ProductRaw(object.getProduct_ID(), object.getProduct().getProduct_name(), categoryRaw, attributes);
+            raws.add(raw);
         }
-        return products;
+        return raws;
+
     }
 
     public void addProducts(String body) throws Exception {

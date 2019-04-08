@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.StorageProductDAO;
 import uz.skladapp.model.Product;
+import uz.skladapp.model.special_models.ProductRaw;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class StorageProductController {
 
 
     @RequestMapping(value = "/{store}", produces = "application/json")
-    public List<Product> getListProducts(@PathVariable("store") String id) {
+    public List<ProductRaw> getListProducts(@PathVariable("store") String id) {
         return dao.getList(id);
     }
 

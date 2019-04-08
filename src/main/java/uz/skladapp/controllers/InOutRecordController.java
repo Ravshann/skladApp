@@ -16,8 +16,8 @@ public class InOutRecordController {
 
     @RequestMapping(value = "", produces = "application/json")
     public @ResponseBody
-    Iterable<InOutRecord> getList() {
-        return dao.getList();
+    Iterable<InOutRecord> getList(@RequestParam("size") String size,@RequestParam("index") String index ) {
+        return dao.getList(Integer.valueOf(size), Integer.valueOf(index));
     }
 
 
