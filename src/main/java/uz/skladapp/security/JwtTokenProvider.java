@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.User;
+import uz.skladapp.model.pure_models.User;
 import uz.skladapp.model.repositories.UserRepository;
 
 

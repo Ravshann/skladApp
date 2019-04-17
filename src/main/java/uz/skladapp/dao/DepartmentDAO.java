@@ -4,15 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.Company;
-import uz.skladapp.model.Department;
-import uz.skladapp.model.User;
+import uz.skladapp.model.pure_models.*;
 import uz.skladapp.model.repositories.CompanyRepository;
 import uz.skladapp.model.repositories.DepartmentRepository;
 import uz.skladapp.model.repositories.UserRepository;
 import uz.skladapp.model.special_models.DepartmentRaw;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,5 +110,36 @@ public class DepartmentDAO {
                     return departmentRepository.save(object);
                 })
                 .get();
+    }
+
+
+
+    public void addClient(Client client, Department department) {
+        DepartmentClient association = new DepartmentClient();
+        association.setClient(client);
+        association.setDepartment(department);
+        association.setClient_ID(client.getClient_ID());
+        association.setDepartment_ID(department.getDepartment_ID());
+
+        if (department.getClients() == null)
+            department.setClients(new ArrayList<>());
+
+        department.getClients().add(association);
+
+        client.getDepartments().add(association);
+
+    }
+
+    public void removeClient(Client client, Department department) {
+        for (Iterator<DepartmentClient> iterator = department.getClients().iterator(); iterator.hasNext(); ) {
+            DepartmentClient departmentClient = iterator.next();
+
+            if (departmentClient.getDepartment().equals(this) && departmentClient.getClient().equals(client)) {
+                iterator.remove();
+                departmentClient.getClient().getDepartments().remove(departmentClient);
+                departmentClient.setDepartment(null);
+                departmentClient.setClient(null);
+            }
+        }
     }
 }

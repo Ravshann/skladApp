@@ -4,13 +4,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.Company;
-import uz.skladapp.model.Role;
-import uz.skladapp.model.User;
+import uz.skladapp.model.pure_models.Company;
+import uz.skladapp.model.pure_models.Role;
+import uz.skladapp.model.pure_models.User;
+import uz.skladapp.model.pure_models.UserCompany;
 import uz.skladapp.model.repositories.CompanyRepository;
 import uz.skladapp.model.repositories.RoleRepository;
 import uz.skladapp.model.repositories.UserRepository;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Component
@@ -102,5 +105,35 @@ public class UserDAO {
                     return userRepository.save(user);
                 })
                 .get();
+    }
+
+
+    public void addCompany(Company company, User user) {
+        UserCompany association = new UserCompany();
+        association.setCompany(company);
+        association.setUser(user);
+        association.setCompany_ID(company.getCompany_ID());
+        association.setUser_ID(user.getUser_ID());
+
+
+        if (user.getCompanies() == null)
+            user.setCompanies(new ArrayList<>());
+
+        user.getCompanies().add(association);
+
+        company.getUsers().add(association);
+    }
+
+    public void removeCompany(Company company, User user) {
+        for (Iterator<UserCompany> iterator = user.getCompanies().iterator(); iterator.hasNext(); ) {
+            UserCompany userCompany = iterator.next();
+
+            if (userCompany.getCompany().equals(user) && userCompany.getCompany().equals(company)) {
+                iterator.remove();
+                userCompany.getCompany().getUsers().remove(userCompany);
+                userCompany.setUser(null);
+                userCompany.setCompany(null);
+            }
+        }
     }
 }

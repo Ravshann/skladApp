@@ -6,7 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 import uz.skladapp.controllers.excel.ExcelReader;
 import uz.skladapp.controllers.excel.ExcelView;
 import uz.skladapp.dao.ClientDAO;
-import uz.skladapp.model.Client;
+import uz.skladapp.model.pure_models.Client;
 
 
 import javax.servlet.http.HttpServletRequest;

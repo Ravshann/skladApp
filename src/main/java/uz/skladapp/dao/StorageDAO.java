@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.*;
+import uz.skladapp.model.pure_models.*;
 import uz.skladapp.model.repositories.DepartmentRepository;
 import uz.skladapp.model.repositories.StorageRepository;
 import uz.skladapp.model.repositories.UserRepository;
@@ -47,7 +47,7 @@ public class StorageDAO {
 
     public StorageRaw getStorageByID(Long id) {
         Storage object = storageRepository.findById(id).get();
-        StorageRaw raw = new StorageRaw(  object.getStorage_ID(),
+        StorageRaw raw = new StorageRaw(object.getStorage_ID(),
                 object.getAddress(),
                 object.getDepartment_ID().getDepartment_ID(),
                 object.getStorage_manager_ID().getUser_ID(),
@@ -110,42 +110,15 @@ public class StorageDAO {
         association.setPrice(price);
 
         if (storage.getProducts() == null)
-            storage.setProducts( new ArrayList<>());
+            storage.setProducts(new ArrayList<>());
 
         storage.getProducts().add(association);
-        // Also add the association object to the other class.
+
         product.getStorages().add(association);
         storageRepository.save(storage);
     }
 
-    public void changeCurrentQuantity(Storage storage, Product product, Float quantity, InoutType inoutType) {
-        boolean found = false;
-        if (storage.getProducts().isEmpty()) {
-            addProduct(storage,product, quantity, 0);
-        } else {
-            for (Iterator<StorageProduct> iterator = storage.getProducts().iterator(); iterator.hasNext(); ) {
-                StorageProduct storageProduct = iterator.next();
 
-                if (storageProduct.getStorage().equals(storage) && storageProduct.getProduct().equals(product)) {
-                    found = true;
-                    if (inoutType.getInout_type_name().equals("import") || inoutType.getInout_type_name().equals("returned")) {
-                        storageProduct.setCurrent_quantity(quantity + storageProduct.getCurrent_quantity());
-                        storageProduct.setTotal_quantity(quantity + storageProduct.getTotal_quantity());
-                    } else if (inoutType.getInout_type_name().equals("export") && storageProduct.getCurrent_quantity() >= quantity) {
-                        storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() - quantity);
-                        storageProduct.setTotal_quantity(storageProduct.getTotal_quantity() - quantity);
-                    }else if(inoutType.getInout_type_name().equals("defected")){
-                        storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() - quantity);
-                    }
-                }
-
-            }
-            if (!found)
-                addProduct(storage,product, quantity, 0);
-        }
-
-
-    }
     public void removeProduct(Storage storage, Product product) {
         for (Iterator<StorageProduct> iterator = storage.getProducts().iterator(); iterator.hasNext(); ) {
             StorageProduct storageProduct = iterator.next();
@@ -158,5 +131,33 @@ public class StorageDAO {
             }
         }
         storageRepository.save(storage);
+    }
+
+    public void changeCurrentQuantity(Storage storage, Product product, Float quantity, InoutType inoutType) {
+        boolean found = false;
+        if (storage.getProducts().isEmpty()) {
+            addProduct(storage, product, quantity, 0);
+        } else {
+            for (Iterator<StorageProduct> iterator = storage.getProducts().iterator(); iterator.hasNext(); ) {
+                StorageProduct storageProduct = iterator.next();
+
+                if (storageProduct.getStorage().equals(storage) && storageProduct.getProduct().equals(product)) {
+                    found = true;
+                    if (inoutType.getInout_type_name().equals("import") || inoutType.getInout_type_name().equals("returned")) {
+                        storageProduct.setCurrent_quantity(quantity + storageProduct.getCurrent_quantity());
+                        storageProduct.setTotal_quantity(quantity + storageProduct.getTotal_quantity());
+                    } else if (inoutType.getInout_type_name().equals("export") && storageProduct.getCurrent_quantity() >= quantity) {
+                        storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() - quantity);
+                        storageProduct.setTotal_quantity(storageProduct.getTotal_quantity() - quantity);
+                    } else if (inoutType.getInout_type_name().equals("defected")) {
+                        storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() - quantity);
+                    }
+                }
+            }
+            if (!found)
+                addProduct(storage, product, quantity, 0);
+        }
+
+
     }
 }

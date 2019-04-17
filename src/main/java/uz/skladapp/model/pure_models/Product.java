@@ -1,12 +1,10 @@
-package uz.skladapp.model;
+package uz.skladapp.model.pure_models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -32,37 +30,6 @@ public class Product {
     private List<StorageProduct> storages;
 
 
-    // Create an association object for the relationship and set its data.
-    public void addAttribute(Attribute attribute, String value) {
-        ProductAttribute association = new ProductAttribute();
-        association.setAttribute(attribute);
-        association.setProduct(this);
-        association.setAttribute_ID(attribute.getAttribute_ID());
-        association.setProduct_ID(this.getProduct_ID());
-        association.setValue(value);
-
-        if (this.attributes == null)
-            this.attributes = new ArrayList<>();
-
-        this.attributes.add(association);
-        // Also add the association object to the other class
-        attribute.getProducts().add(association);
-    }
-
-    public void removeAttribute(Attribute attribute) {
-        for (Iterator<ProductAttribute> iterator = attributes.iterator(); iterator.hasNext(); ) {
-            ProductAttribute productAttribute = iterator.next();
-
-            if (productAttribute.getProduct().equals(this) && productAttribute.getAttribute().equals(attribute)) {
-                iterator.remove();
-                productAttribute.getAttribute().getProducts().remove(productAttribute);
-                productAttribute.setProduct(null);
-                productAttribute.setAttribute(null);
-            }
-        }
-    }
-
-    //
     public Long getProduct_ID() {
         return product_ID;
     }

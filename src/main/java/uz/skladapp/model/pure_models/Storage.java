@@ -1,13 +1,11 @@
-package uz.skladapp.model;
+package uz.skladapp.model.pure_models;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 public class Storage {
@@ -33,15 +31,15 @@ public class Storage {
     private List<StorageProduct> products;
 
 
-    public void changeQuantity(Product product, float quantity) {
-        for (Iterator<StorageProduct> iterator = products.iterator(); iterator.hasNext(); ) {
-            StorageProduct storageProduct = iterator.next();
-
-            if (storageProduct.getStorage().equals(this) && storageProduct.getProduct().equals(product)) {
-                storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() + quantity);
-            }
-        }
-    }
+//    public void changeQuantity(Product product, float quantity) {
+//        for (Iterator<StorageProduct> iterator = products.iterator(); iterator.hasNext(); ) {
+//            StorageProduct storageProduct = iterator.next();
+//
+//            if (storageProduct.getStorage().equals(this) && storageProduct.getProduct().equals(product)) {
+//                storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() + quantity);
+//            }
+//        }
+//    }
 
     public Long getStorage_ID() {
         return storage_ID;

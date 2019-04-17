@@ -3,10 +3,8 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.ProductDAO;
-import uz.skladapp.model.Product;
+import uz.skladapp.model.pure_models.Product;
 import uz.skladapp.model.special_models.ProductRaw;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")

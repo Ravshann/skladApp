@@ -3,10 +3,8 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.AttributeDAO;
-import uz.skladapp.model.Attribute;
+import uz.skladapp.model.pure_models.Attribute;
 import uz.skladapp.model.special_models.AttributeRaw;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/attributes")

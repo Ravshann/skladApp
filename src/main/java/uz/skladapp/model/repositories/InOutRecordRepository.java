@@ -2,7 +2,7 @@ package uz.skladapp.model.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import uz.skladapp.model.InOutRecord;
+import uz.skladapp.model.pure_models.InOutRecord;
 
 import java.util.List;
 

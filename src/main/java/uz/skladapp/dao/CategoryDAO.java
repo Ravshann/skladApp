@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.Category;
+import uz.skladapp.model.pure_models.Category;
 import uz.skladapp.model.repositories.CategoryRepository;
 import uz.skladapp.model.special_models.CategoryRaw;
 

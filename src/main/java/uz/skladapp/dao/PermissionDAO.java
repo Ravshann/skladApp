@@ -4,13 +4,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.Permission;
+import uz.skladapp.model.pure_models.Permission;
 import uz.skladapp.model.repositories.PermissionRepository;
 import uz.skladapp.model.special_models.PermissionRaw;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class PermissionDAO {

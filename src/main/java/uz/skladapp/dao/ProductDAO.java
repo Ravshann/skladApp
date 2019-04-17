@@ -4,9 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.Category;
-import uz.skladapp.model.Product;
-import uz.skladapp.model.ProductAttribute;
+import uz.skladapp.model.pure_models.Attribute;
+import uz.skladapp.model.pure_models.Category;
+import uz.skladapp.model.pure_models.Product;
+import uz.skladapp.model.pure_models.ProductAttribute;
 import uz.skladapp.model.repositories.CategoryRepository;
 import uz.skladapp.model.repositories.ProductRepository;
 import uz.skladapp.model.special_models.AttributeRaw;
@@ -14,6 +15,7 @@ import uz.skladapp.model.special_models.CategoryRaw;
 import uz.skladapp.model.special_models.ProductRaw;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -107,5 +109,35 @@ public class ProductDAO {
                     return repository.save(object);
                 })
                 .get();
+    }
+
+
+    public void addAttribute(Attribute attribute, String value, Product product) {
+        ProductAttribute association = new ProductAttribute();
+        association.setAttribute(attribute);
+        association.setProduct(product);
+        association.setAttribute_ID(attribute.getAttribute_ID());
+        association.setProduct_ID(product.getProduct_ID());
+        association.setValue(value);
+
+        if (product.getAttributes() == null)
+            product.setAttributes(new ArrayList<>());
+
+        product.getAttributes().add(association);
+
+        attribute.getProducts().add(association);
+    }
+
+    public void removeAttribute(Attribute attribute, Product product) {
+        for (Iterator<ProductAttribute> iterator = product.getAttributes().iterator(); iterator.hasNext(); ) {
+            ProductAttribute productAttribute = iterator.next();
+
+            if (productAttribute.getProduct().equals(product) && productAttribute.getAttribute().equals(attribute)) {
+                iterator.remove();
+                productAttribute.getAttribute().getProducts().remove(productAttribute);
+                productAttribute.setProduct(null);
+                productAttribute.setAttribute(null);
+            }
+        }
     }
 }

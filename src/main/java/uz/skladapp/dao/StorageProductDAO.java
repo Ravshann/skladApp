@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.Product;
-import uz.skladapp.model.ProductAttribute;
-import uz.skladapp.model.Storage;
-import uz.skladapp.model.StorageProduct;
+import uz.skladapp.model.pure_models.Product;
+import uz.skladapp.model.pure_models.ProductAttribute;
+import uz.skladapp.model.pure_models.Storage;
+import uz.skladapp.model.pure_models.StorageProduct;
 import uz.skladapp.model.repositories.ProductRepository;
 import uz.skladapp.model.repositories.StorageRepository;
 import uz.skladapp.model.special_models.AttributeRaw;
@@ -64,9 +64,7 @@ public class StorageProductDAO {
         Float quant = Float.valueOf(newJson.get("current_quantity").toString());
         Float price = Float.valueOf(newJson.get("price").toString());
         dao.addProduct(storage.get(), product.get(), quant, price);
-       // storage.get().addProduct(product.get(), quant, price);
         productRepository.save(product.get());
-
     }
 
     public void update(String data, Long id) throws Exception {
@@ -84,16 +82,11 @@ public class StorageProductDAO {
                     Float price = Float.valueOf(json.get("price").toString());
                     dao.removeProduct(storage.get(), product.get());
                     dao.addProduct(storage.get(), product.get(), quant, price);
-                    //storage.get().removeProduct(product.get());
-                   // storage.get().addProduct(product.get(), quant, price);
                     storageRepository.save(object);
-
-
                     return 0;
                 })
                 .get();
     }
-
 
 
     public void delete(String object) throws Exception {
@@ -104,7 +97,6 @@ public class StorageProductDAO {
         Optional<Storage> storage = storageRepository.findById(id_s);
         Optional<Product> product = productRepository.findById(id_p);
         dao.removeProduct(storage.get(), product.get());
-        // storage.get().removeProduct(product.get());
         productRepository.save(product.get());
     }
 }

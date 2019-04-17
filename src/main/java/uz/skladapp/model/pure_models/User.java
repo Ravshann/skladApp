@@ -1,11 +1,9 @@
-package uz.skladapp.model;
+package uz.skladapp.model.pure_models;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -43,37 +41,6 @@ public class User {
     @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserCompany> companies;
-
-
-    // Create an association object for the relationship and set its data.
-    public void addCompany(Company company) {
-        UserCompany association = new UserCompany();
-        association.setCompany(company);
-        association.setUser(this);
-        association.setCompany_ID(company.getCompany_ID());
-        association.setUser_ID(this.getUser_ID());
-
-
-        if (this.companies == null)
-            this.companies = new ArrayList<>();
-
-        this.companies.add(association);
-        // Also add the association object to the other class
-        company.getUsers().add(association);
-    }
-
-    public void removeCompany(Company object) {
-        for (Iterator<UserCompany> iterator = companies.iterator(); iterator.hasNext(); ) {
-            UserCompany userCompany = iterator.next();
-
-            if (userCompany.getCompany().equals(this) && userCompany.getCompany().equals(object)) {
-                iterator.remove();
-                userCompany.getCompany().getUsers().remove(userCompany);
-                userCompany.setUser(null);
-                userCompany.setCompany(null);
-            }
-        }
-    }
 
 
     //setters getters

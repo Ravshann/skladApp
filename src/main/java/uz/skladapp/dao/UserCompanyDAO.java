@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.Company;
-import uz.skladapp.model.User;
-import uz.skladapp.model.UserCompany;
+import uz.skladapp.model.pure_models.Company;
+import uz.skladapp.model.pure_models.User;
+import uz.skladapp.model.pure_models.UserCompany;
 import uz.skladapp.model.repositories.CompanyRepository;
 import uz.skladapp.model.repositories.UserRepository;
 
@@ -18,6 +18,8 @@ import java.util.Optional;
 public class UserCompanyDAO {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserDAO userDAO;
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -37,10 +39,10 @@ public class UserCompanyDAO {
         JsonNode newJson = mapper.readTree(ids);
         Long id_u = Long.valueOf(newJson.get("user_ID").toString());
         Long id_c = Long.valueOf(newJson.get("company_ID").toString());
-        Optional<User> user = userRepository.findById(id_u);
-        Optional<Company> company = companyRepository.findById(id_c);
-        user.get().addCompany(company.get());
-        userRepository.save(user.get());
+        User user = userRepository.findById(id_u).get();
+        Company company = companyRepository.findById(id_c).get();
+        userDAO.addCompany(company, user);
+        userRepository.save(user);
     }
 
     public void delete(String string) throws Exception {
@@ -48,10 +50,10 @@ public class UserCompanyDAO {
         JsonNode json = mapper.readTree(string);
         Long id_u = Long.valueOf(json.get("user_ID").toString());
         Long id_c = Long.valueOf(json.get("company_ID").toString());
-        Optional<User> user = userRepository.findById(id_u);
-        Optional<Company> company = companyRepository.findById(id_c);
-        user.get().removeCompany(company.get());
-        userRepository.save(user.get());
+        User user = userRepository.findById(id_u).get();
+        Company company = companyRepository.findById(id_c).get();
+        userDAO.removeCompany(company, user);
+        userRepository.save(user);
 
 
     }

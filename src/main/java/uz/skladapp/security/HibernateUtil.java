@@ -11,7 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import uz.skladapp.model.Role;
+import uz.skladapp.model.pure_models.Role;
 
 public class HibernateUtil {
 

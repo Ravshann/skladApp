@@ -4,16 +4,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.Department;
-import uz.skladapp.model.Supplier;
-import uz.skladapp.model.SupplierDepartment;
+import uz.skladapp.model.pure_models.Department;
+import uz.skladapp.model.pure_models.Supplier;
+import uz.skladapp.model.pure_models.SupplierDepartment;
 import uz.skladapp.model.repositories.DepartmentRepository;
 import uz.skladapp.model.repositories.SupplierRepository;
 import uz.skladapp.model.special_models.DepartmentRaw;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class SupplierDepartmentDAO {
@@ -21,6 +20,8 @@ public class SupplierDepartmentDAO {
     private SupplierRepository supplierRepository;
     @Autowired
     private DepartmentRepository departmentRepository;
+    @Autowired
+    private SupplierDAO supplierDAO;
 
 
     public List<DepartmentRaw> getList(Long supplier_id) {
@@ -47,10 +48,10 @@ public class SupplierDepartmentDAO {
         JsonNode json = mapper.readTree(data);
         Long id_r = json.get("supplier_ID").asLong();
         Long id_p = json.get("department_ID").asLong();
-        Optional<Supplier> supplier = supplierRepository.findById(id_r);
-        Optional<Department> department = departmentRepository.findById(id_p);
-        supplier.get().addDepartment(department.get());
-        supplierRepository.save(supplier.get());
+        Supplier supplier = supplierRepository.findById(id_r).get();
+        Department department = departmentRepository.findById(id_p).get();
+        supplierDAO.addDepartment(department, supplier);
+        supplierRepository.save(supplier);
     }
 
     public void delete(String object) throws Exception {
@@ -58,9 +59,9 @@ public class SupplierDepartmentDAO {
         JsonNode json = mapper.readTree(object);
         Long id_r = json.get("supplier_ID").asLong();
         Long id_p = json.get("department_ID").asLong();
-        Optional<Supplier> supplier = supplierRepository.findById(id_r);
-        Optional<Department> department = departmentRepository.findById(id_p);
-        supplier.get().removeDepartment(department.get());
-        supplierRepository.save(supplier.get());
+        Supplier supplier = supplierRepository.findById(id_r).get();
+        Department department = departmentRepository.findById(id_p).get();
+        supplierDAO.removeDepartment(department, supplier);
+        supplierRepository.save(supplier);
     }
 }

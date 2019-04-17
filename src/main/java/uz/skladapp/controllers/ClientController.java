@@ -3,10 +3,8 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.ClientDAO;
-import uz.skladapp.model.Client;
+import uz.skladapp.model.pure_models.Client;
 import uz.skladapp.model.special_models.ClientRaw;
-
-import java.util.Optional;
 
 
 @RestController

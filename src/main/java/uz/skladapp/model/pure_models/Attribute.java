@@ -1,4 +1,4 @@
-package uz.skladapp.model;
+package uz.skladapp.model.pure_models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

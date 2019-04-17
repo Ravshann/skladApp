@@ -1,7 +1,7 @@
 package uz.skladapp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import uz.skladapp.model.User;
+import uz.skladapp.model.pure_models.User;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -3,7 +3,6 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.SupplierDAO;
-import uz.skladapp.model.Supplier;
 import uz.skladapp.model.special_models.SupplierRaw;
 
 import java.util.List;

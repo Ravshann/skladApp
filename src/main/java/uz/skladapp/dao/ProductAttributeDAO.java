@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.Attribute;
-import uz.skladapp.model.Product;
-import uz.skladapp.model.ProductAttribute;
+import uz.skladapp.model.pure_models.Attribute;
+import uz.skladapp.model.pure_models.Product;
+import uz.skladapp.model.pure_models.ProductAttribute;
 import uz.skladapp.model.repositories.AttributeRepository;
 import uz.skladapp.model.repositories.ProductRepository;
 import uz.skladapp.model.special_models.AttributeRaw;
@@ -21,6 +21,8 @@ public class ProductAttributeDAO {
     private ProductRepository productRepository;
     @Autowired
     private AttributeRepository attributeRepository;
+    @Autowired
+    private ProductDAO productDAO;
 
 
     public List<AttributeRaw> getAttributesList(Long product_id) {
@@ -41,10 +43,10 @@ public class ProductAttributeDAO {
             Long id_product = Long.valueOf(json.get("product_ID").toString());
             Long id_attribute = Long.valueOf(json.get("attribute_ID").toString());
             String value = json.get("value").asText();
-            Optional<Product> product = productRepository.findById(id_product);
-            Optional<Attribute> attribute = attributeRepository.findById(id_attribute);
-            product.get().addAttribute(attribute.get(), value);
-            productRepository.save(product.get());
+            Product product = productRepository.findById(id_product).get();
+            Attribute attribute = attributeRepository.findById(id_attribute).get();
+            productDAO.addAttribute(attribute, value, product);
+            productRepository.save(product);
         }
     }
 
@@ -54,10 +56,10 @@ public class ProductAttributeDAO {
         for (JsonNode json : jsonArray) {
             Long id_product = Long.valueOf(json.get("product_ID").toString());
             Long id_attribute = Long.valueOf(json.get("attribute_ID").toString());
-            Optional<Product> product = productRepository.findById(id_product);
-            Optional<Attribute> attribute = attributeRepository.findById(id_attribute);
-            product.get().removeAttribute(attribute.get());
-            productRepository.save(product.get());
+            Product product = productRepository.findById(id_product).get();
+            Attribute attribute = attributeRepository.findById(id_attribute).get();
+            productDAO.removeAttribute(attribute, product);
+            productRepository.save(product);
         }
     }
 
@@ -69,10 +71,10 @@ public class ProductAttributeDAO {
                 .map(object -> {
                     Long id_attribute = json.get("attribute_ID").asLong();
                     String value = json.get("value").asText();
-                    Optional<Product> product = productRepository.findById(id_product);
-                    Optional<Attribute> attribute = attributeRepository.findById(id_attribute);
-                    product.get().removeAttribute(attribute.get());
-                    product.get().addAttribute(attribute.get(), value);
+                    Product product = productRepository.findById(id_product).get();
+                    Attribute attribute = attributeRepository.findById(id_attribute).get();
+                    productDAO.removeAttribute(attribute, product);
+                    productDAO.addAttribute(attribute, value, product);
                     productRepository.save(object);
                     return 0;
                 })

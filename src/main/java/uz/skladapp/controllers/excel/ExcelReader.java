@@ -2,7 +2,7 @@ package uz.skladapp.controllers.excel;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
-import uz.skladapp.model.Client;
+import uz.skladapp.model.pure_models.Client;
 
 import java.io.File;
 import java.io.IOException;
