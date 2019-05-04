@@ -10,9 +10,9 @@ import uz.skladapp.model.pure_models.Storage;
 import uz.skladapp.model.pure_models.StorageProduct;
 import uz.skladapp.model.repositories.ProductRepository;
 import uz.skladapp.model.repositories.StorageRepository;
-import uz.skladapp.model.special_models.AttributeRaw;
-import uz.skladapp.model.special_models.CategoryRaw;
-import uz.skladapp.model.special_models.ProductRaw;
+import uz.skladapp.model.raw_models.AttributeRaw;
+import uz.skladapp.model.raw_models.CategoryRaw;
+import uz.skladapp.model.raw_models.ProductRaw;
 
 import java.util.ArrayList;
 import java.util.List;

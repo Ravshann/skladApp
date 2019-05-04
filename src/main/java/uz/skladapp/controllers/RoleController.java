@@ -14,7 +14,7 @@ public class RoleController {
     @Autowired
     private RoleDAO dao;
 
-    @RequestMapping("")
+    @GetMapping("")
     public @ResponseBody
     Iterable<Role> getAllRoles() {
         return dao.getRolesList();
@@ -26,17 +26,17 @@ public class RoleController {
         return dao.getRoleByID(Long.valueOf(id));
     }
 
-    @PostMapping("/save")
+    @PostMapping("")
     public void createRole(@RequestBody String newRoleText) throws Exception {
         dao.saveRole(newRoleText);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     void delete(@PathVariable Long id) {
         dao.deleteById(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/{id}")
     Role replace(@RequestBody String role, @PathVariable Long id) throws Exception {
         return dao.update(role, id);
     }

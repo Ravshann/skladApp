@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  spring-docker-app:
+    image: sklad-docker-image
+    depends_on:
+      - db
+    ports:
+      - 8090:8080
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=user
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=sklad
+      - DATABASE_PORT=3306
+    container_name: sklad-app
+
+  db:
+    image: mysql:latest
+    ports:
+      - 42333:3306
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=sklad
+      - MYSQL_PASSWORD=root
+      - MYSQL_USER=user
+    container_name: db

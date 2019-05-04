@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uz.skladapp.model.pure_models.Company;
-import uz.skladapp.model.pure_models.Role;
-import uz.skladapp.model.pure_models.User;
-import uz.skladapp.model.pure_models.UserCompany;
+import uz.skladapp.model.pure_models.*;
+import uz.skladapp.model.raw_models.PermissionRaw;
+import uz.skladapp.model.raw_models.UserRolePermissions;
 import uz.skladapp.model.repositories.CompanyRepository;
+import uz.skladapp.model.repositories.PermissionRepository;
 import uz.skladapp.model.repositories.RoleRepository;
 import uz.skladapp.model.repositories.UserRepository;
 
@@ -24,6 +24,8 @@ public class UserDAO {
     private CompanyRepository companyRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private PermissionRepository permissionRepository;
 
 
     public Iterable<User> getUserList() {
@@ -31,8 +33,27 @@ public class UserDAO {
     }
 
 
-    public Optional<User> getUser(Long id) {
-        return userRepository.findById(id);
+    public User getUser(Long id) {
+        return userRepository.findById(id).get();
+    }
+
+    public UserRolePermissions getUserPermissions(Long id) {
+        Role userRole = userRepository.findById(id).get().getRole_ID();
+        UserRolePermissions userRolePermissions = new UserRolePermissions();
+        userRolePermissions.setUser_ID(id);
+        userRolePermissions.setRole_ID(userRole.getRole_ID());
+        userRolePermissions.setRole_name(userRole.getRole_name());
+        userRolePermissions.setPermissions(new ArrayList<>());
+        for(RolePermission rolePermission: userRole.getPermissions())
+        {
+            PermissionRaw permissionRaw = new PermissionRaw();
+            Permission permission = permissionRepository.findById(rolePermission.getPermission_ID()).get();
+            permissionRaw.setPermission_name(permission.getPermission_name());
+            permissionRaw.setPermission_ID(permission.getPermission_ID());
+            permissionRaw.setPermission_description(permission.getPermission_description());
+            userRolePermissions.getPermissions().add(permissionRaw);
+        }
+        return userRolePermissions;
     }
 
     public void saveUser(String string) throws Exception {

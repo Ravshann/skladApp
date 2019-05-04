@@ -3,7 +3,7 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.DepartmentClientDAO;
-import uz.skladapp.model.special_models.ClientRaw;
+import uz.skladapp.model.raw_models.ClientRaw;
 
 import java.util.List;
 
@@ -14,14 +14,14 @@ public class DepartmentClientController {
     private DepartmentClientDAO dao;
 
 
-    @RequestMapping("/{department}")
+    @GetMapping("/{department}")
     public List<ClientRaw> getList(@PathVariable("department") String id) {
         return dao.getRawList(Long.valueOf(id));
     }
 
     @PostMapping("/save")
-    public void create(@RequestBody String ids) throws Exception {
-        dao.create(ids);
+    public void create(@RequestBody String data) throws Exception {
+        dao.create(data);
     }
 
     @PostMapping("/delete")

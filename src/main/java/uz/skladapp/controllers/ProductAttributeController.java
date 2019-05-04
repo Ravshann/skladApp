@@ -3,7 +3,7 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.ProductAttributeDAO;
-import uz.skladapp.model.special_models.AttributeRaw;
+import uz.skladapp.model.raw_models.AttributeRaw;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class ProductAttributeController {
     @Autowired
     private ProductAttributeDAO dao;
 
-    @RequestMapping("/{pro_id}")
+    @GetMapping("/{pro_id}")
     public List<AttributeRaw> getListProducts(@PathVariable("pro_id") String id) {
         return dao.getAttributesList(Long.valueOf(id));
     }

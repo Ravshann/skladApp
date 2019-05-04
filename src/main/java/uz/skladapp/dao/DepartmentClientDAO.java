@@ -9,7 +9,7 @@ import uz.skladapp.model.pure_models.Department;
 import uz.skladapp.model.pure_models.DepartmentClient;
 import uz.skladapp.model.repositories.ClientRepository;
 import uz.skladapp.model.repositories.DepartmentRepository;
-import uz.skladapp.model.special_models.ClientRaw;
+import uz.skladapp.model.raw_models.ClientRaw;
 
 import java.util.ArrayList;
 import java.util.List;

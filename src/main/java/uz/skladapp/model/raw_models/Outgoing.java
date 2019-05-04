@@ -1,4 +1,4 @@
-package uz.skladapp.model.special_models;
+package uz.skladapp.model.raw_models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

@@ -3,7 +3,7 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.DefectedDAO;
-import uz.skladapp.model.special_models.Defected;
+import uz.skladapp.model.raw_models.Defected;
 
 import java.util.List;
 @RestController
@@ -12,7 +12,7 @@ public class DefectedController {
     @Autowired
     private DefectedDAO dao;
 
-    @RequestMapping(value = "", produces = "application/json")
+    @GetMapping(value = "", produces = "application/json")
     public @ResponseBody
     List<Defected> getList() {
         return dao.getAllDefectedRecords();
@@ -23,7 +23,7 @@ public class DefectedController {
         dao.save(data);
     }
 
-    @PutMapping(value = "/update")
+    @PostMapping(value = "/update")
     public void update(@RequestBody String data) throws Exception{
         dao.update(data);
     }

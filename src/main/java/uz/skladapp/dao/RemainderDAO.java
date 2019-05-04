@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import uz.skladapp.model.pure_models.Product;
 import uz.skladapp.model.pure_models.StorageProduct;
 import uz.skladapp.model.repositories.ProductRepository;
-import uz.skladapp.model.special_models.Remainder;
-import uz.skladapp.model.special_models.StorageQuantity;
+import uz.skladapp.model.raw_models.Remainder;
+import uz.skladapp.model.raw_models.StorageQuantity;
 
 import java.util.ArrayList;
 import java.util.List;

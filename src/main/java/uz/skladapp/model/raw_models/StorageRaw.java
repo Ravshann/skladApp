@@ -1,4 +1,4 @@
-package uz.skladapp.model.special_models;
+package uz.skladapp.model.raw_models;
 
 public class StorageRaw {
     private Long storage_ID;

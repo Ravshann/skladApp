@@ -1,10 +1,11 @@
-package uz.skladapp.model.special_models;
+package uz.skladapp.model.raw_models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class Returned {
+public class Incoming {
+
     private Long record_ID;
     private String product_name;
     private Long product_ID;
@@ -12,13 +13,11 @@ public class Returned {
     private Long storage_ID;
     private String category_name;
     private Long category_ID;
-    private String client_region;
-    private String client_name;
-    private Long client_ID;
+    private Long supplier_ID;
+    private String supplier_name;
     @JsonFormat(pattern = "yyyy-MM-dd") // add this to get hour precision=====>>> hh:mm:ss
     private Date record_datetime;
     private Float quantity;
-    private String note;
 
     public Long getRecord_ID() {
         return record_ID;
@@ -44,22 +43,6 @@ public class Returned {
         this.product_ID = product_ID;
     }
 
-    public String getStorage_name() {
-        return storage_name;
-    }
-
-    public void setStorage_name(String storage_name) {
-        this.storage_name = storage_name;
-    }
-
-    public Long getStorage_ID() {
-        return storage_ID;
-    }
-
-    public void setStorage_ID(Long storage_ID) {
-        this.storage_ID = storage_ID;
-    }
-
     public String getCategory_name() {
         return category_name;
     }
@@ -76,28 +59,20 @@ public class Returned {
         this.category_ID = category_ID;
     }
 
-    public String getClient_region() {
-        return client_region;
+    public Long getSupplier_ID() {
+        return supplier_ID;
     }
 
-    public void setClient_region(String client_region) {
-        this.client_region = client_region;
+    public void setSupplier_ID(Long supplier_ID) {
+        this.supplier_ID = supplier_ID;
     }
 
-    public String getClient_name() {
-        return client_name;
+    public String getSupplier_name() {
+        return supplier_name;
     }
 
-    public void setClient_name(String client_name) {
-        this.client_name = client_name;
-    }
-
-    public Long getClient_ID() {
-        return client_ID;
-    }
-
-    public void setClient_ID(Long client_ID) {
-        this.client_ID = client_ID;
+    public void setSupplier_name(String supplier_name) {
+        this.supplier_name = supplier_name;
     }
 
     public Date getRecord_datetime() {
@@ -116,11 +91,19 @@ public class Returned {
         this.quantity = quantity;
     }
 
-    public String getNote() {
-        return note;
+    public String getStorage_name() {
+        return storage_name;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setStorage_name(String storage_name) {
+        this.storage_name = storage_name;
+    }
+
+    public Long getStorage_ID() {
+        return storage_ID;
+    }
+
+    public void setStorage_ID(Long storage_ID) {
+        this.storage_ID = storage_ID;
     }
 }

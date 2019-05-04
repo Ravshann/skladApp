@@ -13,12 +13,12 @@ public class UserCompanyController {
     @Autowired
     private UserCompanyDAO dao;
 
-    @RequestMapping("/{owner}")
+    @GetMapping("/{owner}")
     public List<Company> getCompanies(@PathVariable("owner") String id) {
         return dao.getList(Long.valueOf(id));
     }
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     public void addCompany(@RequestBody String data) throws Exception {
         dao.addCompany(data);
     }

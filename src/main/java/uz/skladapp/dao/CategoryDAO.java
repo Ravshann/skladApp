@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.pure_models.Category;
 import uz.skladapp.model.repositories.CategoryRepository;
-import uz.skladapp.model.special_models.CategoryRaw;
+import uz.skladapp.model.raw_models.CategoryRaw;
 
 import java.util.ArrayList;
 import java.util.List;

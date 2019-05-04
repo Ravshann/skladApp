@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.ProductDAO;
 import uz.skladapp.model.pure_models.Product;
-import uz.skladapp.model.special_models.ProductRaw;
+import uz.skladapp.model.raw_models.ProductRaw;
 
 @RestController
 @RequestMapping("/products")
@@ -13,30 +13,30 @@ public class ProductController {
     private ProductDAO dao;
 
 
-    @RequestMapping(value = "", produces = "application/json")
+    @GetMapping(value = "", produces = "application/json")
     public @ResponseBody
     Iterable<ProductRaw> getList() {
         return dao.getAll();
     }
 
 
-    @RequestMapping(value = "/{id}", produces = "application/json")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public @ResponseBody
     ProductRaw get(@PathVariable("id") String id) {
         return dao.get(Long.valueOf(id));
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "")
     public void save(@RequestBody String object) throws Exception {
         dao.create(object);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     void delete(@PathVariable Long id) {
         dao.deleteById(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/{id}")
     Product replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
     }

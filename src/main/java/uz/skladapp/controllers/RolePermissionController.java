@@ -4,7 +4,7 @@ package uz.skladapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.RolePermissionDAO;
-import uz.skladapp.model.special_models.PermissionRaw;
+import uz.skladapp.model.raw_models.PermissionRaw;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class RolePermissionController {
     private RolePermissionDAO dao;
 
 
-    @RequestMapping("/{role_id}")
+    @GetMapping("/{role_id}")
     public List<PermissionRaw> getPersmissionsOfRole(@PathVariable("role_id") String id) {
         return dao.getList(Long.valueOf(id));
     }

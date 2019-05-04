@@ -9,7 +9,7 @@ import uz.skladapp.model.pure_models.Role;
 import uz.skladapp.model.pure_models.RolePermission;
 import uz.skladapp.model.repositories.PermissionRepository;
 import uz.skladapp.model.repositories.RoleRepository;
-import uz.skladapp.model.special_models.PermissionRaw;
+import uz.skladapp.model.raw_models.PermissionRaw;
 
 import java.util.ArrayList;
 import java.util.List;

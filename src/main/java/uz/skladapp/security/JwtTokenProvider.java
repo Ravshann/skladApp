@@ -1,10 +1,10 @@
 package uz.skladapp.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.DefaultClock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,11 +27,11 @@ public class JwtTokenProvider {
      * THIS IS NOT A SECURE PRACTICE! For simplicity, we are storing a static key here. Ideally, in a
      * microservices environment, this key would be kept on a config-server.
      */
+    @Value("${jwt.secret}")
+    private String secretKey;
 
-    private String secretKey = "secret";
-
-
-    private long validityInMilliseconds = 3600000; // 1h
+    @Value("${jwt.expiration}")
+    private Long expirationInSeconds;
 
     @Autowired
     private UserRepository userRepository;
@@ -45,15 +45,16 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(username);
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
+        Date validity = new Date(now.getTime() + expirationInSeconds);
 
-        String j= Jwts.builder()//
+
+        String token= Jwts.builder()//
                 .setClaims(claims)//
                 .setIssuedAt(now)//
                 .setExpiration(validity)//
                 .signWith(SignatureAlgorithm.HS256, secretKey)//
                 .compact();
-        return j;
+        return token;
     }
 
     public Authentication getAuthentication(String token) {

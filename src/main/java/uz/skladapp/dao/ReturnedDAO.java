@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.pure_models.InOutRecord;
 import uz.skladapp.model.repositories.InOutRecordRepository;
-import uz.skladapp.model.special_models.Returned;
+import uz.skladapp.model.raw_models.Returned;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,7 +8,7 @@ import uz.skladapp.model.pure_models.*;
 import uz.skladapp.model.repositories.DepartmentRepository;
 import uz.skladapp.model.repositories.StorageRepository;
 import uz.skladapp.model.repositories.UserRepository;
-import uz.skladapp.model.special_models.StorageRaw;
+import uz.skladapp.model.raw_models.StorageRaw;
 
 import java.util.ArrayList;
 import java.util.Iterator;

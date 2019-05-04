@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.skladapp.model.pure_models.Permission;
 import uz.skladapp.model.repositories.PermissionRepository;
-import uz.skladapp.model.special_models.PermissionRaw;
+import uz.skladapp.model.raw_models.PermissionRaw;
 
 import java.util.ArrayList;
 import java.util.List;

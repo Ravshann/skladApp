@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.CategoryDAO;
 
 import uz.skladapp.model.pure_models.Category;
-import uz.skladapp.model.special_models.CategoryRaw;
+import uz.skladapp.model.raw_models.CategoryRaw;
 
 @RestController
 @RequestMapping("/categories")
@@ -14,7 +14,7 @@ public class CategoryController {
     private CategoryDAO dao;
 
 
-    @RequestMapping(value = "", produces = "application/json")
+    @GetMapping(value = "", produces = "application/json")
     public @ResponseBody
     Iterable<CategoryRaw> getList() {
         return dao.getAll();
@@ -27,17 +27,17 @@ public class CategoryController {
         return dao.get(Long.valueOf(id));
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "")
     public void save(@RequestBody String object) throws Exception {
         dao.create(object);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     void delete(@PathVariable Long id) {
         dao.deleteById(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/{id}")
     Category replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
     }

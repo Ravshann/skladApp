@@ -9,7 +9,7 @@ import uz.skladapp.model.pure_models.Product;
 import uz.skladapp.model.pure_models.ProductAttribute;
 import uz.skladapp.model.repositories.AttributeRepository;
 import uz.skladapp.model.repositories.ProductRepository;
-import uz.skladapp.model.special_models.AttributeRaw;
+import uz.skladapp.model.raw_models.AttributeRaw;
 
 import java.util.ArrayList;
 import java.util.List;

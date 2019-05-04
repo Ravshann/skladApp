@@ -1,4 +1,4 @@
-package uz.skladapp.model.special_models;
+package uz.skladapp.model.raw_models;
 
 public class PermissionRaw {
     private Long permission_ID;
@@ -9,6 +9,9 @@ public class PermissionRaw {
         this.permission_ID = permission_ID;
         this.permission_name = permission_name;
         this.permission_description = permission_description;
+    }
+
+    public PermissionRaw() {
     }
 
     public Long getPermission_ID() {

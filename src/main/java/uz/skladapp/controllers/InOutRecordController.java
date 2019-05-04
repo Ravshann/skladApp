@@ -14,20 +14,17 @@ public class InOutRecordController {
     private InOutRecordDAO dao;
 
 
-    @RequestMapping(value = "", produces = "application/json")
-    public @ResponseBody
-    Iterable<InOutRecord> getList(@RequestParam("size") String size,@RequestParam("index") String index ) {
+    @GetMapping(value = "", produces = "application/json")
+    public @ResponseBody Iterable<InOutRecord> getList(@RequestParam("size") String size,@RequestParam("index") String index ) {
         return dao.getList(Integer.valueOf(size), Integer.valueOf(index));
     }
 
-
-    @RequestMapping(value = "/{id}", produces = "application/json")
-    public @ResponseBody
-    Optional<InOutRecord> get(@PathVariable String id) {
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public @ResponseBody Optional<InOutRecord> get(@PathVariable String id) {
         return dao.get(Long.valueOf(id));
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "")
     public void save(@RequestBody String attribute) throws Exception {
         dao.create(attribute);
     }

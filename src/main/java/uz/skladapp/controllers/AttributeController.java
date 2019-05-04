@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.skladapp.dao.AttributeDAO;
 import uz.skladapp.model.pure_models.Attribute;
-import uz.skladapp.model.special_models.AttributeRaw;
+import uz.skladapp.model.raw_models.AttributeRaw;
 
 @RestController
 @RequestMapping("/attributes")
@@ -13,7 +13,7 @@ public class AttributeController {
     private AttributeDAO dao;
 
 
-    @RequestMapping(value = "", produces = "application/json")
+    @GetMapping(value = "", produces = "application/json")
     public @ResponseBody
     Iterable<AttributeRaw> getList() {
         return dao.getAllAttributes();
@@ -25,17 +25,17 @@ public class AttributeController {
         return dao.getAttribute(Long.valueOf(id));
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "")
     public void save(@RequestBody String attribute) throws Exception {
         dao.createAttribute(attribute);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     void delete(@PathVariable Long id) {
         dao.deleteById(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/{id}")
     Attribute replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
     }

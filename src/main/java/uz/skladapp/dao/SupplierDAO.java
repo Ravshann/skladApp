@@ -8,7 +8,7 @@ import uz.skladapp.model.pure_models.Department;
 import uz.skladapp.model.pure_models.Supplier;
 import uz.skladapp.model.pure_models.SupplierDepartment;
 import uz.skladapp.model.repositories.SupplierRepository;
-import uz.skladapp.model.special_models.SupplierRaw;
+import uz.skladapp.model.raw_models.SupplierRaw;
 
 import java.util.ArrayList;
 import java.util.Iterator;
