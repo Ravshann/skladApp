@@ -7,6 +7,7 @@ import uz.skladapp.model.raw_models.Remainder;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/remainder")
 public class RemainderController {

@@ -37,7 +37,9 @@ public class StorageDAO {
                     object.getDepartment_ID().getDepartment_ID(),
                     object.getStorage_manager_ID().getUser_ID(),
                     object.getStorage_name(),
-                    object.getStorage_phone()
+                    object.getStorage_phone(),
+                    object.getStorage_manager_ID().getFirst_name(),
+                    object.getDepartment_ID().getName()
             );
             raws.add(raw);
         }
@@ -52,7 +54,9 @@ public class StorageDAO {
                 object.getDepartment_ID().getDepartment_ID(),
                 object.getStorage_manager_ID().getUser_ID(),
                 object.getStorage_name(),
-                object.getStorage_phone()
+                object.getStorage_phone(),
+                object.getStorage_manager_ID().getFirst_name(),
+                object.getDepartment_ID().getName()
         );
         return raw;
     }

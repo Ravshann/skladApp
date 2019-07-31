@@ -7,6 +7,9 @@ public class CompanyRaw {
     private String address;
     private String company_phone;
 
+    public CompanyRaw() {
+    }
+
     public CompanyRaw(Long company_ID, String name, String address, String company_phone) {
         this.company_ID = company_ID;
         this.name = name;

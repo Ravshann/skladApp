@@ -15,7 +15,7 @@ public class Company {
     private Long company_ID;
 
     private String name;
-    private String logo;
+
     private String address;
     private String company_phone;
 
@@ -39,13 +39,6 @@ public class Company {
         this.name = name;
     }
 
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
 
     public String getAddress() {
         return address;

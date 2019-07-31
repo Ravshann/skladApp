@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import uz.skladapp.model.pure_models.Client;
 import uz.skladapp.model.pure_models.Department;
 import uz.skladapp.model.pure_models.DepartmentClient;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class DepartmentClientDAO {
     @Autowired
     private DepartmentRepository departmentRepository;

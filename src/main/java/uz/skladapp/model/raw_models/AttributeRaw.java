@@ -3,19 +3,22 @@ package uz.skladapp.model.raw_models;
 public class AttributeRaw {
     private Long attribute_ID;
     private String attribute_name;
-    private String value;
+    private String attribute_value;
 
     public AttributeRaw(Long attribute_ID, String attribute_name) {
         this.attribute_ID = attribute_ID;
         this.attribute_name = attribute_name;
     }
 
-    public String getValue() {
-        return value;
+    public AttributeRaw() {
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public String getAttribute_value() {
+        return attribute_value;
+    }
+
+    public void setAttribute_value(String attribute_value) {
+        this.attribute_value = attribute_value;
     }
 
     public Long getAttribute_ID() {

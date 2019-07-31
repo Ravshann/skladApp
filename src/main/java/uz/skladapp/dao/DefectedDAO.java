@@ -4,13 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import uz.skladapp.model.pure_models.InOutRecord;
 import uz.skladapp.model.repositories.InOutRecordRepository;
 import uz.skladapp.model.raw_models.Defected;
 
 import java.util.ArrayList;
 import java.util.List;
-@Component
+@Service
 public class DefectedDAO {
     @Autowired
     private InOutRecordRepository repository;
@@ -29,6 +30,7 @@ public class DefectedDAO {
             item.setProduct_name(record.getProduct_ID().getProduct_name());
             item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategory_name());
             item.setSupplier_name(record.getSupplier_ID().getSupplier_name());
+            item.setSupplier_ID(record.getSupplier_ID().getSupplier_ID());
             item.setStorage_ID(record.getSupplier_ID().getSupplier_ID());
             item.setRecord_datetime(record.getRecord_time());
             item.setQuantity(record.getQuantity());

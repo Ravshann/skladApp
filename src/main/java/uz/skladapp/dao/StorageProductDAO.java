@@ -43,7 +43,7 @@ public class StorageProductDAO {
                 AttributeRaw attributeRaw = new AttributeRaw(
                         attribute.getAttribute_ID(),
                         attribute.getAttribute().getAttribute_name());
-                attributeRaw.setValue(attribute.getValue());
+                attributeRaw.setAttribute_value(attribute.getAttribute_value());
                 attributes.add(attributeRaw);
             }
 

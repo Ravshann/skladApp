@@ -15,7 +15,7 @@ public class Returned {
     private String client_region;
     private String client_name;
     private Long client_ID;
-    @JsonFormat(pattern = "yyyy-MM-dd") // add this to get hour precision=====>>> hh:mm:ss
+    @JsonFormat(pattern = "yyyy-MM-dd",  timezone = "Asia/Tashkent") // add this to get hour precision=====>>> hh:mm:ss
     private Date record_datetime;
     private Float quantity;
     private String note;

@@ -22,7 +22,6 @@ public class IncomingDAO {
         List<Incoming> incomings = new ArrayList<>();
         List<InOutRecord> records = repository.findAllIncomings();
         for (InOutRecord record : records) {
-
             Incoming item = new Incoming();
             item.setRecord_ID(record.getRecord_ID());
             item.setProduct_ID(record.getProduct_ID().getProduct_ID());
@@ -35,6 +34,7 @@ public class IncomingDAO {
             item.setQuantity(record.getQuantity());
             item.setStorage_name(record.getStorage_ID().getStorage_name());
             item.setStorage_ID(record.getStorage_ID().getStorage_ID());
+            item.setEdited_datetime(record.getUpdated_time());
 
             incomings.add(item);
         }

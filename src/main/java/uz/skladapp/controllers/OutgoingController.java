@@ -21,7 +21,6 @@ public class OutgoingController {
 
     @PostMapping(value = "/save")
     public void save(@RequestBody String data) throws Exception{
-
         dao.save(data);
     }
 

@@ -1,25 +1,27 @@
 package uz.skladapp.model.raw_models;
 
+import uz.skladapp.model.pure_models.Company;
+import uz.skladapp.model.pure_models.User;
+
 public class DepartmentRaw {
     private Long department_ID;
 
     private String name;
     private String description;
     private String address;
-    private Long company_ID;
-    private Long department_manager_ID;
+    private Company company;
+    private User department_manager;
     private String department_phone;
 
-    public DepartmentRaw(Long department_ID, String name, String description, String address, Long company_ID, Long department_manager_ID, String department_phone) {
+    public DepartmentRaw(Long department_ID, String name, String description, String address, Company company, User department_manager, String department_phone) {
         this.department_ID = department_ID;
         this.name = name;
         this.description = description;
         this.address = address;
-        this.company_ID = company_ID;
-        this.department_manager_ID = department_manager_ID;
+        this.company = company;
+        this.department_manager = department_manager;
         this.department_phone = department_phone;
     }
-
 
 
     public Long getDepartment_ID() {
@@ -54,20 +56,20 @@ public class DepartmentRaw {
         this.address = address;
     }
 
-    public Long getCompany_ID() {
-        return company_ID;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompany_ID(Long company_ID) {
-        this.company_ID = company_ID;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
-    public Long getDepartment_manager_ID() {
-        return department_manager_ID;
+    public User getDepartment_manager() {
+        return department_manager;
     }
 
-    public void setDepartment_manager_ID(Long department_manager_ID) {
-        this.department_manager_ID = department_manager_ID;
+    public void setDepartment_manager(User department_manager) {
+        this.department_manager = department_manager;
     }
 
     public String getDepartment_phone() {

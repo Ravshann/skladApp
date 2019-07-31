@@ -28,20 +28,7 @@ public class DepartmentDAO {
     private UserRepository userRepository;
 
 
-    public DepartmentRaw getDepartmentByID(Long id) {
 
-        Department object = departmentRepository.findById(id).get();
-        DepartmentRaw raw = new DepartmentRaw(
-                object.getDepartment_ID(),
-                object.getName(),
-                object.getDescription(),
-                object.getAddress(),
-                object.getCompany_ID().getCompany_ID(),
-                object.getDepartment_manager_ID().getUser_ID(),
-                object.getDepartment_phone()
-        );
-        return raw;
-    }
 
     public Iterable<DepartmentRaw> getAllDepartments() {
         List<Department> originals = departmentRepository.findAll();
@@ -52,8 +39,8 @@ public class DepartmentDAO {
                     object.getName(),
                     object.getDescription(),
                     object.getAddress(),
-                    object.getCompany_ID().getCompany_ID(),
-                    object.getDepartment_manager_ID().getUser_ID(),
+                    object.getCompany_ID(),
+                    object.getDepartment_manager_ID(),
                     object.getDepartment_phone()
             );
             raws.add(raw);
@@ -111,7 +98,6 @@ public class DepartmentDAO {
                 })
                 .get();
     }
-
 
 
     public void addClient(Client client, Department department) {

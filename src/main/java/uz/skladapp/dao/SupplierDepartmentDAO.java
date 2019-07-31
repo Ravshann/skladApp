@@ -33,8 +33,8 @@ public class SupplierDepartmentDAO {
                     association.getDepartment().getName(),
                     association.getDepartment().getDescription(),
                     association.getDepartment().getAddress(),
-                    association.getDepartment().getCompany_ID().getCompany_ID(),
-                    association.getDepartment().getDepartment_manager_ID().getUser_ID(),
+                    association.getDepartment().getCompany_ID(),
+                    association.getDepartment().getDepartment_manager_ID(),
                     association.getDepartment().getDepartment_phone()
             );
             departments.add(raw);

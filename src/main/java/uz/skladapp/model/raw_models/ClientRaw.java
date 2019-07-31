@@ -5,6 +5,9 @@ public class ClientRaw {
     private String client_name;
     private String region;
 
+    public ClientRaw() {
+    }
+
     public ClientRaw(Long client_ID, String client_name, String region) {
         this.client_ID = client_ID;
         this.client_name = client_name;

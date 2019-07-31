@@ -21,7 +21,7 @@ public class CategoryController {
     }
 
 
-    @RequestMapping(value = "/{id}", produces = "application/json")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public @ResponseBody
     CategoryRaw get(@PathVariable("id") String id) {
         return dao.get(Long.valueOf(id));

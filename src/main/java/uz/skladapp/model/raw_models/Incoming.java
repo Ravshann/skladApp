@@ -15,9 +15,19 @@ public class Incoming {
     private Long category_ID;
     private Long supplier_ID;
     private String supplier_name;
-    @JsonFormat(pattern = "yyyy-MM-dd") // add this to get hour precision=====>>> hh:mm:ss
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Tashkent") // add this to get hour precision=====>>> hh:mm:ss
     private Date record_datetime;
     private Float quantity;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Tashkent") // add this to get hour precision=====>>> hh:mm:ss
+    private Date edited_datetime;
+
+    public Date getEdited_datetime() {
+        return edited_datetime;
+    }
+
+    public void setEdited_datetime(Date edited_datetime) {
+        this.edited_datetime = edited_datetime;
+    }
 
     public Long getRecord_ID() {
         return record_ID;

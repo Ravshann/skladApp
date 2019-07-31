@@ -19,10 +19,10 @@ public class DepartmentController {
     }
 
 
-    @GetMapping(value = "/{id}", produces = "application/json")
-    public @ResponseBody DepartmentRaw get(@PathVariable("id") String id) {
-        return dao.getDepartmentByID(Long.valueOf(id));
-    }
+//    @GetMapping(value = "/{id}", produces = "application/json")
+//    public @ResponseBody DepartmentRaw get(@PathVariable("id") String id) {
+//        return dao.getDepartmentByID(Long.valueOf(id));
+//    }
 
     @PostMapping(value = "")
     public void save(@RequestBody String department) throws Exception {

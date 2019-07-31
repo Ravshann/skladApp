@@ -15,9 +15,9 @@ public class Defected {
     private Long category_ID;
     private Long supplier_ID;
     private String supplier_name;
-    @JsonFormat(pattern = "yyyy-MM-dd") // add this to get hour precision=====>>> hh:mm:ss
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Tashkent") // add this to get hour precision=====>>> hh:mm:ss
     private Date record_datetime;
-    @JsonFormat(pattern = "yyyy-MM-dd") // add this to get hour precision=====>>> hh:mm:ss
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Tashkent") // add this to get hour precision=====>>> hh:mm:ss
     private Date updated_time;
     private Float quantity;
     private String note;

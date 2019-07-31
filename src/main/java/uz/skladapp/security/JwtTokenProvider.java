@@ -31,7 +31,7 @@ public class JwtTokenProvider {
     private String secretKey;
 
     @Value("${jwt.expiration}")
-    private Long expirationInSeconds;
+    private Long expirationInMilliSeconds;
 
     @Autowired
     private UserRepository userRepository;
@@ -45,7 +45,7 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(username);
         Date now = new Date();
-        Date validity = new Date(now.getTime() + expirationInSeconds);
+        Date validity = new Date(now.getTime() + expirationInMilliSeconds);
 
 
         String token= Jwts.builder()//
@@ -63,7 +63,7 @@ public class JwtTokenProvider {
         UserDetails user_cred = org.springframework.security.core.userdetails.User//
                 .withUsername(u.getUsername())//
                 .password(u.getPassword())//
-                .authorities(new SimpleGrantedAuthority("admin"))
+                .authorities(new SimpleGrantedAuthority(u.getRole_ID().getRole_name()))
                 .accountExpired(false)//
                 .accountLocked(false)//
                 .credentialsExpired(false)//

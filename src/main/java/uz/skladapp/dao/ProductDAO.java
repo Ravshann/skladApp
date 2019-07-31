@@ -41,7 +41,7 @@ public class ProductDAO {
             AttributeRaw attributeRaw = new AttributeRaw(
                     attribute.getAttribute_ID(),
                     attribute.getAttribute().getAttribute_name());
-            attributeRaw.setValue(attribute.getValue());
+            attributeRaw.setAttribute_value(attribute.getAttribute_value());
             attributes.add(attributeRaw);
         }
 
@@ -63,7 +63,7 @@ public class ProductDAO {
                 AttributeRaw attributeRaw = new AttributeRaw(
                         attribute.getAttribute_ID(),
                         attribute.getAttribute().getAttribute_name());
-                attributeRaw.setValue(attribute.getValue());
+                attributeRaw.setAttribute_value(attribute.getAttribute_value());
                 attributes.add(attributeRaw);
             }
 
@@ -118,7 +118,7 @@ public class ProductDAO {
         association.setProduct(product);
         association.setAttribute_ID(attribute.getAttribute_ID());
         association.setProduct_ID(product.getProduct_ID());
-        association.setValue(value);
+        association.setAttribute_value(value);
 
         if (product.getAttributes() == null)
             product.setAttributes(new ArrayList<>());

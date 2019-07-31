@@ -4,14 +4,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import uz.skladapp.model.pure_models.Client;
 import uz.skladapp.model.repositories.ClientRepository;
 import uz.skladapp.model.raw_models.ClientRaw;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Component
+@Service
 public class ClientDAO {
     @Autowired
     private ClientRepository repository;
@@ -19,18 +21,23 @@ public class ClientDAO {
     public Iterable<ClientRaw> getAll() {
         List<Client> originals = repository.findAll();
         List<ClientRaw> raws = new ArrayList<>();
-        for (Client object : originals) {
+        originals.forEach(object ->
+        {
             ClientRaw raw = new ClientRaw(object.getClient_ID(), object.getClient_name(), object.getRegion());
             raws.add(raw);
-        }
+        });
         return raws;
-
     }
 
     public ClientRaw get(Long id) {
-        Client object = repository.findById(id).get();
-        ClientRaw raw = new ClientRaw(object.getClient_ID(), object.getClient_name(), object.getRegion());
-        return raw;
+        Optional<Client> object = repository.findById(id);
+        if (object.isPresent())
+            return new ClientRaw(
+                    object.get().getClient_ID(),
+                    object.get().getClient_name(),
+                    object.get().getRegion());
+        else
+            return new ClientRaw();
     }
 
     public void create(String string) throws Exception {
@@ -64,8 +71,8 @@ public class ClientDAO {
     }
 
     public void clientCreate(Client object) {
-        System.out.println(object.getClient_name());
-        System.out.println(object.getRegion());
+//        System.out.println(object.getClient_name());
+//        System.out.println(object.getRegion());
         repository.save(object);
     }
 

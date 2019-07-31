@@ -22,7 +22,6 @@ public class RoleController {
 
     @GetMapping("/{id}")
     public Optional<Role> getRole(@PathVariable("id") String id) {
-
         return dao.getRoleByID(Long.valueOf(id));
     }
 

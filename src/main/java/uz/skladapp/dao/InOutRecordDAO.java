@@ -57,22 +57,22 @@ public class InOutRecordDAO {
 
             Long inout_t_id = json.get("inout_type_ID").asLong();
             if (inout_t_id == 2) {
-                Long su_id = Long.valueOf(json.get("supplier_ID").toString());
+                Long su_id = json.get("supplier_ID").asLong();
                 Optional<Supplier> supplier = supplierRepository.findById(su_id);
                 object.setSupplier_ID(supplier.get());
                 object.setRecord_note(json.get("note").asText());
             } else if (inout_t_id == 1) {
-                Long c_id = Long.valueOf(json.get("client_ID").toString());
+                Long c_id = json.get("client_ID").asLong();
                 Optional<Client> client = clientRepository.findById(c_id);
                 object.setClient_ID(client.get());
                 object.setRecord_note(json.get("note").asText());
             } else if (inout_t_id == 3) {
-                Long c_id = Long.valueOf(json.get("client_ID").toString());
+                Long c_id = json.get("client_ID").asLong();
                 Optional<Client> client = clientRepository.findById(c_id);
                 object.setClient_ID(client.get());
                 object.setRecord_note(json.get("note").asText());
             } else if (inout_t_id == 4) {
-                Long su_id = Long.valueOf(json.get("supplier_ID").toString());
+                Long su_id = json.get("supplier_ID").asLong();
                 Optional<Supplier> supplier = supplierRepository.findById(su_id);
                 object.setSupplier_ID(supplier.get());
                 object.setRecord_note(json.get("note").asText());
@@ -112,6 +112,7 @@ public class InOutRecordDAO {
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         Date record_time = dateformat.parse(json.get("record_datetime").asText());
         Date updated_time = dateformat.parse(json.get("updated_datetime").asText());
+        System.out.println(record_time);
         return inOutRecordRepository.findById(id)
                 .map(object -> {
 

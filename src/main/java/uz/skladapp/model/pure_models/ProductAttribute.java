@@ -18,8 +18,8 @@ public class ProductAttribute {
     @Id
     private long attribute_ID;
 
-    @Column(name = "value")
-    private String value;
+    @Column(name = "attribute_value")
+    private String attribute_value;
 
 
     @JsonBackReference // this needed to json generation
@@ -35,8 +35,8 @@ public class ProductAttribute {
     public ProductAttribute() {
     }
 
-    public ProductAttribute(String value, Product product, Attribute attribute) {
-        this.value = value;
+    public ProductAttribute(String attribute_value, Product product, Attribute attribute) {
+        this.attribute_value = attribute_value;
         this.product = product;
         this.attribute = attribute;
         this.product_ID = product.getProduct_ID();
@@ -62,12 +62,12 @@ public class ProductAttribute {
         this.attribute_ID = attribute_ID;
     }
 
-    public String getValue() {
-        return value;
+    public String getAttribute_value() {
+        return attribute_value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setAttribute_value(String attribute_value) {
+        this.attribute_value = attribute_value;
     }
 
     public Product getProduct() {

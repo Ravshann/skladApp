@@ -9,14 +9,18 @@ public class StorageRaw {
 
     private String storage_name;
     private String storage_phone;
+    private String department_name;
+    private String storage_manager_name;
 
-    public StorageRaw(Long storage_ID, String address, Long department_ID, Long storage_manager_ID, String storage_name, String storage_phone) {
+    public StorageRaw(Long storage_ID, String address, Long department_ID, Long storage_manager_ID, String storage_name, String storage_phone, String storage_manager_name, String department_name) {
         this.storage_ID = storage_ID;
         this.address = address;
         this.department_ID = department_ID;
         this.storage_manager_ID = storage_manager_ID;
         this.storage_name = storage_name;
         this.storage_phone = storage_phone;
+        this.storage_manager_name = storage_manager_name;
+        this.department_name = department_name;
     }
 
     public Long getStorage_ID() {
@@ -65,5 +69,21 @@ public class StorageRaw {
 
     public void setStorage_phone(String storage_phone) {
         this.storage_phone = storage_phone;
+    }
+
+    public String getDepartment_name() {
+        return department_name;
+    }
+
+    public void setDepartment_name(String department_name) {
+        this.department_name = department_name;
+    }
+
+    public String getStorage_manager_name() {
+        return storage_manager_name;
+    }
+
+    public void setStorage_manager_name(String storage_manager_name) {
+        this.storage_manager_name = storage_manager_name;
     }
 }

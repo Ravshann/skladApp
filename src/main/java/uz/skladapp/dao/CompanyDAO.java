@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import uz.skladapp.model.pure_models.Company;
 import uz.skladapp.model.repositories.CompanyRepository;
 import uz.skladapp.model.raw_models.CompanyRaw;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class CompanyDAO {
     @Autowired
     private CompanyRepository repository;
@@ -29,10 +30,16 @@ public class CompanyDAO {
     }
 
     public CompanyRaw get(Long id) {
-        //return repository.findById(id);
+
         Optional<Company> object = repository.findById(id);
-        CompanyRaw raw = new CompanyRaw(object.get().getCompany_ID(), object.get().getName(), object.get().getAddress(), object.get().getCompany_phone());
-        return raw;
+        if (object.isPresent())
+            return new CompanyRaw(
+                    object.get().getCompany_ID(),
+                    object.get().getName(),
+                    object.get().getAddress(),
+                    object.get().getCompany_phone());
+        else
+            return new CompanyRaw();
     }
 
     public void create(String string) throws Exception {
@@ -43,7 +50,7 @@ public class CompanyDAO {
         //extracting data json
         object.setAddress(json.get("address").asText());
         object.setCompany_phone(json.get("company_phone").asText());
-        object.setLogo(json.get("logo").asText());
+
         object.setName(json.get("name").asText());
 
         repository.save(object);
@@ -60,7 +67,7 @@ public class CompanyDAO {
                 .map(object -> {
                     object.setAddress(json.get("address").asText());
                     object.setCompany_phone(json.get("company_phone").asText());
-                    object.setLogo(json.get("logo").asText());
+
                     object.setName(json.get("name").asText());
                     return repository.save(object);
                 })

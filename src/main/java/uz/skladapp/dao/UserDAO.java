@@ -31,6 +31,12 @@ public class UserDAO {
     public Iterable<User> getUserList() {
         return userRepository.findAll();
     }
+    public Iterable<User> getAllDepartmentManagers() {
+        return userRepository.findAllDepartmentManagers();
+    }
+    public Iterable<User> getAllStorageManagers() {
+        return userRepository.findAllStorageManagers();
+    }
 
 
     public User getUser(Long id) {
@@ -44,8 +50,7 @@ public class UserDAO {
         userRolePermissions.setRole_ID(userRole.getRole_ID());
         userRolePermissions.setRole_name(userRole.getRole_name());
         userRolePermissions.setPermissions(new ArrayList<>());
-        for(RolePermission rolePermission: userRole.getPermissions())
-        {
+        for (RolePermission rolePermission : userRole.getPermissions()) {
             PermissionRaw permissionRaw = new PermissionRaw();
             Permission permission = permissionRepository.findById(rolePermission.getPermission_ID()).get();
             permissionRaw.setPermission_name(permission.getPermission_name());
@@ -57,23 +62,24 @@ public class UserDAO {
     }
 
     public void saveUser(String string) throws Exception {
-        boolean isSupervisor = false;
+        boolean hasSupervisor = false;
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(string);
         Optional<User> supervisor = null;
 
-        if (!jsonNode.get("supervisor").asText().equals("null")) {
-            Long u_id = Long.valueOf(jsonNode.get("supervisor").toString());
+        if (!jsonNode.get("supervisor").asText().isEmpty()) {
+            Long u_id = jsonNode.get("supervisor").asLong();
             supervisor = userRepository.findById(u_id);
-            isSupervisor = true;
+            hasSupervisor = true;
         }
-        Long c_id = Long.valueOf(jsonNode.get("company_ID").toString());
+        Long c_id = jsonNode.get("company_ID").asLong();
         Optional<Company> company = companyRepository.findById(c_id);
-        Long r_id = Long.valueOf(jsonNode.get("role_ID").toString());
+        Long r_id = jsonNode.get("role_ID").asLong();
         Optional<Role> role = roleRepository.findById(r_id);
 
         User newUser = new User();
-        if (isSupervisor) {
+
+        if (hasSupervisor) {
             newUser.setSupervisor(supervisor.get());
         }
 
@@ -94,21 +100,21 @@ public class UserDAO {
     }
 
     public User update(String string, Long id) throws Exception {
-        boolean isSupervisor = false;
+        boolean hasSupervisor = false;
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(string);
         Optional<User> supervisor = null;
 
-        if (!json.get("supervisor").asText().equals("null")) {
-            Long u_id = Long.valueOf(json.get("supervisor").toString());
+        if (!json.get("supervisor").asText().isEmpty()) {
+            Long u_id = json.get("supervisor").asLong();
             supervisor = userRepository.findById(u_id);
-            isSupervisor = true;
+            hasSupervisor = true;
         }
-        Long c_id = Long.valueOf(json.get("company_ID").toString());
+        Long c_id = json.get("company_ID").asLong();
         Optional<Company> company = companyRepository.findById(c_id);
-        Long r_id = Long.valueOf(json.get("role_ID").toString());
+        Long r_id = json.get("role_ID").asLong();
         Optional<Role> role = roleRepository.findById(r_id);
-        boolean finalIsSupervisor = isSupervisor;
+        boolean finalIsSupervisor = hasSupervisor;
         Optional<User> finalSupervisor = supervisor;
         return userRepository.findById(id)
                 .map(user -> {

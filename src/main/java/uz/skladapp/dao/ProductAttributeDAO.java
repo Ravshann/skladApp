@@ -30,7 +30,7 @@ public class ProductAttributeDAO {
         List<AttributeRaw> attributes = new ArrayList<>();
         for (ProductAttribute association : product.get().getAttributes()) {
             AttributeRaw raw = new AttributeRaw(association.getAttribute().getAttribute_ID(), association.getAttribute().getAttribute_name());
-            raw.setValue(association.getValue());
+            raw.setAttribute_value(association.getAttribute_value());
             attributes.add(raw);
         }
         return attributes;
@@ -40,9 +40,9 @@ public class ProductAttributeDAO {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonArray = mapper.readTree(string);
         for (JsonNode json : jsonArray) {
-            Long id_product = Long.valueOf(json.get("product_ID").toString());
-            Long id_attribute = Long.valueOf(json.get("attribute_ID").toString());
-            String value = json.get("value").asText();
+            Long id_product = json.get("product_ID").asLong();
+            Long id_attribute = json.get("attribute_ID").asLong();
+            String value = json.get("attribute_value").asText();
             Product product = productRepository.findById(id_product).get();
             Attribute attribute = attributeRepository.findById(id_attribute).get();
             productDAO.addAttribute(attribute, value, product);
@@ -54,8 +54,8 @@ public class ProductAttributeDAO {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonArray = mapper.readTree(string);
         for (JsonNode json : jsonArray) {
-            Long id_product = Long.valueOf(json.get("product_ID").toString());
-            Long id_attribute = Long.valueOf(json.get("attribute_ID").toString());
+            Long id_product = json.get("product_ID").asLong();
+            Long id_attribute = json.get("attribute_ID").asLong();
             Product product = productRepository.findById(id_product).get();
             Attribute attribute = attributeRepository.findById(id_attribute).get();
             productDAO.removeAttribute(attribute, product);
@@ -65,20 +65,22 @@ public class ProductAttributeDAO {
 
     public void update(String string) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode json = mapper.readTree(string);
-        Long id_product = json.get("product_ID").asLong();
-        productRepository.findById(id_product)
-                .map(object -> {
-                    Long id_attribute = json.get("attribute_ID").asLong();
-                    String value = json.get("value").asText();
-                    Product product = productRepository.findById(id_product).get();
-                    Attribute attribute = attributeRepository.findById(id_attribute).get();
-                    productDAO.removeAttribute(attribute, product);
-                    productDAO.addAttribute(attribute, value, product);
-                    productRepository.save(object);
-                    return 0;
-                })
-                .get();
+        JsonNode jsonArray = mapper.readTree(string);
+        for (JsonNode json : jsonArray) {
+            Long id_product = json.get("product_ID").asLong();
+            productRepository.findById(id_product)
+                    .map(object -> {
+                        Long id_attribute = json.get("attribute_ID").asLong();
+                        String value = json.get("attribute_value").asText();
+                        Product product = productRepository.findById(id_product).get();
+                        Attribute attribute = attributeRepository.findById(id_attribute).get();
+                        productDAO.removeAttribute(attribute, product);
+                        productDAO.addAttribute(attribute, value, product);
+                        productRepository.save(object);
+                        return 0;
+                    })
+                    .get();
+        }
     }
 }
 

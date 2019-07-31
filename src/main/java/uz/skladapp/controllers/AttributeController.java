@@ -19,11 +19,6 @@ public class AttributeController {
         return dao.getAllAttributes();
     }
 
-    @RequestMapping(value = "/{id}", produces = "application/json")
-    public @ResponseBody
-    AttributeRaw get(@PathVariable String id) {
-        return dao.getAttribute(Long.valueOf(id));
-    }
 
     @PostMapping(value = "")
     public void save(@RequestBody String attribute) throws Exception {
@@ -38,6 +33,12 @@ public class AttributeController {
     @PostMapping("/{id}")
     Attribute replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
+    }
+
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public @ResponseBody
+    AttributeRaw get(@PathVariable String id) {
+        return dao.getAttribute(Long.valueOf(id));
     }
 
 }
