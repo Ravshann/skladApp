@@ -19,6 +19,12 @@ public class OutgoingController {
         return dao.getAllOutgoingRecords();
     }
 
+    @GetMapping(value = "/{storage_id}", produces = "application/json")
+    public @ResponseBody
+    List<Outgoing> getListByStorage(@PathVariable("storage_id") String storage_id) {
+        return dao.getListByStorage(storage_id);
+    }
+
     @PostMapping(value = "/save")
     public void save(@RequestBody String data) throws Exception{
         dao.save(data);

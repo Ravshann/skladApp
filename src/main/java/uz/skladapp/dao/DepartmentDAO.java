@@ -98,8 +98,6 @@ public class DepartmentDAO {
                 })
                 .get();
     }
-
-
     public void addClient(Client client, Department department) {
         DepartmentClient association = new DepartmentClient();
         association.setClient(client);

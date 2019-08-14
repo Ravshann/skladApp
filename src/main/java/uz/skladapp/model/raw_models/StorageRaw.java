@@ -12,6 +12,9 @@ public class StorageRaw {
     private String department_name;
     private String storage_manager_name;
 
+    public StorageRaw() {
+    }
+
     public StorageRaw(Long storage_ID, String address, Long department_ID, Long storage_manager_ID, String storage_name, String storage_phone, String storage_manager_name, String department_name) {
         this.storage_ID = storage_ID;
         this.address = address;

@@ -18,9 +18,9 @@ public class StorageController {
         return dao.getStorageList();
     }
 
-    @GetMapping("/{id}")
-    public StorageRaw getStorage(@PathVariable("id") String id) {
-        return dao.getStorageByID(Long.valueOf(id));
+    @GetMapping("/{user_id}")
+    public StorageRaw getStorage(@PathVariable("user_id") String id) {
+        return dao.getStorageByStorageManagerID(Long.valueOf(id));
     }
 
     @PostMapping("")

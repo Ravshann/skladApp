@@ -25,4 +25,11 @@ public class RemainderController {
         return dao.getList(pr_id);
     }
 
+    @GetMapping(value = "/storage/{storage_id}", produces = "application/json")
+    public @ResponseBody
+    List<Remainder> getListByStorage(@PathVariable("storage_id") String storage_id) {
+        return dao.getListByStorage(storage_id);
+    }
+
+
 }

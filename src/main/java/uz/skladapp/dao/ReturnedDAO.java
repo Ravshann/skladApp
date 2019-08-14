@@ -54,4 +54,27 @@ public class ReturnedDAO {
 
 
     }
+
+    public List<Returned> getListByStorage(String storage_id) {
+        List<Returned> returneds = new ArrayList<>();
+        List<InOutRecord> records = repository.findAllReturnedByStorage(Long.valueOf(storage_id));
+        for (InOutRecord record : records) {
+            Returned item = new Returned();
+            item.setRecord_ID(record.getRecord_ID());
+            item.setProduct_ID(record.getProduct_ID().getProduct_ID());
+            item.setCategory_ID(record.getProduct_ID().getCategory_ID().getCategory_ID());
+            item.setProduct_name(record.getProduct_ID().getProduct_name());
+            item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategory_name());
+            item.setClient_region(record.getClient_ID().getRegion());
+            item.setClient_ID(record.getClient_ID().getClient_ID());
+            item.setClient_name(record.getClient_ID().getClient_name());
+            item.setRecord_datetime(record.getRecord_time());
+            item.setQuantity(record.getQuantity());
+            item.setStorage_name(record.getStorage_ID().getStorage_name());
+            item.setStorage_ID(record.getStorage_ID().getStorage_ID());
+            item.setNote(record.getRecord_note());
+            returneds.add(item);
+        }
+        return returneds;
+    }
 }

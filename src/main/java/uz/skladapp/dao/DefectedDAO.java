@@ -11,7 +11,8 @@ import uz.skladapp.model.raw_models.Defected;
 
 import java.util.ArrayList;
 import java.util.List;
-@Service
+
+@Component
 public class DefectedDAO {
     @Autowired
     private InOutRecordRepository repository;
@@ -47,7 +48,7 @@ public class DefectedDAO {
         dao.create(data);
     }
 
-    public void update(String data) throws Exception{
+    public void update(String data) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(data);
         Long rec_id = json.get("record_ID").asLong();
@@ -58,4 +59,27 @@ public class DefectedDAO {
 
     }
 
+    public List<Defected> getListByStorage(String storage_id) {
+        List<Defected> defecteds = new ArrayList<>();
+        List<InOutRecord> records = repository.findAllDefectedByStorage(Long.valueOf(storage_id));
+        for (InOutRecord record : records) {
+            Defected item = new Defected();
+            item.setRecord_ID(record.getRecord_ID());
+            item.setProduct_ID(record.getProduct_ID().getProduct_ID());
+            item.setCategory_ID(record.getProduct_ID().getCategory_ID().getCategory_ID());
+            item.setProduct_name(record.getProduct_ID().getProduct_name());
+            item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategory_name());
+            item.setSupplier_name(record.getSupplier_ID().getSupplier_name());
+            item.setSupplier_ID(record.getSupplier_ID().getSupplier_ID());
+            item.setStorage_ID(record.getSupplier_ID().getSupplier_ID());
+            item.setRecord_datetime(record.getRecord_time());
+            item.setQuantity(record.getQuantity());
+            item.setStorage_name(record.getStorage_ID().getStorage_name());
+            item.setStorage_ID(record.getStorage_ID().getStorage_ID());
+            item.setNote(record.getRecord_note());
+            item.setUpdated_time(record.getUpdated_time());
+            defecteds.add(item);
+        }
+        return defecteds;
+    }
 }

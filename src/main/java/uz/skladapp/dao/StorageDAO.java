@@ -61,6 +61,24 @@ public class StorageDAO {
         return raw;
     }
 
+    public StorageRaw getStorageByStorageManagerID(Long user_id) {
+        List<Storage> objects = storageRepository.findStorageByManager(user_id);
+
+        if (!objects.isEmpty())
+            return new StorageRaw(
+                    objects.get(0).getStorage_ID(),
+                    objects.get(0).getAddress(),
+                    objects.get(0).getDepartment_ID().getDepartment_ID(),
+                    objects.get(0).getStorage_manager_ID().getUser_ID(),
+                    objects.get(0).getStorage_name(),
+                    objects.get(0).getStorage_phone(),
+                    objects.get(0).getStorage_manager_ID().getFirst_name(),
+                    objects.get(0).getDepartment_ID().getName()
+            );
+        else
+            return new StorageRaw();
+    }
+
     public void saveStorage(String newText) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(newText);

@@ -1,4 +1,4 @@
-package uz.skladapp.controllers;
+package uz.skladapp.controllers.security_package;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,6 +39,7 @@ public class LoginController {
                 user_detail.put("username", username);
                 user_detail.put("token", token);
                 user_detail.put("role", user.getRole_ID().getRole_name());
+                user_detail.put("user_ID", user.getUser_ID());
 
                 Authentication auth = tokenGenerator.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
@@ -69,6 +70,7 @@ public class LoginController {
                 user_detail.put("username", username);
                 user_detail.put("token", new_token);
                 user_detail.put("role", user.getRole_ID().getRole_name());
+                user_detail.put("user_ID", user.getUser_ID());
 
                 Authentication auth = tokenGenerator.getAuthentication(new_token);
                 SecurityContextHolder.getContext().setAuthentication(auth);

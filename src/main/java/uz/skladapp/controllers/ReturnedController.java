@@ -6,6 +6,7 @@ import uz.skladapp.dao.ReturnedDAO;
 import uz.skladapp.model.raw_models.Returned;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/returned")
 public class ReturnedController {
@@ -18,13 +19,19 @@ public class ReturnedController {
         return dao.getAllReturnedRecords();
     }
 
+    @GetMapping(value = "/{storage_id}", produces = "application/json")
+    public @ResponseBody
+    List<Returned> getListByStorage(@PathVariable("storage_id") String storage_id) {
+        return dao.getListByStorage(storage_id);
+    }
+
     @PostMapping(value = "/save")
-    public void save(@RequestBody String data) throws Exception{
+    public void save(@RequestBody String data) throws Exception {
         dao.save(data);
     }
 
     @PostMapping(value = "/update")
-    public void update(@RequestBody String data) throws Exception{
+    public void update(@RequestBody String data) throws Exception {
         dao.update(data);
     }
 }

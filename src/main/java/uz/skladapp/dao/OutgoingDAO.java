@@ -53,4 +53,26 @@ public class OutgoingDAO {
 
 
     }
+
+    public List<Outgoing> getListByStorage(String storage_id) {
+        List<Outgoing> outgoings = new ArrayList<>();
+        List<InOutRecord> records = repository.findAllOutgoingsByStorage(Long.valueOf(storage_id));
+        for (InOutRecord record : records) {
+            Outgoing item = new Outgoing();
+            item.setRecord_ID(record.getRecord_ID());
+            item.setProduct_ID(record.getProduct_ID().getProduct_ID());
+            item.setCategory_ID(record.getProduct_ID().getCategory_ID().getCategory_ID());
+            item.setProduct_name(record.getProduct_ID().getProduct_name());
+            item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategory_name());
+            item.setClient_region(record.getClient_ID().getRegion());
+            item.setClient_ID(record.getClient_ID().getClient_ID());
+            item.setClient_name(record.getClient_ID().getClient_name());
+            item.setRecord_datetime(record.getRecord_time());
+            item.setQuantity(record.getQuantity());
+            item.setStorage_name(record.getStorage_ID().getStorage_name());
+            item.setStorage_ID(record.getStorage_ID().getStorage_ID());
+            outgoings.add(item);
+        }
+        return outgoings;
+    }
 }

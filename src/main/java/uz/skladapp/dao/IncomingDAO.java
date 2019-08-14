@@ -54,4 +54,27 @@ public class IncomingDAO {
 
 
     }
+
+    public List<Incoming> getListByStorage(String storage_id) {
+        List<Incoming> incomings = new ArrayList<>();
+        List<InOutRecord> records = repository.findAllIncomingsByStorage(Long.valueOf(storage_id));
+        for (InOutRecord record : records) {
+            Incoming item = new Incoming();
+            item.setRecord_ID(record.getRecord_ID());
+            item.setProduct_ID(record.getProduct_ID().getProduct_ID());
+            item.setCategory_ID(record.getProduct_ID().getCategory_ID().getCategory_ID());
+            item.setProduct_name(record.getProduct_ID().getProduct_name());
+            item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategory_name());
+            item.setSupplier_ID(record.getSupplier_ID().getSupplier_ID());
+            item.setRecord_datetime(record.getRecord_time());
+            item.setSupplier_name(record.getSupplier_ID().getSupplier_name());
+            item.setQuantity(record.getQuantity());
+            item.setStorage_name(record.getStorage_ID().getStorage_name());
+            item.setStorage_ID(record.getStorage_ID().getStorage_ID());
+            item.setEdited_datetime(record.getUpdated_time());
+
+            incomings.add(item);
+        }
+        return incomings;
+    }
 }

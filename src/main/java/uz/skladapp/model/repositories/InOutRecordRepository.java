@@ -2,6 +2,7 @@ package uz.skladapp.model.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import uz.skladapp.model.pure_models.InOutRecord;
 
 import java.util.List;
@@ -18,4 +19,17 @@ public interface InOutRecordRepository extends JpaRepository<InOutRecord, Long> 
 
     @Query(value = "SELECT * FROM inout_record WHERE inout_record.inout_type_ID=4 ORDER BY inout_record.record_ID DESC", nativeQuery = true)
     List<InOutRecord> findAllDefected();
+
+
+    @Query(value = "SELECT * FROM inout_record WHERE inout_record.inout_type_ID=3 AND inout_record.storage_ID = :storage_id ORDER BY inout_record.record_ID DESC", nativeQuery = true)
+    List<InOutRecord> findAllReturnedByStorage(@Param("storage_id") Long storage_id);
+
+    @Query(value = "SELECT * FROM inout_record WHERE inout_record.inout_type_ID=4 AND inout_record.storage_ID = :storage_id ORDER BY inout_record.record_ID DESC", nativeQuery = true)
+    List<InOutRecord> findAllDefectedByStorage(@Param("storage_id") Long storage_id);
+
+    @Query(value = "SELECT * FROM inout_record WHERE inout_record.inout_type_ID=2 AND inout_record.storage_ID = :storage_id ORDER BY inout_record.record_ID DESC", nativeQuery = true)
+    List<InOutRecord> findAllIncomingsByStorage(@Param("storage_id") Long storage_id);
+
+    @Query(value = "SELECT * FROM inout_record WHERE inout_record.inout_type_ID=1 AND inout_record.storage_ID = :storage_id ORDER BY inout_record.record_ID DESC", nativeQuery = true)
+    List<InOutRecord> findAllOutgoingsByStorage(@Param("storage_id") Long storage_id);
 }
