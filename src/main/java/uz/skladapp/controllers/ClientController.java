@@ -2,26 +2,25 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.ClientDAO;
+import uz.skladapp.services.ClientService;
 import uz.skladapp.model.pure_models.Client;
-import uz.skladapp.model.raw_models.ClientRaw;
+import uz.skladapp.DTO.ClientDTO;
 
 
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
     @Autowired
-    private ClientDAO dao;
+    private ClientService dao;
 
     @GetMapping(value = "", produces = "application/json")
-    public @ResponseBody
-    Iterable<ClientRaw> getList() {
+    public Iterable<ClientDTO> getList() {
         return dao.getAll();
     }
 
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public @ResponseBody ClientRaw get(@PathVariable("id") String id) {
+    public ClientDTO get(@PathVariable("id") String id) {
         return dao.get(Long.valueOf(id));
     }
 

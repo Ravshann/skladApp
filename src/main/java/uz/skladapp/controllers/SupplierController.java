@@ -2,8 +2,8 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.SupplierDAO;
-import uz.skladapp.model.raw_models.SupplierRaw;
+import uz.skladapp.services.SupplierService;
+import uz.skladapp.DTO.SupplierDTO;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ import java.util.List;
 public class SupplierController {
 
     @Autowired
-    private SupplierDAO dao;
+    private SupplierService dao;
 
 
     @GetMapping(value = "", produces = "application/json")
-    public List<SupplierRaw> getListProducts() {
+    public List<SupplierDTO> getListProducts() {
         return dao.getList();
     }
 

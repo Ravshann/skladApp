@@ -2,8 +2,8 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.StorageProductDAO;
-import uz.skladapp.model.raw_models.ProductRaw;
+import uz.skladapp.services.StorageProductService;
+import uz.skladapp.DTO.ProductDTO;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ import java.util.List;
 @RequestMapping("/storage_products")
 public class StorageProductController {
     @Autowired
-    private StorageProductDAO dao;
+    private StorageProductService dao;
 
 
     @GetMapping(value = "/{store}", produces = "application/json")
-    public List<ProductRaw> getListProducts(@PathVariable("store") String id) {
+    public List<ProductDTO> getListProducts(@PathVariable("store") String id) {
         return dao.getList(id);
     }
 

@@ -2,27 +2,25 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.PermissionDAO;
+import uz.skladapp.services.PermissionService;
 import uz.skladapp.model.pure_models.Permission;
-import uz.skladapp.model.raw_models.PermissionRaw;
+import uz.skladapp.DTO.PermissionDTO;
 
 @RestController
 @RequestMapping("/permissions")
 public class PermissionController {
     @Autowired
-    private PermissionDAO dao;
+    private PermissionService dao;
 
 
     @GetMapping(value = "", produces = "application/json")
-    public @ResponseBody
-    Iterable<PermissionRaw> getList() {
+    public Iterable<PermissionDTO> getList() {
         return dao.getAll();
     }
 
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public @ResponseBody
-    PermissionRaw get(@PathVariable("id") String id) {
+    public PermissionDTO get(@PathVariable("id") String id) {
         return dao.get(Long.valueOf(id));
     }
 

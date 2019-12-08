@@ -2,8 +2,8 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.ProductAttributeDAO;
-import uz.skladapp.model.raw_models.AttributeRaw;
+import uz.skladapp.services.ProductAttributeService;
+import uz.skladapp.DTO.AttributeDTO;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import java.util.List;
 @RequestMapping("/product_attribute")
 public class ProductAttributeController {
     @Autowired
-    private ProductAttributeDAO dao;
+    private ProductAttributeService dao;
 
     @GetMapping("/{pro_id}")
-    public List<AttributeRaw> getListProducts(@PathVariable("pro_id") String id) {
+    public List<AttributeDTO> getListProducts(@PathVariable("pro_id") String id) {
         return dao.getAttributesList(Long.valueOf(id));
     }
 

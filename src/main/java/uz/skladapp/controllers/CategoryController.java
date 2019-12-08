@@ -2,34 +2,32 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.CategoryDAO;
+import uz.skladapp.services.CategoryService;
 
 import uz.skladapp.model.pure_models.Category;
-import uz.skladapp.model.raw_models.CategoryRaw;
+import uz.skladapp.DTO.CategoryDTO;
 
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
     @Autowired
-    private CategoryDAO dao;
+    private CategoryService dao;
 
 
     @GetMapping(value = "", produces = "application/json")
-    public @ResponseBody
-    Iterable<CategoryRaw> getList() {
+    public Iterable<CategoryDTO> getList() {
         return dao.getAll();
     }
 
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public @ResponseBody
-    CategoryRaw get(@PathVariable("id") String id) {
-        return dao.get(Long.valueOf(id));
+    public CategoryDTO get(@PathVariable("id") Long id) {
+        return dao.get(id);
     }
 
     @PostMapping(value = "")
-    public void save(@RequestBody String object) throws Exception {
-        dao.create(object);
+    public Category save(@RequestBody CategoryDTO object) {
+        return dao.create(object);
     }
 
     @DeleteMapping("/{id}")
@@ -38,7 +36,7 @@ public class CategoryController {
     }
 
     @PostMapping("/{id}")
-    Category replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
-        return dao.update(attribute, id);
+    Category replace(@RequestBody CategoryDTO dto, @PathVariable Long id) throws Exception {
+        return dao.update(dto, id);
     }
 }

@@ -2,7 +2,7 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.UserCompanyDAO;
+import uz.skladapp.services.UserCompanyService;
 import uz.skladapp.model.pure_models.Company;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/user_companies")
 public class UserCompanyController {
     @Autowired
-    private UserCompanyDAO dao;
+    private UserCompanyService dao;
 
     @GetMapping("/{owner}")
     public List<Company> getCompanies(@PathVariable("owner") String id) {

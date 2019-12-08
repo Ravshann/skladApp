@@ -1,6 +1,7 @@
 package uz.skladapp.model.pure_models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 import uz.skladapp.model.ID_classes.ProductAttributeID;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
 
 
+@Data
 @Entity
 @Table(name = "PRODUCT_ATTRIBUTE")
 @IdClass(ProductAttributeID.class)
@@ -43,46 +45,4 @@ public class ProductAttribute {
         this.attribute_ID = attribute.getAttribute_ID();
     }
 
-    //setters getters
-
-
-    public long getProduct_ID() {
-        return product_ID;
-    }
-
-    public void setProduct_ID(long product_ID) {
-        this.product_ID = product_ID;
-    }
-
-    public long getAttribute_ID() {
-        return attribute_ID;
-    }
-
-    public void setAttribute_ID(long attribute_ID) {
-        this.attribute_ID = attribute_ID;
-    }
-
-    public String getAttribute_value() {
-        return attribute_value;
-    }
-
-    public void setAttribute_value(String attribute_value) {
-        this.attribute_value = attribute_value;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Attribute getAttribute() {
-        return attribute;
-    }
-
-    public void setAttribute(Attribute attribute) {
-        this.attribute = attribute;
-    }
 }

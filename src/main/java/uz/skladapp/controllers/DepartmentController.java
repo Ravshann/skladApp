@@ -2,19 +2,19 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.DepartmentDAO;
+import uz.skladapp.services.DepartmentService;
 import uz.skladapp.model.pure_models.Department;
-import uz.skladapp.model.raw_models.DepartmentRaw;
+import uz.skladapp.DTO.DepartmentDTO;
 
 @RestController
 @RequestMapping("/departments")
 public class DepartmentController {
 
     @Autowired
-    private DepartmentDAO dao;
+    private DepartmentService dao;
 
     @GetMapping(value = "", produces = "application/json")
-    public @ResponseBody Iterable<DepartmentRaw> getList() {
+    public @ResponseBody Iterable<DepartmentDTO> getList() {
         return dao.getAllDepartments();
     }
 

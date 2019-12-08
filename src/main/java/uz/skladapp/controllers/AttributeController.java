@@ -2,26 +2,25 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.AttributeDAO;
+import uz.skladapp.services.AttributeService;
 import uz.skladapp.model.pure_models.Attribute;
-import uz.skladapp.model.raw_models.AttributeRaw;
+import uz.skladapp.DTO.AttributeDTO;
 
 @RestController
 @RequestMapping("/attributes")
 public class AttributeController {
     @Autowired
-    private AttributeDAO dao;
+    private AttributeService dao;
 
 
     @GetMapping(value = "", produces = "application/json")
-    public @ResponseBody
-    Iterable<AttributeRaw> getList() {
+    public Iterable<AttributeDTO> getList() {
         return dao.getAllAttributes();
     }
 
 
     @PostMapping(value = "")
-    public void save(@RequestBody String attribute) throws Exception {
+    public void save(@RequestBody AttributeDTO attribute) throws Exception {
         dao.createAttribute(attribute);
     }
 
@@ -31,14 +30,13 @@ public class AttributeController {
     }
 
     @PostMapping("/{id}")
-    Attribute replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
+    public Attribute replace(@RequestBody AttributeDTO attribute, @PathVariable Long id) throws Exception {
         return dao.update(attribute, id);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public @ResponseBody
-    AttributeRaw get(@PathVariable String id) {
-        return dao.getAttribute(Long.valueOf(id));
+    public AttributeDTO get(@PathVariable Long id) {
+        return dao.getAttribute(id);
     }
 
 }

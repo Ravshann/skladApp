@@ -16,16 +16,15 @@ import java.util.Arrays;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // Disable CSRF (cross site request forgery)
-//        http.csrf().disable();
         http.cors().and().csrf().disable();
         // No session will be created or used by spring security
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -34,8 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()//
                 .antMatchers("/login").permitAll()
                 .antMatchers("/login/refresh-token").permitAll()
-//                .antMatchers("/users/sign_in").permitAll()//
-//                .antMatchers("/users/sign_up").permitAll();//
                 // Disallow everything else..
                 .anyRequest().authenticated();
 
@@ -44,7 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Apply JWT
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
-
     }
 
     @Bean

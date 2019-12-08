@@ -3,10 +3,12 @@ package uz.skladapp.model.pure_models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Data
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Product {
@@ -29,44 +31,4 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StorageProduct> storages;
 
-
-    public Long getProduct_ID() {
-        return product_ID;
-    }
-
-    public void setProduct_ID(Long product_ID) {
-        this.product_ID = product_ID;
-    }
-
-    public String getProduct_name() {
-        return product_name;
-    }
-
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
-    }
-
-    public Category getCategory_ID() {
-        return category_ID;
-    }
-
-    public void setCategory_ID(Category category_ID) {
-        this.category_ID = category_ID;
-    }
-
-    public List<ProductAttribute> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(List<ProductAttribute> attributes) {
-        this.attributes = attributes;
-    }
-
-    public List<StorageProduct> getStorages() {
-        return storages;
-    }
-
-    public void setStorages(List<StorageProduct> storages) {
-        this.storages = storages;
-    }
 }

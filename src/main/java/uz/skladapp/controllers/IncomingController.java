@@ -2,8 +2,8 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.IncomingDAO;
-import uz.skladapp.model.raw_models.Incoming;
+import uz.skladapp.services.IncomingService;
+import uz.skladapp.DTO.Incoming;
 
 import java.util.List;
 
@@ -11,18 +11,21 @@ import java.util.List;
 @RequestMapping("/incoming")
 public class IncomingController {
     @Autowired
-    private IncomingDAO dao;
+    private IncomingService dao;
 
     @GetMapping(value = "", produces = "application/json")
-    public @ResponseBody
-    List<Incoming> getList() {
+    public List<Incoming> getList() {
         return dao.getAllIncomingRecords();
     }
 
     @GetMapping(value = "/{storage_id}", produces = "application/json")
-    public @ResponseBody
-    List<Incoming> getListByStorage(@PathVariable("storage_id") String storage_id) {
+    public List<Incoming> getListByStorage(@PathVariable("storage_id") String storage_id) {
         return dao.getListByStorage(storage_id);
+    }
+
+    @PostMapping(value = "/department-records", produces = "application/json")
+    public List<Incoming> getListByCommonDepartment(@RequestBody String storages) throws Exception {
+        return dao.getListByCommonDepartment(storages);
     }
 
     @PostMapping(value = "/save")

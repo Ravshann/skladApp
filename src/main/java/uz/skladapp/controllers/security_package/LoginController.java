@@ -3,11 +3,15 @@ package uz.skladapp.controllers.security_package;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import uz.skladapp.DTO.UserDTO;
+import uz.skladapp.DTO.UserDetailDTO;
 import uz.skladapp.model.pure_models.User;
-import uz.skladapp.model.repositories.UserRepository;
+import uz.skladapp.repositories.UserRepository;
 import uz.skladapp.security.JwtTokenProvider;
 
 import java.io.IOException;
@@ -23,58 +27,49 @@ public class LoginController {
     private JwtTokenProvider tokenGenerator;
 
     @PostMapping("")
-    public @ResponseBody
-    Map<Object, Object> login(@RequestBody String attribute) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(attribute);
-        String username = jsonNode.get("username").asText();
-        String password = jsonNode.get("password").asText();
+    public ResponseEntity<?> login(@RequestBody UserDTO userdto) {
+
         Map<Object, Object> message = new HashMap<>();
-        User user = repository.findByUsername(username);
+        User user = repository.findByUsernameAndPassword(userdto.getUsername(), userdto.getPassword());
         if (user != null) {
-            if (user.getPassword().equals(password)) {
-                String token = tokenGenerator.createToken(username);
+            String token = tokenGenerator.createToken(userdto.getUsername());
+            UserDetailDTO user_detail = UserDetailDTO.builder().
+                    user_ID(user.getUser_ID()).
+                    role(user.getRole_ID().getRole_name()).
+                    token(token).
+                    username(userdto.getUsername()).
+                    build();
 
-                Map<Object, Object> user_detail = new HashMap<>();
-                user_detail.put("username", username);
-                user_detail.put("token", token);
-                user_detail.put("role", user.getRole_ID().getRole_name());
-                user_detail.put("user_ID", user.getUser_ID());
-
-                Authentication auth = tokenGenerator.getAuthentication(token);
-                SecurityContextHolder.getContext().setAuthentication(auth);
-                return user_detail;
-            } else {
-                message.put("message", "password did not match");
-            }
+            Authentication auth = tokenGenerator.getAuthentication(token);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            return new ResponseEntity<>(user_detail, HttpStatus.OK);
         } else {
-            message.put("message", "user not found");
+            message.put("message", "user not found this by username and password or user object in proper format");
         }
-        return message;
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @PostMapping("/refresh-token")
-    public @ResponseBody
-    Map<Object, Object> refresh_token(@RequestBody String attribute) throws IOException {
+    public ResponseEntity<?> refresh_token(@RequestBody String attribute) throws IOException {
         Map<Object, Object> message = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(attribute);
         String token = jsonNode.get("token").asText();
-        String username;
         if (tokenGenerator.validateToken((token))) {
-            username = tokenGenerator.getUsername(token);
+            String username = tokenGenerator.getUsername(token);
             User user = repository.findByUsername(username);
             if (user != null) {
                 String new_token = tokenGenerator.createToken(username);
-                Map<Object, Object> user_detail = new HashMap<>();
-                user_detail.put("username", username);
-                user_detail.put("token", new_token);
-                user_detail.put("role", user.getRole_ID().getRole_name());
-                user_detail.put("user_ID", user.getUser_ID());
-
+                UserDetailDTO user_detail = UserDetailDTO.builder().
+                        username(username)
+                        .token(new_token)
+                        .role(user.getRole_ID().getRole_name())
+                        .user_ID(user.getUser_ID())
+                        .build();
                 Authentication auth = tokenGenerator.getAuthentication(new_token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
-                return user_detail;
+                return new ResponseEntity<>(user_detail, HttpStatus.OK);
 
             } else {
                 message.put("message", "user not found");
@@ -82,6 +77,6 @@ public class LoginController {
         } else {
             message.put("message", "token expired or not valid");
         }
-        return message;
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

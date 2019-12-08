@@ -3,7 +3,7 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.RoleDAO;
+import uz.skladapp.services.RoleService;
 import uz.skladapp.model.pure_models.Role;
 
 import java.util.Optional;
@@ -12,11 +12,10 @@ import java.util.Optional;
 @RequestMapping("/roles")
 public class RoleController {
     @Autowired
-    private RoleDAO dao;
+    private RoleService dao;
 
     @GetMapping("")
-    public @ResponseBody
-    Iterable<Role> getAllRoles() {
+    public Iterable<Role> getAllRoles() {
         return dao.getRolesList();
     }
 

@@ -1,7 +1,10 @@
 package uz.skladapp.model.pure_models;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "INOUT_TYPE")
 public class InoutType {
@@ -11,19 +14,4 @@ public class InoutType {
 
     private String inout_type_name;
 
-    public Long getInout_type_ID() {
-        return inout_type_ID;
-    }
-
-    public void setInout_type_ID(Long inout_type_ID) {
-        this.inout_type_ID = inout_type_ID;
-    }
-
-    public String getInout_type_name() {
-        return inout_type_name;
-    }
-
-    public void setInout_type_name(String inout_type_name) {
-        this.inout_type_name = inout_type_name;
-    }
 }

@@ -2,25 +2,35 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.StorageDAO;
+import uz.skladapp.services.StorageService;
 import uz.skladapp.model.pure_models.Storage;
-import uz.skladapp.model.raw_models.StorageRaw;
+import uz.skladapp.DTO.StorageDTO;
 
 @RestController
 @RequestMapping("/storages")
 public class StorageController {
     @Autowired
-    StorageDAO dao;
+    StorageService dao;
 
     @GetMapping("")
     public @ResponseBody
-    Iterable<StorageRaw> getAllStorages() {
+    Iterable<StorageDTO> getAllStorages() {
         return dao.getStorageList();
     }
 
     @GetMapping("/{user_id}")
-    public StorageRaw getStorage(@PathVariable("user_id") String id) {
+    public StorageDTO getStorage(@PathVariable("user_id") String id) {
         return dao.getStorageByStorageManagerID(Long.valueOf(id));
+    }
+
+    @GetMapping("regional/{user_id}")
+    public Iterable<StorageDTO> getRegionalStorages(@PathVariable("user_id") String id) {
+        return dao.getStoragesByDepartmentManagerID(Long.valueOf(id));
+    }
+
+    @GetMapping("defected")
+    public Iterable<StorageDTO> getDefectedStorages() {
+        return dao.getDefectedStoragesList();
     }
 
     @PostMapping("")

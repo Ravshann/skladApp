@@ -2,25 +2,30 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.UserDAO;
-import uz.skladapp.model.pure_models.Role;
+import uz.skladapp.services.UserService;
 import uz.skladapp.model.pure_models.User;
-import uz.skladapp.model.raw_models.UserRolePermissions;
-
-import java.util.Optional;
+import uz.skladapp.DTO.UserRolePermissions;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
     @Autowired
-    private UserDAO dao;
+    private UserService dao;
 
     @GetMapping("")
-    public @ResponseBody
-    Iterable<User> getAllUsers() {
+    public Iterable<User> getAllUsers() {
 
         return dao.getUserList();
     }
+
+    //that was just for testing
+
+
+//    @GetMapping("/create/{id}")
+//    public void createZip(@PathVariable("id") String id) {
+//        ZipGenerator zipGenerator = new ZipGenerator("Screen Shot 2019-07-17 at 8.53.04 PM.png");
+//        zipGenerator.generate();
+//    }
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable("id") String id) {
@@ -46,7 +51,6 @@ public class UserController {
     User replace(@RequestBody String user, @PathVariable Long id) throws Exception {
         return dao.update(user, id);
     }
-
 
 
 }

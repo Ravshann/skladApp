@@ -3,10 +3,12 @@ package uz.skladapp.model.pure_models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Data
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Permission {
@@ -20,39 +22,4 @@ public class Permission {
     @JsonManagedReference
     @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RolePermission> roles;
-
-    //setters getters
-
-
-    public Long getPermission_ID() {
-        return permission_ID;
-    }
-
-    public void setPermission_ID(Long permission_ID) {
-        this.permission_ID = permission_ID;
-    }
-
-    public String getPermission_name() {
-        return permission_name;
-    }
-
-    public void setPermission_name(String permission_name) {
-        this.permission_name = permission_name;
-    }
-
-    public String getPermission_description() {
-        return permission_description;
-    }
-
-    public void setPermission_description(String permission_description) {
-        this.permission_description = permission_description;
-    }
-
-    public List<RolePermission> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<RolePermission> roles) {
-        this.roles = roles;
-    }
 }

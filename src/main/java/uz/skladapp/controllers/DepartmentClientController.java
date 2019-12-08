@@ -2,8 +2,8 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.DepartmentClientDAO;
-import uz.skladapp.model.raw_models.ClientRaw;
+import uz.skladapp.services.DepartmentClientService;
+import uz.skladapp.DTO.ClientDTO;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ import java.util.List;
 @RequestMapping("/department_client")
 public class DepartmentClientController {
     @Autowired
-    private DepartmentClientDAO dao;
+    private DepartmentClientService dao;
 
 
     @GetMapping("/{department}")
-    public List<ClientRaw> getList(@PathVariable("department") String id) {
+    public List<ClientDTO> getList(@PathVariable("department") String id) {
         return dao.getRawList(Long.valueOf(id));
     }
 

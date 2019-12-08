@@ -1,6 +1,7 @@
 package uz.skladapp.model.pure_models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 import uz.skladapp.model.ID_classes.DepartmentClientID;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
 
+@Data
 @Entity
 @Table(name = "DEPARTMENT_CLIENT")
 @IdClass(DepartmentClientID.class)
@@ -27,35 +29,4 @@ public class DepartmentClient {
     @JoinColumn(name = "client_ID", updatable = false, insertable = false, referencedColumnName = "client_ID")
     private Client client;
 
-    public long getDepartment_ID() {
-        return department_ID;
-    }
-
-    public void setDepartment_ID(long department_ID) {
-        this.department_ID = department_ID;
-    }
-
-    public long getClient_ID() {
-        return client_ID;
-    }
-
-    public void setClient_ID(long client_ID) {
-        this.client_ID = client_ID;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
 }

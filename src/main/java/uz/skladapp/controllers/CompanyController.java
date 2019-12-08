@@ -2,28 +2,26 @@ package uz.skladapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.skladapp.dao.CompanyDAO;
+import uz.skladapp.services.CompanyService;
 import uz.skladapp.model.pure_models.Company;
-import uz.skladapp.model.raw_models.CompanyRaw;
+import uz.skladapp.DTO.CompanyDTO;
 
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
 
     @Autowired
-    private CompanyDAO dao;
+    private CompanyService dao;
 
 
     @GetMapping(value = "", produces = "application/json")
-    public @ResponseBody
-    Iterable<CompanyRaw> getList() {
+    public Iterable<CompanyDTO> getList() {
         return dao.getAll();
     }
 
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public @ResponseBody
-    CompanyRaw get(@PathVariable("id") String id) {
+    public CompanyDTO get(@PathVariable("id") String id) {
         return dao.get(Long.valueOf(id));
     }
 
