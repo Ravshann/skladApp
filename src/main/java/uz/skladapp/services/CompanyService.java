@@ -1,7 +1,6 @@
 package uz.skladapp.services;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.skladapp.model.pure_models.Company;
@@ -18,7 +17,6 @@ public class CompanyService {
     private CompanyRepository repository;
 
     public Iterable<CompanyDTO> getAll() {
-        //return repository.findAll();
         List<Company> originals = repository.findAll();
         List<CompanyDTO> raws = new ArrayList<>();
         for (Company object : originals) {
@@ -41,16 +39,19 @@ public class CompanyService {
             return new CompanyDTO();
     }
 
-    public void create(String string) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode json = mapper.readTree(string);
-        Company object = new Company();
+    public void create(CompanyDTO dto) throws Exception {
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode json = mapper.readTree(string);
+
 
         //extracting data json
-        object.setAddress(json.get("address").asText());
-        object.setCompany_phone(json.get("company_phone").asText());
-
-        object.setName(json.get("name").asText());
+//        object.setAddress(json.get("address").asText());
+//        object.setCompany_phone(json.get("company_phone").asText());
+//        object.setName(json.get("name").asText());
+        Company object = new Company();
+        object.setAddress(dto.getAddress());
+        object.setCompany_phone(dto.getCompany_phone());
+        object.setName(dto.getName());
 
         repository.save(object);
     }
@@ -59,15 +60,17 @@ public class CompanyService {
         repository.deleteById(id);
     }
 
-    public Company update(String string, Long id) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode json = mapper.readTree(string);
+    public Company update(CompanyDTO dto, Long id) {
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode json = mapper.readTree(string);
         return repository.findById(id)
                 .map(object -> {
-                    object.setAddress(json.get("address").asText());
-                    object.setCompany_phone(json.get("company_phone").asText());
-
-                    object.setName(json.get("name").asText());
+//                    object.setAddress(json.get("address").asText());
+//                    object.setCompany_phone(json.get("company_phone").asText());
+//                    object.setName(json.get("name").asText());
+                    object.setAddress(dto.getAddress());
+                    object.setName(dto.getName());
+                    object.setCompany_phone(dto.getCompany_phone());
                     return repository.save(object);
                 })
                 .get();

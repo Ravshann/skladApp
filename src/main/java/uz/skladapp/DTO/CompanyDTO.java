@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class CompanyDTO {
     private Long company_ID;
     private String name;
-    //    private String logo;
     private String address;
     private String company_phone;
 }

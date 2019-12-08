@@ -17,7 +17,6 @@ public class Company {
     private Long company_ID;
 
     private String name;
-
     private String address;
     private String company_phone;
 

@@ -26,7 +26,7 @@ public class CompanyController {
     }
 
     @PostMapping(value = "")
-    public void save(@RequestBody String object) throws Exception {
+    public void save(@RequestBody CompanyDTO object) throws Exception {
         dao.create(object);
     }
 
@@ -36,7 +36,7 @@ public class CompanyController {
     }
 
     @PostMapping("/{id}")
-    Company replace(@RequestBody String attribute, @PathVariable Long id) throws Exception {
-        return dao.update(attribute, id);
+    Company replace(@RequestBody CompanyDTO object, @PathVariable Long id) {
+        return dao.update(object, id);
     }
 }
