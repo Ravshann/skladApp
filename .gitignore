@@ -29,5 +29,5 @@ HELP.md
 ### VS Code ###
 .vscode/
 
-docker-compose.yaml
+*.yaml
 Dockerfile
