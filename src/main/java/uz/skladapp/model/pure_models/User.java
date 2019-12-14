@@ -3,6 +3,7 @@ package uz.skladapp.model.pure_models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,8 +24,6 @@ public class User {
     private String username;
     private String first_name;
     private String last_name;
-    @Column(unique = true)
-    private String email;
     private String password;
 
     //foreign key
@@ -39,7 +38,7 @@ public class User {
 
     private String user_phone;
 
-
+    @ToString.Exclude
     @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserCompany> companies;

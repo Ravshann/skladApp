@@ -3,6 +3,7 @@ package uz.skladapp.model.pure_models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Iterator;
@@ -29,6 +30,7 @@ public class Storage {
     private String storage_name;
     private String storage_phone;
 
+    @ToString.Exclude
     @JsonManagedReference
     @OneToMany(mappedBy = "storage", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StorageProduct> products;

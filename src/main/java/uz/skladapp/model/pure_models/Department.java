@@ -4,6 +4,7 @@ package uz.skladapp.model.pure_models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,12 +30,14 @@ public class Department {
     @JoinColumn(name = "department_manager_ID")
     private User department_manager_ID;
 
+    @ToString.Exclude
     @JsonManagedReference
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SupplierDepartment> suppliers;
 
     private String department_phone;
 
+    @ToString.Exclude
     @JsonManagedReference
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DepartmentClient> clients;

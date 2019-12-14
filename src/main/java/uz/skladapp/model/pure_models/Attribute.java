@@ -4,6 +4,7 @@ package uz.skladapp.model.pure_models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Attribute {
 
     private String attribute_name;
 
+    @ToString.Exclude
     @JsonManagedReference
     @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductAttribute> products;

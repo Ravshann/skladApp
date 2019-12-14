@@ -4,6 +4,7 @@ package uz.skladapp.model.pure_models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Company {
     private String address;
     private String company_phone;
 
+    @ToString.Exclude
     @JsonManagedReference
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserCompany> users;

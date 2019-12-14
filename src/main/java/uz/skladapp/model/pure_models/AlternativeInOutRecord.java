@@ -14,8 +14,8 @@ public class AlternativeInOutRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long record_ID;
 
-    private float quantity;
-    private float price;
+    private Float quantity;
+    private Float price;
 
 
     @ManyToOne

@@ -4,12 +4,12 @@ package uz.skladapp.model.pure_models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Product {
     @Id
@@ -23,10 +23,12 @@ public class Product {
     @JoinColumn(name = "category_ID")
     private Category category_ID;
 
+    @ToString.Exclude
     @JsonManagedReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductAttribute> attributes;
 
+    @ToString.Exclude
     @JsonManagedReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StorageProduct> storages;

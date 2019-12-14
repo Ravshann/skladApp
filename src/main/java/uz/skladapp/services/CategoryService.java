@@ -61,8 +61,10 @@ public class CategoryService {
             object.setCategory_name(dto.getCategory_name());
             object.setCategory_notes(dto.getCategory_notes());
             object.setUnit_measure(dto.getUnit_measure());
-            Optional<Category> parent_category = repository.findById(dto.getParent_category_ID());
-            object.setParent_category_ID(parent_category.get());
+            if (dto.getParent_category_ID() != null) {
+                Optional<Category> parent_category = repository.findById(dto.getParent_category_ID());
+                object.setParent_category_ID(parent_category.get());
+            }
             return repository.save(object);
         } else return null;
     }
@@ -80,9 +82,11 @@ public class CategoryService {
                     object.setCategory_name(dto.getCategory_name());
                     object.setCategory_notes(dto.getCategory_notes());
                     object.setUnit_measure(dto.getUnit_measure());
-                    object.setParent_category_ID(null);
-                    Optional<Category> parent_category = repository.findById(dto.getParent_category_ID());
-                    object.setParent_category_ID(parent_category.get());
+//                    object.setParent_category_ID(null);
+                    if (dto.getParent_category_ID() != null) {
+                        Optional<Category> parent_category = repository.findById(dto.getParent_category_ID());
+                        object.setParent_category_ID(parent_category.get());
+                    } else object.setParent_category_ID(null);
                     return repository.save(object);
                 })
                 .get();

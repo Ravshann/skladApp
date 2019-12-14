@@ -88,7 +88,7 @@ public class UserService {
 
         newUser.setFirst_name(jsonNode.get("first_name").asText());
         newUser.setLast_name(jsonNode.get("last_name").asText());
-        newUser.setEmail(jsonNode.get("email").asText());
+
         newUser.setPassword(jsonNode.get("password").asText());
         newUser.setCompany_ID(company.get());
         newUser.setRole_ID(role.get());
@@ -126,7 +126,7 @@ public class UserService {
                     }
                     user.setFirst_name(json.get("first_name").asText());
                     user.setLast_name(json.get("last_name").asText());
-                    user.setEmail(json.get("email").asText());
+
                     user.setPassword(json.get("password").asText());
                     user.setCompany_ID(company.get());
                     user.setRole_ID(role.get());

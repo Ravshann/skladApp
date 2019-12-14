@@ -80,12 +80,12 @@ public class InOutRecordService {
 
             Optional<InoutType> inoutType = inoutTypeRepository.findById(inout_t_id);
 
-            Long s_id = Long.valueOf(json.get("storage_ID").toString());
-            Optional<Storage> storage = storageRepository.findById(s_id);
-
-            Long p_id = Long.valueOf(json.get("product_ID").toString());
-            Optional<Product> product = productRepository.findById(p_id);
-
+            Long s_id = json.get("storage_ID").asLong();
+            Storage storage = storageRepository.findById(s_id).get();
+//            System.out.println(storage);
+            Long p_id = json.get("product_ID").asLong();
+            Product product = productRepository.findById(p_id).get();
+//            System.out.println(product);
             SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = dateformat.parse(json.get("record_datetime").asText());
 
@@ -94,10 +94,10 @@ public class InOutRecordService {
 
 
             object.setInout_type_ID(inoutType.get());
-            object.setStorage_ID(storage.get());
-            object.setProduct_ID(product.get());
+            object.setStorage_ID(storage);
+            object.setProduct_ID(product);
             object.setRecord_time(date);
-            String message = dao.changeCurrentQuantity(storage.get(), product.get(), object.getQuantity(), inoutType.get());
+            String message = dao.changeCurrentQuantity(storage, product, object.getQuantity(), inoutType.get());
             if (!message.equals("fail"))
                 inOutRecordRepository.save(object);
         }
@@ -123,7 +123,7 @@ public class InOutRecordService {
                     Optional<Product> product = productRepository.findById(p_id);
 
 
-                    object.setPrice(Float.valueOf(json.get("price").asText()));
+
                     Optional<InoutType> inoutType = inoutTypeRepository.findById(inout_t_id);
                     if (inout_t_id == 2) {
                         Long su_id = Long.valueOf(json.get("supplier_ID").toString());

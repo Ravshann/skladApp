@@ -4,6 +4,7 @@ package uz.skladapp.model.pure_models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,6 +20,8 @@ public class Permission {
     private String permission_name;
     private String permission_description;
 
+
+    @ToString.Exclude
     @JsonManagedReference
     @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RolePermission> roles;

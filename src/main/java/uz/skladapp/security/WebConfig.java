@@ -18,24 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .favorPathExtension(true);
     }
 
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/**").allowedOrigins("*").allowCredentials(true);
-//            }
-//        };
-//    }
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**").allowedOrigins("*");
-////                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-////                .allowedOrigins("*")
-////                .allowedHeaders("*")
-////                .allowCredentials(false);
-//
-//    }
+
 
     /*
      * Configure ContentNegotiatingViewResolver

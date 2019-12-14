@@ -212,6 +212,7 @@ public class StorageService {
         boolean found = false;
         String message = "fail";
         if (storage.getProducts().isEmpty()) {
+            message = "success import";
             addProduct(storage, product, quantity, 0);
         } else {
             for (Iterator<StorageProduct> iterator = storage.getProducts().iterator(); iterator.hasNext(); ) {
@@ -223,16 +224,20 @@ public class StorageService {
                         storageProduct.setCurrent_quantity(quantity + storageProduct.getCurrent_quantity());
                         storageProduct.setTotal_quantity(quantity + storageProduct.getTotal_quantity());
                         message = "success import";
+                        break;
                     } else if (inoutType.getInout_type_name().equals("export") && storageProduct.getCurrent_quantity() >= quantity) {
                         storageProduct.setCurrent_quantity(storageProduct.getCurrent_quantity() - quantity);
                         storageProduct.setTotal_quantity(storageProduct.getTotal_quantity() - quantity);
                         message = "success export";
+                        break;
                     }
 
                 }
             }
-            if (!found)
+            if (!found) {
                 addProduct(storage, product, quantity, 0);
+                message = "success import";
+            }
         }
         return message;
 
