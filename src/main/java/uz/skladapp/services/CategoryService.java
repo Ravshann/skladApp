@@ -18,17 +18,17 @@ public class CategoryService {
     private CategoryRepository repository;
 
     public Iterable<CategoryDTO> getAll() {
-        List<Category> originals = repository.findAll();
+        List<Category> originals = repository.findAllByOrderByCategoryName();
         List<CategoryDTO> dtos = new ArrayList<>();
         originals.forEach(object -> {
             CategoryDTO dto = new CategoryDTO(
                     object.getCategory_ID(),
-                    object.getCategory_name(),
+                    object.getCategoryName(),
                     object.getCategory_notes(),
                     object.getUnit_measure());
             if (object.getParent_category_ID() != null) {
                 dto.setParent_category_ID(object.getParent_category_ID().getCategory_ID());
-                dto.setParent_category_name(object.getParent_category_ID().getCategory_name());
+                dto.setParent_category_name(object.getParent_category_ID().getCategoryName());
             }
             dtos.add(dto);
         });
@@ -41,12 +41,12 @@ public class CategoryService {
         if (object.isPresent()) {
             CategoryDTO raw = new CategoryDTO(
                     object.get().getCategory_ID(),
-                    object.get().getCategory_name(),
+                    object.get().getCategoryName(),
                     object.get().getCategory_notes(),
                     object.get().getUnit_measure());
             if (object.get().getParent_category_ID() != null) {
                 raw.setParent_category_ID(object.get().getParent_category_ID().getCategory_ID());
-                raw.setParent_category_name(object.get().getParent_category_ID().getCategory_name());
+                raw.setParent_category_name(object.get().getParent_category_ID().getCategoryName());
             }
             return raw;
         } else
@@ -58,7 +58,7 @@ public class CategoryService {
 //        JsonNode json = mapper.readTree(string);
         Category object = new Category();
         if (dto != null) {
-            object.setCategory_name(dto.getCategory_name());
+            object.setCategoryName(dto.getCategory_name());
             object.setCategory_notes(dto.getCategory_notes());
             object.setUnit_measure(dto.getUnit_measure());
             if (dto.getParent_category_ID() != null) {
@@ -79,7 +79,7 @@ public class CategoryService {
         return repository.findById(id)
                 .map(object -> {
 
-                    object.setCategory_name(dto.getCategory_name());
+                    object.setCategoryName(dto.getCategory_name());
                     object.setCategory_notes(dto.getCategory_notes());
                     object.setUnit_measure(dto.getUnit_measure());
 //                    object.setParent_category_ID(null);

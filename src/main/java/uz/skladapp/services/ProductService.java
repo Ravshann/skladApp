@@ -34,7 +34,7 @@ public class ProductService {
         Product object = repository.findById(id).get();
         CategoryDTO categoryDTO = new CategoryDTO(
                 object.getCategory_ID().getCategory_ID(),
-                object.getCategory_ID().getCategory_name(),
+                object.getCategory_ID().getCategoryName(),
                 object.getCategory_ID().getCategory_notes(),
                 object.getCategory_ID().getUnit_measure());
         List<AttributeDTO> attributes = new ArrayList<>();
@@ -46,17 +46,17 @@ public class ProductService {
             attributes.add(attributeDTO);
         }
 
-        ProductDTO raw = new ProductDTO(object.getProduct_ID(), object.getProduct_name(), categoryDTO, attributes);
+        ProductDTO raw = new ProductDTO(object.getProduct_ID(), object.getProductName(), categoryDTO, attributes);
         return raw;
     }
 
     public Iterable<ProductDTO> getAll() {
-        List<Product> originals = repository.findAll();
+        List<Product> originals = repository.findAllByOrderByProductNameAsc();
         List<ProductDTO> raws = new ArrayList<>();
         for (Product object : originals) {
             CategoryDTO categoryDTO = new CategoryDTO(
                     object.getCategory_ID().getCategory_ID(),
-                    object.getCategory_ID().getCategory_name(),
+                    object.getCategory_ID().getCategoryName(),
                     object.getCategory_ID().getCategory_notes(),
                     object.getCategory_ID().getUnit_measure());
             List<AttributeDTO> attributes = new ArrayList<>();
@@ -68,7 +68,7 @@ public class ProductService {
                 attributes.add(attributeDTO);
             }
 
-            ProductDTO raw = new ProductDTO(object.getProduct_ID(), object.getProduct_name(), categoryDTO, attributes);
+            ProductDTO raw = new ProductDTO(object.getProduct_ID(), object.getProductName(), categoryDTO, attributes);
             raws.add(raw);
         }
         return raws;
@@ -82,7 +82,7 @@ public class ProductService {
 
 
         Product object = new Product();
-        object.setProduct_name(json.get("product_name").asText());
+        object.setProductName(json.get("product_name").asText());
 
         Long c_id = Long.valueOf(json.get("category_ID").asText());
         Optional<Category> c = categoryRepository.findById(c_id);
@@ -102,7 +102,7 @@ public class ProductService {
 
         return repository.findById(id)
                 .map(object -> {
-                    object.setProduct_name(json.get("product_name").asText());
+                    object.setProductName(json.get("product_name").asText());
 
                     Long c_id = Long.valueOf(json.get("category_ID").asText());
                     Optional<Category> c = categoryRepository.findById(c_id);

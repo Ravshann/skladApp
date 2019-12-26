@@ -43,7 +43,7 @@ public class DepartmentClientService {
         for (DepartmentClient departmentClient : department.get().getClients()) {
             clients.add(new ClientDTO(
                     departmentClient.getClient().getClient_ID(),
-                    departmentClient.getClient().getClient_name(),
+                    departmentClient.getClient().getClientName(),
                     departmentClient.getClient().getRegion(),
                     departmentClient.getClient().getClient_type()));
 

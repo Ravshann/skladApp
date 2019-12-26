@@ -32,7 +32,7 @@ public class DepartmentService {
 
 
     public Iterable<DepartmentDTO> getAllDepartments() {
-        List<Department> originals = departmentRepository.findAll();
+        List<Department> originals = departmentRepository.findAllByOrderByNameAsc();
         List<DepartmentDTO> raws = new ArrayList<>();
         for (Department object : originals) {
             DepartmentDTO raw = new DepartmentDTO(

@@ -22,10 +22,10 @@ public class SupplierService {
 
 
     public List<SupplierDTO> getList() {
-        List<Supplier> originals = repository.findAll();
+        List<Supplier> originals = repository.findAllByOrderBySupplierNameAsc();
         List<SupplierDTO> raws = new ArrayList<>();
         for (Supplier object : originals) {
-            SupplierDTO raw = new SupplierDTO(object.getSupplier_ID(), object.getSupplier_name());
+            SupplierDTO raw = new SupplierDTO(object.getSupplier_ID(), object.getSupplierName());
             raws.add(raw);
         }
         return raws;
@@ -35,7 +35,7 @@ public class SupplierService {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(data);
         Supplier object = new Supplier();
-        object.setSupplier_name(json.get("supplier_name").asText());
+        object.setSupplierName(json.get("supplier_name").asText());
         repository.save(object);
     }
 
@@ -51,7 +51,7 @@ public class SupplierService {
         repository.findById(id)
                 .map(object -> {
                     //extracting data json
-                    object.setSupplier_name(json.get("supplier_name").asText());
+                    object.setSupplierName(json.get("supplier_name").asText());
                     return repository.save(object);
                 })
                 .get();

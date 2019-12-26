@@ -36,7 +36,7 @@ public class StorageProductService {
         for (StorageProduct object : s.getProducts()) {
             CategoryDTO categoryDTO = new CategoryDTO(
                     object.getProduct().getCategory_ID().getCategory_ID(),
-                    object.getProduct().getCategory_ID().getCategory_name(),
+                    object.getProduct().getCategory_ID().getCategoryName(),
                     object.getProduct().getCategory_ID().getCategory_notes(),
                     object.getProduct().getCategory_ID().getUnit_measure());
             List<AttributeDTO> attributes = new ArrayList<>();
@@ -48,7 +48,7 @@ public class StorageProductService {
                 attributes.add(attributeDTO);
             }
 
-            ProductDTO raw = new ProductDTO(object.getProduct_ID(), object.getProduct().getProduct_name(), categoryDTO, attributes);
+            ProductDTO raw = new ProductDTO(object.getProduct_ID(), object.getProduct().getProductName(), categoryDTO, attributes);
             raws.add(raw);
         }
         return raws;

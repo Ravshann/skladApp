@@ -17,4 +17,5 @@ public interface StorageRepository extends JpaRepository<Storage, Long> {
     @Query(value = "SELECT * FROM storage s WHERE s.storage_type = 'defected'", nativeQuery = true)
     List<Storage> findDefectedStorages();
 
+    List<Storage> findAllByOrderByStorageNameAsc();
 }

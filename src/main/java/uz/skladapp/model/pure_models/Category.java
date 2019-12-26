@@ -15,7 +15,8 @@ public class Category {
     @ManyToOne
     @JoinColumn(name = "parent_category_ID")
     private Category parent_category_ID;
-    private String category_name;
+    @Column(name = "category_name")
+    private String categoryName;
     private String category_notes;
     private String unit_measure;
 

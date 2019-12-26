@@ -48,15 +48,15 @@ public class RemainderService {
             StorageQuantity object = new StorageQuantity();
             object.setQuantity(association.getCurrent_quantity());
             object.setStorageID(association.getStorage_ID());
-            object.setStorageName(association.getStorage().getStorage_name());
+            object.setStorageName(association.getStorage().getStorageName());
             quantities.add(object);
             total += association.getCurrent_quantity();
         }
 
         remainder.setProductID(product.getProduct_ID());
-        remainder.setProductName(product.getProduct_name());
+        remainder.setProductName(product.getProductName());
         remainder.setCategoryID(product.getCategory_ID().getCategory_ID());
-        remainder.setCategoryName(product.getCategory_ID().getCategory_name());
+        remainder.setCategoryName(product.getCategory_ID().getCategoryName());
         remainder.setStorageQuantities(quantities);
         remainder.setTotal(total);
         return remainder;
@@ -87,15 +87,15 @@ public class RemainderService {
             StorageQuantity object = new StorageQuantity();
             object.setQuantity(association.getCurrent_quantity());
             object.setStorageID(association.getStorage_ID());
-            object.setStorageName(association.getStorage().getStorage_name());
+            object.setStorageName(association.getStorage().getStorageName());
             quantities.add(object);
             total += association.getCurrent_quantity();
         }
 
         remainder.setProductID(product.getProduct_ID());
-        remainder.setProductName(product.getProduct_name());
+        remainder.setProductName(product.getProductName());
         remainder.setCategoryID(product.getCategory_ID().getCategory_ID());
-        remainder.setCategoryName(product.getCategory_ID().getCategory_name());
+        remainder.setCategoryName(product.getCategory_ID().getCategoryName());
         remainder.setStorageQuantities(quantities);
         remainder.setTotal(total);
         return remainder;
@@ -119,7 +119,7 @@ public class RemainderService {
                     StorageQuantity object = new StorageQuantity();
                     object.setQuantity(association.getCurrent_quantity());
                     object.setStorageID(association.getStorage_ID());
-                    object.setStorageName(association.getStorage().getStorage_name());
+                    object.setStorageName(association.getStorage().getStorageName());
                     quantities.add(object);
                     total += association.getCurrent_quantity();
                 }
@@ -128,7 +128,7 @@ public class RemainderService {
                     StorageQuantity object = new StorageQuantity();
                     object.setQuantity(association.getCurrent_quantity());
                     object.setStorageID(association.getStorage_ID());
-                    object.setStorageName(association.getStorage().getStorage_name());
+                    object.setStorageName(association.getStorage().getStorageName());
                     quantities.add(object);
                     total += association.getCurrent_quantity();
                 }
@@ -136,9 +136,9 @@ public class RemainderService {
         }
 
         remainder.setProductID(product.getProduct_ID());
-        remainder.setProductName(product.getProduct_name());
+        remainder.setProductName(product.getProductName());
         remainder.setCategoryID(product.getCategory_ID().getCategory_ID());
-        remainder.setCategoryName(product.getCategory_ID().getCategory_name());
+        remainder.setCategoryName(product.getCategory_ID().getCategoryName());
         remainder.setStorageQuantities(quantities);
         remainder.setTotal(total);
         return remainder;
@@ -151,13 +151,13 @@ public class RemainderService {
         StorageQuantity object = new StorageQuantity();
         object.setQuantity(association.getCurrent_quantity());
         object.setStorageID(association.getStorage_ID());
-        object.setStorageName(association.getStorage().getStorage_name());
+        object.setStorageName(association.getStorage().getStorageName());
         quantities.add(object);
         total += association.getCurrent_quantity();
         remainder.setProductID(association.getProduct_ID());
-        remainder.setProductName(association.getProduct().getProduct_name());
+        remainder.setProductName(association.getProduct().getProductName());
         remainder.setCategoryID(association.getProduct().getCategory_ID().getCategory_ID());
-        remainder.setCategoryName(association.getProduct().getCategory_ID().getCategory_name());
+        remainder.setCategoryName(association.getProduct().getCategory_ID().getCategoryName());
         remainder.setStorageQuantities(quantities);
         remainder.setTotal(total);
         return remainder;

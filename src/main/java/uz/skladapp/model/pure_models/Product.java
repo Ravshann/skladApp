@@ -16,12 +16,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long product_ID;
 
-    private String product_name;
+    @Column(name = "product_name")
+    private String productName;
 
     //foreign key
     @ManyToOne
     @JoinColumn(name = "category_ID")
     private Category category_ID;
+
 
     @ToString.Exclude
     @JsonManagedReference

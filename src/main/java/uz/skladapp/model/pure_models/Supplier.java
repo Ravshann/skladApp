@@ -15,8 +15,8 @@ public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long supplier_ID;
-
-    private String supplier_name;
+    @Column(name = "supplier_name")
+    private String supplierName;
 
     @ToString.Exclude
     @JsonManagedReference

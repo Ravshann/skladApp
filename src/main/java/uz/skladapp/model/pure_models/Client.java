@@ -16,7 +16,8 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long client_ID;
 
-    private String client_name;
+    @Column(name = "client_name")
+    private String clientName;
     private String region;
     private String client_type;
 

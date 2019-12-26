@@ -18,11 +18,11 @@ public class ClientService {
     private ClientRepository repository;
 
     public Iterable<ClientDTO> getAll() {
-        List<Client> originals = repository.findAll();
+        List<Client> originals = repository.findAllByOrderByClientNameAsc();
         List<ClientDTO> raws = new ArrayList<>();
         originals.forEach(object ->
         {
-            ClientDTO raw = new ClientDTO(object.getClient_ID(), object.getClient_name(), object.getRegion(), object.getClient_type());
+            ClientDTO raw = new ClientDTO(object.getClient_ID(), object.getClientName(), object.getRegion(), object.getClient_type());
             raws.add(raw);
         });
         return raws;
@@ -33,7 +33,7 @@ public class ClientService {
         if (object.isPresent())
             return new ClientDTO(
                     object.get().getClient_ID(),
-                    object.get().getClient_name(),
+                    object.get().getClientName(),
                     object.get().getRegion()
                     , object.get().getClient_type());
         else
@@ -46,7 +46,7 @@ public class ClientService {
         Client object = new Client();
 
         //extracting data json
-        object.setClient_name(json.get("client_name").asText());
+        object.setClientName(json.get("client_name").asText());
         object.setRegion(json.get("region").asText());
         object.setClient_type(json.get("client_type").asText());
 
@@ -64,7 +64,7 @@ public class ClientService {
         return repository.findById(id)
                 .map(object -> {
                     //extracting data json
-                    object.setClient_name(json.get("client_name").asText());
+                    object.setClientName(json.get("client_name").asText());
                     object.setRegion(json.get("region").asText());
                     object.setClient_type(json.get("client_type").asText());
                     return repository.save(object);

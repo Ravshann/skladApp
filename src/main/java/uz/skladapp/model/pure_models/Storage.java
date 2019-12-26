@@ -27,7 +27,9 @@ public class Storage {
     @JoinColumn(name = "storage_manager_ID")
     private User storage_manager_ID;
 
-    private String storage_name;
+    @Column(name = "storage_name")
+    private String storageName;
+
     private String storage_phone;
 
     @ToString.Exclude

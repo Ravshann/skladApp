@@ -36,7 +36,7 @@ public class StorageService {
                     object.getAddress(),
                     object.getDepartment_ID().getDepartment_ID(),
                     object.getStorage_manager_ID().getUser_ID(),
-                    object.getStorage_name(),
+                    object.getStorageName(),
                     object.getStorage_phone(),
                     object.getStorage_manager_ID().getFirst_name(),
                     object.getDepartment_ID().getName(),
@@ -48,7 +48,7 @@ public class StorageService {
     }
 
     public Iterable<StorageDTO> getStorageList() {
-        List<Storage> originals = storageRepository.findAll();
+        List<Storage> originals = storageRepository.findAllByOrderByStorageNameAsc();
         List<StorageDTO> raws = new ArrayList<>();
         for (Storage object : originals) {
             StorageDTO raw = new StorageDTO(
@@ -56,7 +56,7 @@ public class StorageService {
                     object.getAddress(),
                     object.getDepartment_ID().getDepartment_ID(),
                     object.getStorage_manager_ID().getUser_ID(),
-                    object.getStorage_name(),
+                    object.getStorageName(),
                     object.getStorage_phone(),
                     object.getStorage_manager_ID().getFirst_name(),
                     object.getDepartment_ID().getName(),
@@ -79,7 +79,7 @@ public class StorageService {
                             object.getAddress(),
                             object.getDepartment_ID().getDepartment_ID(),
                             object.getStorage_manager_ID().getUser_ID(),
-                            object.getStorage_name(),
+                            object.getStorageName(),
                             object.getStorage_phone(),
                             object.getStorage_manager_ID().getFirst_name(),
                             object.getDepartment_ID().getName(),
@@ -102,7 +102,7 @@ public class StorageService {
                 object.getAddress(),
                 object.getDepartment_ID().getDepartment_ID(),
                 object.getStorage_manager_ID().getUser_ID(),
-                object.getStorage_name(),
+                object.getStorageName(),
                 object.getStorage_phone(),
                 object.getStorage_manager_ID().getFirst_name(),
                 object.getDepartment_ID().getName(),
@@ -120,7 +120,7 @@ public class StorageService {
                     objects.get(0).getAddress(),
                     objects.get(0).getDepartment_ID().getDepartment_ID(),
                     objects.get(0).getStorage_manager_ID().getUser_ID(),
-                    objects.get(0).getStorage_name(),
+                    objects.get(0).getStorageName(),
                     objects.get(0).getStorage_phone(),
                     objects.get(0).getStorage_manager_ID().getFirst_name(),
                     objects.get(0).getDepartment_ID().getName(),
@@ -143,7 +143,7 @@ public class StorageService {
         newStorage.setAddress(json.get("address").asText());
         newStorage.setDepartment_ID(department.get());
         newStorage.setStorage_manager_ID(user.get());
-        newStorage.setStorage_name(json.get("storage_name").asText());
+        newStorage.setStorageName(json.get("storage_name").asText());
         newStorage.setStorage_phone(json.get("storage_phone").asText());
         newStorage.setStorage_type(json.get("storage_type").asText());
         storageRepository.save(newStorage);
@@ -165,7 +165,7 @@ public class StorageService {
                     storage.setAddress(json.get("address").asText());
                     storage.setDepartment_ID(department.get());
                     storage.setStorage_manager_ID(user.get());
-                    storage.setStorage_name(json.get("storage_name").asText());
+                    storage.setStorageName(json.get("storage_name").asText());
                     storage.setStorage_phone(json.get("storage_phone").asText());
                     storage.setStorage_type(json.get("storage_type").asText());
                     return storageRepository.save(storage);

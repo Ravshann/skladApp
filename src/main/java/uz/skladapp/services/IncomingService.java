@@ -27,13 +27,13 @@ public class IncomingService {
             item.setRecord_ID(record.getRecord_ID());
             item.setProduct_ID(record.getProduct_ID().getProduct_ID());
             item.setCategory_ID(record.getProduct_ID().getCategory_ID().getCategory_ID());
-            item.setProduct_name(record.getProduct_ID().getProduct_name());
-            item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategory_name());
+            item.setProduct_name(record.getProduct_ID().getProductName());
+            item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategoryName());
             item.setSupplier_ID(record.getSupplier_ID().getSupplier_ID());
             item.setRecord_datetime(record.getRecord_time());
-            item.setSupplier_name(record.getSupplier_ID().getSupplier_name());
+            item.setSupplier_name(record.getSupplier_ID().getSupplierName());
             item.setQuantity(record.getQuantity());
-            item.setStorage_name(record.getStorage_ID().getStorage_name());
+            item.setStorage_name(record.getStorage_ID().getStorageName());
             item.setStorage_ID(record.getStorage_ID().getStorage_ID());
             item.setEdited_datetime(record.getUpdated_time());
 
@@ -64,13 +64,13 @@ public class IncomingService {
             item.setRecord_ID(record.getRecord_ID());
             item.setProduct_ID(record.getProduct_ID().getProduct_ID());
             item.setCategory_ID(record.getProduct_ID().getCategory_ID().getCategory_ID());
-            item.setProduct_name(record.getProduct_ID().getProduct_name());
-            item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategory_name());
+            item.setProduct_name(record.getProduct_ID().getProductName());
+            item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategoryName());
             item.setSupplier_ID(record.getSupplier_ID().getSupplier_ID());
             item.setRecord_datetime(record.getRecord_time());
-            item.setSupplier_name(record.getSupplier_ID().getSupplier_name());
+            item.setSupplier_name(record.getSupplier_ID().getSupplierName());
             item.setQuantity(record.getQuantity());
-            item.setStorage_name(record.getStorage_ID().getStorage_name());
+            item.setStorage_name(record.getStorage_ID().getStorageName());
             item.setStorage_ID(record.getStorage_ID().getStorage_ID());
             item.setEdited_datetime(record.getUpdated_time());
 
@@ -95,13 +95,13 @@ public class IncomingService {
             item.setRecord_ID(record.getRecord_ID());
             item.setProduct_ID(record.getProduct_ID().getProduct_ID());
             item.setCategory_ID(record.getProduct_ID().getCategory_ID().getCategory_ID());
-            item.setProduct_name(record.getProduct_ID().getProduct_name());
-            item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategory_name());
+            item.setProduct_name(record.getProduct_ID().getProductName());
+            item.setCategory_name(record.getProduct_ID().getCategory_ID().getCategoryName());
             item.setSupplier_ID(record.getSupplier_ID().getSupplier_ID());
             item.setRecord_datetime(record.getRecord_time());
-            item.setSupplier_name(record.getSupplier_ID().getSupplier_name());
+            item.setSupplier_name(record.getSupplier_ID().getSupplierName());
             item.setQuantity(record.getQuantity());
-            item.setStorage_name(record.getStorage_ID().getStorage_name());
+            item.setStorage_name(record.getStorage_ID().getStorageName());
             item.setStorage_ID(record.getStorage_ID().getStorage_ID());
             item.setEdited_datetime(record.getUpdated_time());
 
